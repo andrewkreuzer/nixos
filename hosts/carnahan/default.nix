@@ -16,6 +16,15 @@ with lib;
     fwupd.enable = true;
     blueman.enable = true;
     hardware.bolt.enable = true;
+    greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --remember --time --cmd Hyprland";
+          user = "greeter";
+        };
+      };
+    };
     tlp = {
       enable = true;
       settings = {
@@ -31,8 +40,9 @@ with lib;
     xserver = {
       videoDrivers = [ "nvidia" ];
       enable = true;
-      displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
+      displayManager.lightdm.enable = false;
+      /* displayManager.gdm.enable = true; */
+      /* desktopManager.gnome.enable = true; */
       xkbOptions = "caps:escape_shifted_capslock";
     };
     openssh = {

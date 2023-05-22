@@ -7,4 +7,7 @@ prev: final:
       sha256 = "sha256-/OrnB4M6oefZ2aG2rQst8H4UZ/7vAFzyqWsn9kerb9c=";
     };
   });
+  waybar = final.waybar.overrideAttrs (oldAttrs: {
+    mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+  });
 }

@@ -7,7 +7,7 @@ in
   mkSystem = { name, lib, system, extraOverlays ? [], extraMods ? [], ...}:
   let
     overlays = import ../overlays;
-    pkgs = import nixpkgs { inherit system config; overlays = extraOverlays ++ [overlays]; };
+    pkgs = import nixpkgs { inherit system config; overlays = [overlays] ++ extraOverlays; };
   in
     nixosSystem {
       inherit system pkgs lib;
@@ -24,7 +24,7 @@ in
 
   mkGenerator = { name, lib, system, format, extraOverlays ? [], extraMods ? [], ...}:
   let
-    pkgs = import nixpkgs { inherit system config; overlays = extraOverlays; };
+    pkgs = import nixpkgs { inherit system config; overlays = [overlays] ++ extraOverlays; };
   in
     nixos-generators.nixosGenerate {
       inherit system pkgs lib format;

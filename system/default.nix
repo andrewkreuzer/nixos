@@ -27,7 +27,6 @@ with lib;
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  system.stateVersion = "22.11";
   networking.wg-quick.interfaces = {
     wg0 = {
       autostart = false;
@@ -44,4 +43,6 @@ with lib;
       ];
     };
   };
+
+  system.stateVersion = "22.11";
 }

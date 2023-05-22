@@ -3,6 +3,7 @@
   programs = {
     neovim.enable = true;
     direnv.enable = true;
+    mako.enable = true;
 
     git = {
       enable = true;
@@ -11,15 +12,6 @@
     };
 
   };
-
-  programs.mako.enable = true;
-  nixpkgs.overlays = [
-    (self: super: {
-      waybar = super.waybar.overrideAttrs (oldAttrs: {
-        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-      });
-    })
-  ];
 
   home = {
     stateVersion = "22.11";

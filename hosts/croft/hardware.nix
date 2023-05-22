@@ -2,9 +2,7 @@
   let
   inherit (lib) head;
   devNodes = "/dev/disk/by-id/";
-  bootDevices = [
-    "ata-SanDisk_SDSSDA480G_163758443009"
-  ];
+  bootDevice = "ata-SanDisk_SDSSDA480G_163758443009";
 in {
   hardware.bluetooth.enable = true;
   hardware.pulseaudio.enable = true;
@@ -41,12 +39,12 @@ in {
     loader = {
       efi = {
         canTouchEfiVariables = false;
-        efiSysMountPoint = ("/boot/efis/" + (head bootDevices) + "-part1");
+        efiSysMountPoint = ("/boot/efis/" + bootDevice + "-part1");
       };
       generationsDir.copyKernels = true;
       grub = {
         enable = true;
-        devices = (map (diskName: devNodes + diskName) bootDevices);
+        device = "/dev/disk/by-id/ata-SanDisk_SDSSDA480G_163758443009";
         efiInstallAsRemovable = true;
         copyKernels = true;
         efiSupport = true;
