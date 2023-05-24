@@ -15,6 +15,12 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.darwin.follows = "";
+    };
   };
 
   outputs = {
@@ -24,7 +30,8 @@
     hyprland,
     hyprpaper,
     home-manager,
-    nixos-generators
+    nixos-generators,
+    agenix,
   }:
     let
     lib = nixpkgs.lib;
@@ -42,6 +49,7 @@
             /* hyprpaper.overlays.default */
           ];
           extraMods = [
+            agenix.nixosModules.default
             hyprland.nixosModules.default
             home-manager.nixosModules.home-manager
           ];
@@ -52,6 +60,7 @@
           system = "x86_64-linux";
           extraOverlays = [ ];
           extraMods = [
+            agenix.nixosModules.default
             home-manager.nixosModules.home-manager
           ];
         };

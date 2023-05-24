@@ -1,7 +1,10 @@
 { config, lib, pkgs, ...}:
 with lib;
 {
-  services.udev.packages = [ pkgs.android-udev-rules ];
+  services.udev.packages = [
+    pkgs.android-udev-rules
+    pkgs.zsa-udev-rules
+  ];
 
   environment.variables = {
     EDITOR = "nvim";

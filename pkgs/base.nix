@@ -18,6 +18,7 @@
       nvd
       libsecret
       zip
+      openssl
     ;
   };
 }

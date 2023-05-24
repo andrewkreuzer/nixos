@@ -41,8 +41,8 @@ with lib;
       videoDrivers = [ "nvidia" ];
       enable = true;
       displayManager.lightdm.enable = false;
-      /* displayManager.gdm.enable = true; */
-      /* desktopManager.gnome.enable = true; */
+      displayManager.gdm.enable = true;
+      desktopManager.gnome.enable = true;
       xkbOptions = "caps:escape_shifted_capslock";
     };
     openssh = {
