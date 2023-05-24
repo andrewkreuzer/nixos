@@ -8,6 +8,7 @@ let
   systems = [ carnahan croft ];
 in
 {
+  "akreuzer.age".publicKeys = users ++ systems;
   "ssh-ed25519.age".publicKeys = users ++ systems;
   "ssh-rsa.age".publicKeys = users ++ systems;
   "boot.age".publicKeys = users ++ [ croft ];
