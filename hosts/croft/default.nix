@@ -25,22 +25,40 @@ with lib;
     };
   };
 
-  virtualisation.docker = {
-    enable = true;
+  virtualisation = {
+    libvirtd = {
+      enable = true;
+      allowedBridges = [
+        "virbr0"
+        "br0"
+        "br1"
+        "br2"
+        "br3"
+      ];
+    };
+    docker = {
+      enable = false;
 
-    /* rootless = { */
-    /*   enable = true; */
-    /*   setSocketVariable = true; */
-    /* }; */
+      /* rootless = { */
+      /*   enable = true; */
+      /*   setSocketVariable = true; */
+      /* }; */
+    };
   };
 
-  networking.hostId = "1f42abd3";
   time.timeZone = "America/Toronto";
   networking = {
+    hostId = "1f42abd3";
     hostName = "croft";
     useDHCP = false;
     networkmanager.enable = true;
     firewall.enable = true;
+    bridges = {
+      br0.interfaces = [ "enp2s0f0" ];
+      br1.interfaces = [ "enp2s0f1" ];
+      br2.interfaces = [ "enp2s0f2" ];
+      br3.interfaces = [ "enp2s0f3" ];
+    };
   };
 
   nix = {

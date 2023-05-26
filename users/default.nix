@@ -19,6 +19,7 @@
         "wheel"
         "input"
         "nixos"
+        "libvirtd"
       ];
       isNormalUser = true;
       passwordFile = config.age.secrets.akreuzer.path;

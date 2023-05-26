@@ -19,6 +19,7 @@
       libsecret
       zip
       openssl
+      virt-manager
     ;
   };
 }
