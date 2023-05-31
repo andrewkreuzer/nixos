@@ -1,10 +1,18 @@
 { config, lib, pkgs, ...}:
 with lib;
 {
-  services.udev.packages = [
-    pkgs.android-udev-rules
-    pkgs.zsa-udev-rules
-  ];
+  services.udev = {
+    packages = [
+      pkgs.android-udev-rules
+      pkgs.zsa-udev-rules
+    ];
+    extraRules = ''
+      ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chgrp video /sys/class/backlight/%k/brightness"
+      ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chmod g+w /sys/class/backlight/%k/brightness"
+      ACTION=="add", SUBSYSTEM=="leds", RUN+="${pkgs.coreutils}/bin/chgrp video /sys/class/leds/%k/brightness"
+      ACTION=="add", SUBSYSTEM=="leds", RUN+="${pkgs.coreutils}/bin/chmod g+w /sys/class/leds/%k/brightness"
+    '';
+  };
 
   environment.variables = {
     EDITOR = "nvim";
@@ -30,6 +38,11 @@ with lib;
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.extraOptions = ''
+    keep-outputs = true
+    keep-derivations = true
+  '';
+
   networking.wg-quick.interfaces = {
     wg0 = {
       autostart = false;

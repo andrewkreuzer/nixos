@@ -9,6 +9,7 @@ with lib;
   environment.systemPackages = builtins.attrValues {
     inherit (pkgs)
       libinput-gestures
+      wluma
     ;
   };
 
@@ -38,17 +39,18 @@ with lib;
       pulse.enable = true;
     };
     xserver = {
-      videoDrivers = [ "nvidia" ];
       enable = true;
       displayManager.lightdm.enable = false;
-      displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
+      displayManager.gdm.enable = false;
+      desktopManager.gnome.enable = false;
       xkbOptions = "caps:escape_shifted_capslock";
     };
     openssh = {
       enable = mkDefault true;
-      passwordAuthentication = mkDefault false;
-      permitRootLogin = "no";
+      settings = {
+        PasswordAuthentication = mkDefault false;
+        PermitRootLogin = "no";
+      };
     };
   };
 

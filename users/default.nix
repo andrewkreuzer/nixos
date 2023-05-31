@@ -33,7 +33,25 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    backupFileExtension = ".bak";
+    backupFileExtension = "bak";
     users.akreuzer = ./akreuzer/home.nix;
+  };
+
+  systemd.user.services.wluma = {
+    enable = true;
+    description = "Adjusting screen brightness based on screen contents and amount of ambient light";
+    unitConfig = {
+      PartOf = "graphical-session.target";
+      After = "graphical-session.target";
+    };
+
+    serviceConfig = {
+      ExecStart = "${pkgs.wluma}/bin/wluma";
+      Restart = "always";
+      EnvironmentFile = "-%E/wluma/service.conf";
+      PrivateNetwork = "true";
+    };
+
+    wantedBy = [ "graphical-session.target" ];
   };
 }
