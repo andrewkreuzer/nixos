@@ -1,13 +1,22 @@
 { config, pkgs, lib, ... }:
+let
+  alacritty = import ./alacritty.nix { inherit pkgs config; };
+  zsh = import ./zsh.nix { inherit pkgs config; };
+  starship = import ./starship.nix { inherit pkgs config; };
+  sway = import ./sway.nix { inherit pkgs; };
+  tmux = import ./tmux.nix { inherit pkgs; };
+in
 {
   programs = {
+    alacritty = alacritty;
+    zsh = zsh;
+    starship = starship;
+    tmux = tmux;
+    zoxide.enable = true;
     neovim.enable = true;
-    direnv = {
-      enable = true;
-      nix-direnv.enable = true;
-    };
 
-    # zsh.enable = true;
+    java.enable = true;
+    swaylock = sway.lock;
 
     git = {
       enable = true;
@@ -15,68 +24,18 @@
       userEmail = "me@andrewkreuzer.com";
     };
 
-    swaylock = {
+    direnv = {
       enable = true;
-      package = pkgs.swaylock-effects;
-      settings = {
-        clock = true;
-        screenshots = true;
-        font = "SourceCodePro";
-        indicator = true;
-        indicator-x-position = 100;
-        indicator-y-position = 100;
-        disable-caps-lock-text = true;
-
-        effect-blur="7x5";
-        effect-vignette="0.5:0.5";
-
-        key-hl-color=880033;
-        separator-color="00000000Ubuntu";
-        inside-color="00000099";
-        inside-clear-color="ffd20400";
-        inside-caps-lock-color="009ddc00";
-        inside-ver-color="d9d8d800";
-        inside-wrong-color="ee2e2400";
-        ring-color="231f20D9";
-        ring-clear-color="231f20D9";
-        ring-caps-lock-color="231f20D9";
-        ring-ver-color="231f20D9";
-        ring-wrong-color="231f20D9";
-        line-color="00000000";
-        line-clear-color="ffd204FF";
-        line-caps-lock-color="009ddcFF";
-        line-ver-color="d9d8d8FF";
-        line-wrong-color="ee2e24FF";
-        text-clear-color="ffd20400";
-        text-ver-color="d9d8d800";
-        text-wrong-color="ee2e2400";
-        bs-hl-color="ee2e24FF";
-        caps-lock-key-hl-color="ffd204FF";
-        caps-lock-bs-hl-color="ee2e24FF";
-        text-caps-lock-color="009ddc";
-      };
+      nix-direnv.enable = true;
     };
-
   };
 
   services = {
-    mako.enable = true;
-    swayidle = {
+    swayidle = sway.idle;
+    mako = {
       enable = true;
-      events = [
-      {
-        event = "before-sleep";
-        command = "${pkgs.systemd}/bin/loginctl lock-session";
-      }
-      {
-        event = "lock";
-        command = "${pkgs.swaylock-effects}/bin/swaylock -fF";
-      } ];
-      # timeouts = [
-      # {
-      #   timeout = 330;
-      #   command = suspendScript.outPath;
-      # } ];
+      backgroundColor = "#0f2028";
+      textColor = "#f6e8f4";
     };
   };
 
@@ -85,16 +44,16 @@
 
     packages = builtins.attrValues {
       inherit (pkgs)
-        alacritty
         firefox
         brave
         htop
         hyprpaper
         pulsemixer
-        starship
         rofi-wayland
         waybar
         wluma
+        grim
+        slurp
 
         fluxcd
         gh
@@ -108,11 +67,23 @@
         unzip
         zoxide
 
+        openlens
+        postman
+        wireshark
+
         signify
         gcc
+        glibc
         go
+        lua
+        python3
         gopls
         rustup
+        opam
+        xxd
+        _0x
+        inotify-tools
+        libnotify
       ;
     };
   };

@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -e
+
+if [ -z "$1" ]; then
+  echo "Not updating flake.lock"
+else
+  nix flake update --commit-lock-file
+fi
+
+nixos-rebuild build --flake . --upgrade \
+  && nvd diff /run/current-system ./result
+
+echo
+read -p "Switch? " -r
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+  doas ./result/bin/switch-to-configuration switch
+fi

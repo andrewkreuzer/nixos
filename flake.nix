@@ -39,76 +39,76 @@
     agenix,
     neovim-nightly-overlay,
   }:
-    let
+  let
     lib = nixpkgs.lib;
-    mk = import ./lib { inherit lib nixos-generators nixpkgs nixpkgs-unstable; };
+  mk = import ./lib { inherit lib nixos-generators nixpkgs nixpkgs-unstable; };
   in {
     nixosConfigurations =
       with mk;
-      {
-        carnahan = mkSystem {
-          inherit lib;
-          name = "carnahan";
-          system = "x86_64-linux";
-          extraOverlays = [
-            hyprland.overlays.default
+    {
+      carnahan = mkSystem {
+        inherit lib;
+        name = "carnahan";
+        system = "x86_64-linux";
+        extraOverlays = [
+          hyprland.overlays.default
             /* hyprpaper.overlays.default */
             neovim-nightly-overlay.overlay
-          ];
-          extraMods = [
-            nixos-hardware.nixosModules.dell-xps-15-9520-nvidia
+        ];
+        extraMods = [
+          nixos-hardware.nixosModules.dell-xps-15-9520-nvidia
             agenix.nixosModules.default
             hyprland.nixosModules.default
             home-manager.nixosModules.home-manager
-          ];
-        };
-        croft = mkSystem {
-          inherit lib;
-          name = "croft";
-          system = "x86_64-linux";
-          extraOverlays = [ ];
-          extraMods = [
-            agenix.nixosModules.default
-            home-manager.nixosModules.home-manager
-          ];
-        };
+        ];
       };
+      croft = mkSystem {
+        inherit lib;
+        name = "croft";
+        system = "x86_64-linux";
+        extraOverlays = [ ];
+        extraMods = [
+          agenix.nixosModules.default
+            home-manager.nixosModules.home-manager
+        ];
+      };
+    };
 
     packages.x86_64-linux =
       with mk;
-      {
-        lisbon = mkGenerator {
-          inherit lib;
-          name = "lisbon";
-          format = "virtualbox";
-          system = "x86_64-linux";
-          extraOverlays = [];
-          extraMods = [
-            home-manager.nixosModules.home-manager
-          ];
-        };
+    {
+      lisbon = mkGenerator {
+        inherit lib;
+        name = "lisbon";
+        format = "virtualbox";
+        system = "x86_64-linux";
+        extraOverlays = [];
+        extraMods = [
+          home-manager.nixosModules.home-manager
+        ];
+      };
 
-        jones = mkGenerator {
-          inherit lib;
-          name = "jones";
-          format = "qcow";
-          system = "x86_64-linux";
-          extraOverlays = [];
-          extraMods = [
-            home-manager.nixosModules.home-manager
-          ];
-        };
+      jones = mkGenerator {
+        inherit lib;
+        name = "jones";
+        format = "qcow";
+        system = "x86_64-linux";
+        extraOverlays = [];
+        extraMods = [
+          home-manager.nixosModules.home-manager
+        ];
+      };
 
-        iso = mkGenerator {
-          inherit lib;
-          name = "iso";
-          format = "install-iso";
-          system = "x86_64-linux";
-          extraOverlays = [];
-          extraMods = [
-            home-manager.nixosModules.home-manager
-          ];
-        };
+      iso = mkGenerator {
+        inherit lib;
+        name = "iso";
+        format = "install-iso";
+        system = "x86_64-linux";
+        extraOverlays = [];
+        extraMods = [
+          home-manager.nixosModules.home-manager
+        ];
       };
     };
+  };
 }

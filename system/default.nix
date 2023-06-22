@@ -3,7 +3,6 @@ with lib;
 {
   services.udev = {
     packages = [
-      pkgs.android-udev-rules
       pkgs.zsa-udev-rules
     ];
     extraRules = ''
