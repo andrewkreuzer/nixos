@@ -1,4 +1,4 @@
-{config, lib, ...}:
+{pkgs, config, lib, ...}:
 with lib;
 {
   imports = [ ./hardware.nix ];
@@ -20,8 +20,37 @@ with lib;
     };
     openssh = {
       enable = mkDefault true;
-      passwordAuthentication = mkDefault false;
-      permitRootLogin = "no";
+      settings = {
+        PasswordAuthentication = mkDefault false;
+        PermitRootLogin = "no";
+      };
+    };
+  };
+
+  networking.wireguard.interfaces = {
+    wg0 = {
+      ips = [ "10.100.0.1/24" ];
+      listenPort = 51820;
+      privateKeyFile = "/var/lib/wireguard/privatekey";
+
+      postSetup = ''
+        ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o eth0 -j MASQUERADE
+      '';
+
+      postShutdown = ''
+        ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/24 -o eth0 -j MASQUERADE
+      '';
+
+      peers = [
+        { # Phone
+          publicKey = "z01oQX8wG4GQYQoX4LeLibBkzeZBDs8EF/qZXnRlvC0=";
+          allowedIPs = [ "10.100.0.2/32" ];
+        }
+        { # Carnahan
+          publicKey = "YMTm9W+h+WCdWoPYq1Ma1aUc6DaAebIfLK/VO5QdpTg=";
+          allowedIPs = [ "10.100.0.3/32" ];
+        }
+      ];
     };
   };
 
@@ -48,6 +77,14 @@ with lib;
 
   time.timeZone = "America/Toronto";
   networking = {
+    nat = {
+      enable = true;
+      externalInterface = "eno1";
+      internalInterfaces = [ "wg0" ];
+    };
+    firewall = {
+      allowedUDPPorts = [ 51820 ];
+    };
     hostId = "1f42abd3";
     hostName = "croft";
     useDHCP = false;
