@@ -67,4 +67,16 @@
     brave --class=braveWork --profile-directory="Profile 1";
     alacritty --class=alacrittyWork -e ssh w -t tmux new-session -A -s work;
   '');
+
+  launch-waybar = (pkgs.writeShellScriptBin "launch-waybar" ''
+    CONFIG_FILES="$HOME/.config/waybar/config.jsonc $HOME/.config/waybar/style.css"
+
+    trap "pkill waybar" EXIT
+
+    while true; do
+      waybar &
+      inotifywait -e create,modify $CONFIG_FILES
+      pkill waybar
+    done
+  '');
 }

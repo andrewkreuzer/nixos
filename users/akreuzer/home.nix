@@ -93,6 +93,7 @@ in
       scripts.brightness
       scripts.hypr-powersave
       scripts.work
+      scripts.launch-waybar
     ];
   };
 }
