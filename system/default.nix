@@ -1,9 +1,10 @@
-{ config, lib, pkgs, ...}:
+{ lib, pkgs, ...}:
 with lib;
 {
   services.udev = {
     packages = [
       pkgs.zsa-udev-rules
+      pkgs.yubikey-personalization
     ];
     extraRules = ''
       ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chgrp video /sys/class/backlight/%k/brightness"
@@ -54,6 +55,20 @@ with lib;
           publicKey = "9+HZARi0ViE7gl2ZyuK1pGJed8pvuY2Ko2Z5mRtSeX0=";
           allowedIPs = [ "0.0.0.0/0" ];
           endpoint = "home.andrewkreuzer.com:51820";
+        }
+      ];
+    };
+    wg1 = {
+      autostart = false;
+      address = [ "10.100.0.3/32" ];
+      dns = [ "1.1.1.1" ];
+      privateKeyFile = "/home/akreuzer/.cache/wireguard/privatekey";
+
+      peers = [
+        {
+          publicKey = "ZMOH0eU0S7VFqjQ25fEzvcJsAJD7E7UOP4dAwJU4TlI=";
+          allowedIPs = [ "0.0.0.0/0" ];
+          endpoint = "home.andrewkreuzer.com:51821";
         }
       ];
     };

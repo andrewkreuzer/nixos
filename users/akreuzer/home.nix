@@ -1,10 +1,12 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, ... }:
 let
   alacritty = import ./alacritty.nix { inherit pkgs config; };
   zsh = import ./zsh.nix { inherit pkgs config; };
   starship = import ./starship.nix { inherit pkgs config; };
   sway = import ./sway.nix { inherit pkgs; };
   tmux = import ./tmux.nix { inherit pkgs; };
+  neovim = import ./neovim.nix { inherit pkgs; };
+  scripts = import ./scripts.nix { inherit pkgs; };
 in
 {
   programs = {
@@ -13,7 +15,7 @@ in
     starship = starship;
     tmux = tmux;
     zoxide.enable = true;
-    neovim.enable = true;
+    neovim = neovim;
 
     java.enable = true;
     swaylock = sway.lock;
@@ -84,7 +86,13 @@ in
         _0x
         inotify-tools
         libnotify
+        yubikey-manager
       ;
-    };
+    } ++ [
+      scripts.screenshot
+      scripts.brightness
+      scripts.hypr-powersave
+      scripts.work
+    ];
   };
 }

@@ -41,7 +41,7 @@
   }:
   let
     lib = nixpkgs.lib;
-  mk = import ./lib { inherit lib nixos-generators nixpkgs nixpkgs-unstable; };
+    mk = import ./lib { inherit lib nixos-generators nixpkgs nixpkgs-unstable; };
   in {
     nixosConfigurations =
       with mk;
