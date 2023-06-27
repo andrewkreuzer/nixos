@@ -22,6 +22,6 @@
       virt-manager
     ;
   } ++ [
-#    (import ./garmin/connectiq-sdk.nix { inherit pkgs; })
+  (import ./garmin/connectiq-sdk.nix { inherit pkgs; })
   ];
 }

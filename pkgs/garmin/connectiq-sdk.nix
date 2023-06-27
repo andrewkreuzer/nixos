@@ -1,18 +1,13 @@
 {pkgs}:
 let
-
-  libjpeg_turbo = pkgs.libjpeg_turbo.overrideAttrs (oldAttrs: rec {
-    enableJpeg8 = true;
-  });
-
-  inherit (pkgs) stdenv fetchzip autoPatchelfHook gtk3 curl libsecret xorg webkitgtk libsoup  glib-networking wrapGAppsHook jdk19;
+  inherit (pkgs) stdenv fetchzip autoPatchelfHook gtk3 curl libsecret xorg webkitgtk libsoup glib-networking wrapGAppsHook jdk19;
 in
 stdenv.mkDerivation {
   name = "connectiq-sdk-manager";
 
   src = fetchzip {
-    url = https://developer.garmin.com/downloads/connect-iq/sdk-manager/connectiq-sdk-manager-linux.zip;
-    sha256 = "sha256-g43pyQCYC12nkPrRdMz/K036X78n/NVrN/4OlVP8qkw=";
+    url = "https://developer.garmin.com/downloads/connect-iq/sdk-manager/connectiq-sdk-manager-linux.zip";
+    sha256 = "sha256-rFF9HyHsXovsi8W2FNqQmNGLijRw52jzc8IDHelzMbk=";
     stripRoot = false;
   };
 
@@ -28,7 +23,7 @@ stdenv.mkDerivation {
     xorg.libXxf86vm
     webkitgtk
     libsoup
-    libjpeg_turbo
+    (pkgs.libjpeg.override { enableJpeg8 = true; })
     glib-networking
     jdk19
   ];
