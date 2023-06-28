@@ -38,13 +38,16 @@ in
       enable = true;
       backgroundColor = "#0f2028";
       textColor = "#f6e8f4";
+      anchor="bottom-right";
     };
   };
 
   home = {
     stateVersion = "22.11";
 
-    packages = builtins.attrValues {
+    packages = [
+      pkgs.jetbrains.idea-community
+    ] ++ builtins.attrValues {
       inherit (pkgs)
         firefox
         brave

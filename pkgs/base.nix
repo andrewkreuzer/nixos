@@ -7,6 +7,7 @@
     neovim.enable = true;
     tmux.enable = true;
     adb.enable = true;
+    fuse.userAllowOther = true;
   };
 
   fonts.fonts = with pkgs; [
@@ -20,6 +21,7 @@
       zip
       openssl
       virt-manager
+      sshfs
     ;
   } ++ [
   (import ./garmin/connectiq-sdk.nix { inherit pkgs; })
