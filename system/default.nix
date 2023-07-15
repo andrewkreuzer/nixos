@@ -72,6 +72,20 @@ with lib;
         }
       ];
     };
+    proton = {
+      autostart = false;
+      address = [ "10.2.0.2/32" ];
+      dns = [ "10.2.0.1" ];
+      privateKeyFile = "/home/akreuzer/.cache/wireguard/proton";
+
+      peers = [
+        {
+          publicKey = "wP/7Xi9sTiO1XMpLXf/OUJiJc1E0PA3KyskMtGajEFA=";
+          allowedIPs = [ "0.0.0.0/0" ];
+          endpoint = "146.70.202.2:51820";
+        }
+      ];
+    };
   };
 
   system.stateVersion = "22.11";

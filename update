@@ -7,8 +7,8 @@ else
   nix flake update --commit-lock-file
 fi
 
-nixos-rebuild build --flake . --upgrade \
-  && nvd diff /run/current-system ./result
+nixos-rebuild build --flake .
+nvd diff /run/current-system ./result
 
 echo
 read -p "Switch? " -r

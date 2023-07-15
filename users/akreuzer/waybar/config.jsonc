@@ -1,0 +1,505 @@
+[
+  {
+    "name": "laptop",
+    "output": "eDP-1",
+    "spacing": 0,
+    "layer": "top",
+    "margin-top": 5,
+    "margin-left": 10,
+    "margin-right": 10,
+    "modules-left": [
+      "wlr/workspaces",
+      "hyprland/window"
+    ],
+    "modules-center": [
+      "clock"
+    ],
+    "modules-right": [
+      "tray",
+      "custom/sep",
+      "idle_inhibitor",
+      "custom/sep",
+      "backlight",
+      "custom/sep",
+      "pulseaudio",
+      "custom/sep",
+      "network",
+      "custom/sep",
+      "battery",
+      "custom/sep",
+      "custom/session",
+      "custom/space"
+    ],
+    "custom/sep": {
+      "format": " | "
+    },
+    "custom/space": {
+      "format": "     "
+    },
+    "hyprland/window": {
+      "format": "  {}",
+      "max-length": 60,
+      "interval": 1,
+      "height": 20
+    },
+    "idle_inhibitor": {
+      "format": "{icon}",
+      "format-icons": {
+        "activated": "",
+        "deactivated": ""
+      }
+    },
+    "backlight": {
+      "format": "{icon} {percent}%",
+      "format-icons": [
+        "󰃚",
+        "󰃛",
+        "󰃜",
+        "󰃝",
+        "󰃞",
+        "󰃟",
+        "󰃠"
+      ]
+    },
+    "wlr/workspaces": {
+      "disable-scroll": true,
+      "all-outputs": true,
+      "on-click": "activate",
+      "format": "{icon}",
+      "persistent_workspaces": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": [],
+        "5": [],
+        "6": [],
+        "7": [],
+        "8": [],
+        "9": []
+      },
+      "format-icons": {
+        "1": "I",
+        "2": "II",
+        "3": "III",
+        "4": "IV",
+        "5": "V",
+        "6": "VI",
+        "7": "VII",
+        "8": "VIII",
+        "9": "IX",
+        "urgent": ""
+      }
+    },
+    "mwlr/workspaces": {
+      "disable-scroll": true,
+      "on-click": "activate",
+      "format": "{icon}",
+      "all-outputs": false,
+      "persistent_workspaces": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": [],
+        "5": [],
+        "6": [],
+        "7": [],
+        "8": [],
+        "9": [],
+        "10": []
+      },
+      "format-icons": {
+        "1": "I",
+        "2": "II",
+        "3": "III",
+        "4": "IV",
+        "5": "V",
+        "6": "VI",
+        "7": "VII",
+        "8": "VIII",
+        "9": "IX",
+        "10": "X",
+        "urgent": ""
+      }
+    },
+    "xwlr/workspaces": {
+      "all-outputs": true,
+      "on-click": "activate",
+      "format": "{icon}",
+      "format-icons": {
+        "1": "",
+        "2": "",
+        "3": "",
+        "4": "",
+        "5": "",
+        "urgent": "",
+        "active": "",
+        "default": ""
+      }
+    },
+    "tray": {
+      "spacing": 10
+    },
+    "clock": {
+      "format": "  {:%I:%M %p |  %x } ",
+      "interval": 60,
+      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+    "cpu": {
+      "format": "   {usage}%",
+      "tooltip": false
+    },
+    "memory": {
+      "format": " {}%"
+    },
+    "battery": {
+      "states": {
+        "good": 95,
+        "warning": 30,
+        "critical": 15
+      },
+      "format": "{icon}{capacity}%  ",
+      "format-charging": " {capacity}%  ",
+      "format-plugged": " {capacity}%  ",
+      "format-alt": "{icon}{time}  ",
+      "format-icons": [
+        "  ",
+        "  ",
+        "  ",
+        "  ",
+        "  "
+      ]
+    },
+    "battery#bat2": {
+      "bat": "BAT2"
+    },
+    "network": {
+      "format-wifi": "  {essid}",
+      "format-ethernet": "  Connected",
+      "format-disconnected": " Disconnected",
+      "tooltip-format-wifi": " {ifname} @ {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%\nFreq: {frequency}MHz\n⬆️ {bandwidthUpBits} ⬇️ {bandwidthDownBits}",
+      "tooltip-format-ethernet": " {ifname}\nIP: {ipaddr}\n⬆️ {bandwidthUpBits} ⬇️ {bandwidthDownBits}",
+      "format-linked": "{ifname} (No IP) ",
+      "on-click-right": "nm-connection-editor",
+      "on-click": "bash './rofi-network-manager.sh'"
+    },
+    "pulseaudio": {
+      "format": "{volume}% {icon} {format_source}",
+      "format-bluetooth": "{volume}%  {format_source}",
+      "format-bluetooth-muted": "   {format_source}",
+      "format-muted": " {format_source}",
+      "format-source": "{volume}%  ",
+      "format-source-muted": "  ",
+      "format-icons": {
+        "headphone": "",
+        "hands-free": "",
+        "headset": "",
+        "phone": "",
+        "portable": "",
+        "car": "",
+        "default": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "on-click": "pavucontrol"
+    }
+  },
+  {
+    "include": "~/.config/waybar/custom_modules/modules",
+    "name": "middle",
+    "layer": "top",
+    "output": "DP-2",
+    "height": 22,
+    "margin-top": 0,
+    "margin-left": 0,
+    "margin-bottom": 0,
+    "margin-right": 0,
+    "spacing": 0,
+    "modules-left": [
+      "wlr/workspaces",
+      "hyprland/window"
+    ],
+    "modules-center": [
+      "clock",
+      "tray"
+    ],
+    "modules-right": [
+      "temperature",
+      "cpu",
+      "memory",
+      "custom/dot",
+      "network",
+      "custom/dot",
+      "battery",
+      "custom/dot",
+      "pulseaudio",
+      "custom/space"
+    ],
+    "wlr/workspaces": {
+      "on-click": "activate",
+      "on-scroll-up": "hyprctl dispatch workspace e+1",
+      "on-scroll-down": "hyprctl dispatch workspace e-1",
+      "persistent_workspaces": {
+        "3": [
+          "DP-2"
+        ],
+        "4": [
+          "DP-2"
+        ],
+        "5": [
+          "DP-2"
+        ],
+        "6": [
+          "DP-2"
+        ],
+        "7": [
+          "DP-2"
+        ]
+      },
+      "format-icons": {
+        "3": "",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
+        "urgent": "",
+        "active": "",
+        "default": ""
+      },
+      "sort-by-number": true
+    },
+    "hyprland/window": {
+      "format": "{}",
+      "max-length": 60,
+      "seperate-output": true
+    },
+    "tray": {
+      "icon-size": 13,
+      "spacing": 8
+    },
+    "clock": {
+      "format": "   {:%I:%M %p | %x  󰃭} ",
+      "interval": 60,
+      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+    "temperature": {
+      "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
+      "critical-threshold": 80,
+      "format-critical": " {temperatureC}°C",
+      "format": " {temperatureC}°C"
+    },
+    "cpu": {
+      "interval": 10,
+      "format": " {usage}%",
+      "max-length": 10,
+      "on-click": "",
+      "tooltip": false
+    },
+    "memory": {
+      "interval": 30,
+      "format": "  {used:0.1f}G",
+      "max-length": 10,
+      "tooltip": false
+    },
+    "network": {
+      "format-wifi": "  {essid}",
+      "format-ethernet": "  Connected",
+      "format-disconnected": " Disconnected",
+      "tooltip-format-wifi": " {ifname} @ {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%\nFreq: {frequency}MHz\n⬆️ {bandwidthUpBits} ⬇️ {bandwidthDownBits}",
+      "tooltip-format-ethernet": " {ifname}\nIP: {ipaddr}\n⬆️ {bandwidthUpBits} ⬇️ {bandwidthDownBits}",
+      "format-linked": "{ifname} (No IP) ",
+      "on-click-right": "nm-connection-editor",
+      "on-click": "bash './rofi-network-manager.sh'"
+    },
+    "battery": {
+      "states": {
+        "good": 95,
+        "warning": 30,
+        "critical": 15
+      },
+      "format": "{icon}{capacity}%",
+      "format-charging": " {capacity}%",
+      "format-plugged": "  {capacity}%",
+      "format-alt": "{icon}{time}",
+      "format-icons": [
+        "  ",
+        "  ",
+        "  ",
+        "  ",
+        "  "
+      ]
+    },
+    "pulseaudio": {
+      "format": "{volume}% {icon} {format_source}",
+      "format-bluetooth": "{volume}%  {format_source}",
+      "format-bluetooth-muted": "   {format_source}",
+      "format-muted": " {format_source}",
+      "format-source": "{volume}%  ",
+      "format-source-muted": "  ",
+      "format-icons": {
+        "headphone": "",
+        "hands-free": "",
+        "headset": "",
+        "phone": "",
+        "portable": "",
+        "car": "",
+        "default": [
+          "",
+          "",
+          ""
+        ]
+      }
+    }
+  },
+  {
+    "include": "~/.config/waybar/custom_modules/modules",
+    "name": "right",
+    "layer": "top",
+    "output": "DP-3",
+    "height": 22,
+    "margin-top": 0,
+    "margin-left": 0,
+    "margin-bottom": 0,
+    "margin-right": 0,
+    "spacing": 0,
+    "modules-left": [
+      "wlr/workspaces"
+    ],
+    "modules-right": [
+      "memory",
+      "custom/dot",
+      "network",
+      "custom/left-arrw",
+      "battery",
+      "battery#text",
+      "pulseaudio",
+      "pulseaudio#text",
+      "custom/dot",
+      "clock"
+    ],
+    "wlr/workspaces": {
+      "all-outputs": false,
+      "active-only": "false",
+      "on-click": "activate",
+      "format": "{icon}",
+      "on-scroll-up": "hyprctl dispatch workspace e+1",
+      "on-scroll-down": "hyprctl dispatch workspace e-1",
+      "format-icons": {
+        "1": "",
+        "2": "",
+        "3": "",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "urgent": "",
+        "default": ""
+      }
+    },
+    "hyprland/window": {
+      "format": "{}"
+    },
+    "tray": {
+      "icon-size": 28,
+      "spacing": 8
+    },
+    "clock": {
+      "format": "<b>{:%I:%M %p}</b>",
+      "format-alt": "<b>{:%a.%d,%b}</b>",
+      "tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+    "cpu": {
+      "interval": 10,
+      "format": " {}%",
+      "max-length": 10,
+      "on-click": "",
+      "tooltip": false
+    },
+    "memory": {
+      "interval": 30,
+      "format": " {used}G",
+      "format-alt": " {used:0.1f}G",
+      "max-length": 10
+    },
+    "backlight": {
+      "device": "DP-1",
+      "format": "{icon} {percent}%",
+      "tooltip": false,
+      "format-icons": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "on-click": ""
+    },
+    "network": {
+      "format-wifi": " {essid}",
+      "format-ethernet": " wired",
+      "tooltip": false,
+      "format-disconnected": ""
+    },
+    "pulseaudio": {
+      "format": "{icon}",
+      "format-bluetooth": " ",
+      "format-bluetooth-muted": " ",
+      "tooltip": false,
+      "format-muted": "",
+      "format-icons": {
+        "headphone": "",
+        "hands-free": "",
+        "headset": "",
+        "phone": "",
+        "portable": "",
+        "car": "",
+        "default": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "on-click": "pavucontrol"
+    },
+    "pulseaudio#text": {
+      "tooltip": false,
+      "format": "<b>{volume}</b>",
+      "format-bluetooth": "{volume}"
+    },
+    "battery": {
+      "bat": "BAT0",
+      "interval": 60,
+      "states": {
+        "warning": 30,
+        "critical": 15
+      },
+      "format": "{icon}",
+      "format-icons": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "max-length": 25,
+      "tooltip": false
+    },
+    "battery#text": {
+      "bat": "BAT0",
+      "interval": 60,
+      "states": {
+        "warning": 30,
+        "critical": 15
+      },
+      "format": "<b>{capacity}</b>",
+      "max-length": 25,
+      "tooltip": false
+    }
+  }
+]

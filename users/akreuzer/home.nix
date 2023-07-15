@@ -7,6 +7,7 @@ let
   tmux = import ./tmux.nix { inherit pkgs; };
   neovim = import ./neovim.nix { inherit pkgs; };
   scripts = import ./scripts.nix { inherit pkgs; };
+  waybar = import ./waybar { inherit pkgs; };
 in
 {
   programs = {
@@ -16,6 +17,7 @@ in
     tmux = tmux;
     zoxide.enable = true;
     neovim = neovim;
+    waybar = waybar;
 
     java.enable = true;
     swaylock = sway.lock;
@@ -55,7 +57,6 @@ in
         hyprpaper
         pulsemixer
         rofi-wayland
-        waybar
         wluma
         grim
         slurp
@@ -75,6 +76,8 @@ in
         openlens
         postman
         wireshark
+        azure-cli
+        vscode
 
         signify
         gcc
@@ -90,13 +93,13 @@ in
         inotify-tools
         libnotify
         yubikey-manager
+        qbittorrent
       ;
     } ++ [
       scripts.screenshot
       scripts.brightness
       scripts.hypr-powersave
       scripts.work
-      scripts.launch-waybar
     ];
   };
 }

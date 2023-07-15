@@ -10,11 +10,8 @@ in
   plugins = with pkgs; [
     tmuxPlugins.cpu
     tmuxPlugins.yank
+    tmuxPlugins.resurrect
     tmuxPlugins.continuum
-    {
-      plugin = tmuxPlugins.resurrect;
-      extraConfig = "set -g @resurrect-strategy-nvim 'session'";
-    }
   ];
 
   escapeTime = 10;
@@ -62,6 +59,7 @@ in
     set -g pane-active-border-style fg=terminal,bold
     set -g pane-border-style fg=terminal,dim,overline
 
+    set -g @resurrect-strategy-nvim 'session'
     set -g @continuum-restore 'on'
     set -g @continuum-save-interval '10'
   '';
