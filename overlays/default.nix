@@ -1,10 +1,10 @@
 final: prev:
 {
   brave = prev.brave.overrideAttrs (old: rec {
-    version = "1.56.6";
+    version = "1.56.9";
     src = prev.fetchurl {
       url = "https://github.com/brave/brave-browser/releases/download/v${version}/brave-browser_${version}_amd64.deb";
-      sha256 = "sha256-nr8IN1AirMxTSi0QFaF+Q1SomtYYS8scJG+8yLTPC74=";
+      sha256 = "sha256-cw41xUewYB/M6xHZhhL9nX1J9vnNGA9TFJWI/Qwdu/k=";
     };
   });
 
