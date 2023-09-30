@@ -43,6 +43,7 @@
   };
   idle = {
     enable = true;
+    systemdTarget = "graphical-session.target";
     events = [
     {
       event = "before-sleep";

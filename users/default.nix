@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, inputs, lib, specialArgs, options, modulesPath }:
 
 {
   age.secrets.akreuzer.file = ../secrets/akreuzer.age;
@@ -35,6 +35,10 @@
     useUserPackages = true;
     backupFileExtension = "bak";
     users.akreuzer = ./akreuzer/home.nix;
+    extraSpecialArgs = specialArgs;
+    sharedModules = [
+      inputs.hyprland.homeManagerModules.default
+    ];
   };
 
   systemd.user.services.wluma = {

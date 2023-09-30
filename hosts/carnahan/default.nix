@@ -58,14 +58,6 @@ with lib;
     };
   };
 
-  programs.hyprland = {
-    enable = true;
-    enableNvidiaPatches = true;
-    xwayland = {
-      enable = true;
-    };
-  };
-
   virtualisation = {
     libvirtd = {
       enable = true;

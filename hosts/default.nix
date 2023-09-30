@@ -27,7 +27,6 @@ with mk;
     extraMods = [
       nixos-hardware.nixosModules.dell-xps-15-9520-nvidia
         agenix.nixosModules.default
-        hyprland.nixosModules.default
         home-manager.nixosModules.home-manager
     ];
   };

@@ -1,5 +1,6 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, inputs, specialArgs, options, modulesPath, nixosConfig, osConfig }:
 let
+  hyprland = import ./hyprland { inherit pkgs; };
   alacritty = import ./alacritty.nix { inherit pkgs config; };
   zsh = import ./zsh.nix { inherit pkgs config; };
   starship = import ./starship.nix { inherit pkgs config; };
@@ -34,6 +35,7 @@ in
     };
   };
 
+  wayland.windowManager.hyprland = hyprland;
   services = {
     swayidle = sway.idle;
     mako = {
