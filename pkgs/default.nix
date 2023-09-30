@@ -1,8 +1,8 @@
 {type, pkgs, lib, ...}:
 let
-  laptop =[ ./base.nix ];
+  laptop = [ ./base.nix ];
 
-  desktop =[ ./base.nix ];
+  desktop = [ ./base.nix ];
 
   server = [ ./base.nix ];
 

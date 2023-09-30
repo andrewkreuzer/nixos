@@ -11,8 +11,11 @@ nixos-rebuild build --flake .
 nvd diff /run/current-system ./result
 
 echo
-read -p "Switch? " -r
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
+read -p "Switch[Ss]/Boot[Bb] " -r
+if [[ $REPLY =~ ^[Ss] ]]; then
   doas ./result/bin/switch-to-configuration switch
+elif [[ $REPLY =~ ^[Bb] ]]; then
+  doas ./result/bin/switch-to-configuration boot
+else
+  echo "Cancelled"
 fi

@@ -67,4 +67,11 @@
     brave --class=braveWork --profile-directory="Profile 1";
     alacritty --class=alacrittyWork -e ssh w -t tmux new-session -A -s work;
   '');
+
+  whatitdo = (pkgs.writeScriptBin "whatitdo" ''
+    #!/usr/bin/env nix-shell
+    #! nix-shell -i bash --packages nmap
+    read -p "Enter CIDR: "
+    nmap -sS --top-ports 10 -O $REPLY | tee /home/akreuzer/personal/scan/scan-$(date -d "today" +"%d-%m-%Y-%H%M").txt
+  '');
 }

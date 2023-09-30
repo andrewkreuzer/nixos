@@ -60,6 +60,8 @@ in
     set -g pane-border-style fg=terminal,dim,overline
 
     set -g @resurrect-strategy-nvim 'session'
+    set -g @resurrect-dir '~/.cache/tmux/resurrect'
+    set -g @resurrect-capture-pane-contents 'on'
     set -g @continuum-restore 'on'
     set -g @continuum-save-interval '10'
   '';

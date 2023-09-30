@@ -46,9 +46,8 @@ in
 
   home = {
     stateVersion = "22.11";
-
     packages = [
-      pkgs.jetbrains.idea-community
+     pkgs.jetbrains.idea-community
     ] ++ builtins.attrValues {
       inherit (pkgs)
         firefox
@@ -86,7 +85,8 @@ in
         lua
         python3
         gopls
-        rustup
+        cargo
+        rustc
         opam
         xxd
         _0x
@@ -94,12 +94,13 @@ in
         libnotify
         yubikey-manager
         qbittorrent
-      ;
+        ;
     } ++ [
       scripts.screenshot
       scripts.brightness
       scripts.hypr-powersave
       scripts.work
+      scripts.whatitdo
     ];
   };
 }

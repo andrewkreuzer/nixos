@@ -1,16 +1,17 @@
 {lib, nixos-generators, nixpkgs, nixpkgs-unstable}:
 with lib;
 let
-  config = { allowUnfree = true; };
+  pkgsConfig = { allowUnfree = true; };
 in
 {
-  mkSystem = { name, lib, system, extraOverlays ? [], extraMods ? [], ...}:
+  mkSystem = { name, userName, lib, system, extraOverlays ? [], extraMods ? [], inputs, ...}:
   let
     overlays = import ../overlays;
-    pkgs = import nixpkgs { inherit system config; overlays = [overlays] ++ extraOverlays; };
+    pkgs = import nixpkgs { inherit system ;config = pkgsConfig; overlays = [overlays] ++ extraOverlays; };
   in
     nixosSystem {
       inherit system pkgs lib;
+      specialArgs = { inherit inputs; };
       modules = [
         ../hosts/${name}
         ../system
@@ -18,13 +19,15 @@ in
         ../pkgs
 
         "${nixpkgs}/nixos/modules/installer/scan/not-detected.nix"
-      ] ++ extraMods;
+      ];
+      extraModules = extraMods;
     };
 
 
-  mkGenerator = { name, lib, system, format, extraOverlays ? [], extraMods ? [], ...}:
+  mkGenerator = { name, userName, lib, system, format, extraOverlays ? [], extraMods ? [], ...}:
   let
-    pkgs = import nixpkgs { inherit system config; overlays = [overlays] ++ extraOverlays; };
+    overlays = import ../overlays;
+    pkgs = import nixpkgs { inherit system ;config = pkgsConfig; overlays = [overlays] ++ extraOverlays; };
   in
     nixos-generators.nixosGenerate {
       inherit system pkgs lib format;
@@ -32,6 +35,8 @@ in
         ../hosts/${name}
         ../system
         ../users
-      ] ++ extraMods;
+        ../pkgs
+      ];
+      extraModules = extraMods;
     };
 }

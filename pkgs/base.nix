@@ -22,6 +22,7 @@
       openssl
       virt-manager
       sshfs
+      apfs-fuse
     ;
   } ++ [
   (import ./garmin/connectiq-sdk.nix { inherit pkgs; })
