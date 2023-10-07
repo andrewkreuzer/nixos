@@ -79,7 +79,9 @@ in
         wireshark
         azure-cli
         vscode
+        minikube
 
+        gnumake
         signify
         gcc
         glibc
@@ -103,6 +105,7 @@ in
       scripts.hypr-powersave
       scripts.work
       scripts.whatitdo
+      scripts.mkcd
     ];
   };
 }

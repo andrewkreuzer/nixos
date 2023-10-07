@@ -74,4 +74,8 @@
     read -p "Enter CIDR: "
     nmap -sS --top-ports 10 -O $REPLY | tee /home/akreuzer/personal/scan/scan-$(date -d "today" +"%d-%m-%Y-%H%M").txt
   '');
+
+  mkcd = (pkgs.writeScriptBin "mkcd" ''
+    mkdir -p $1 && cd $1
+  '');
 }

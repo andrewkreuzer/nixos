@@ -23,6 +23,7 @@
       virt-manager
       sshfs
       apfs-fuse
+      pkg-config
     ;
   } ++ [
   (import ./garmin/connectiq-sdk.nix { inherit pkgs; })
