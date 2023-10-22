@@ -80,6 +80,7 @@ in
         azure-cli
         vscode
         minikube
+        kubelogin
 
         gnumake
         signify

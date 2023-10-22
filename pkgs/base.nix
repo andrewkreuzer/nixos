@@ -8,6 +8,7 @@
     tmux.enable = true;
     adb.enable = true;
     fuse.userAllowOther = true;
+    ssh.startAgent = true;
   };
 
   fonts.fonts = with pkgs; [

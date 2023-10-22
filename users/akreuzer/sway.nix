@@ -49,14 +49,15 @@
       event = "before-sleep";
       command = "${pkgs.systemd}/bin/loginctl lock-session";
     }
-    {
-      event = "lock";
-      command = "${pkgs.swaylock-effects}/bin/swaylock -fF";
-    } ];
-    # timeouts = [
     # {
-    #   timeout = 330;
-    #   command = suspendScript.outPath;
-    # } ];
+    #   event = "lock";
+    #   command = "${pkgs.swaylock-effects}/bin/swaylock -fF";
+    # }
+    ];
+# timeouts = [
+# {
+#   timeout = 330;
+#   command = suspendScript.outPath;
+# } ];
   };
 }

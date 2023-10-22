@@ -72,6 +72,20 @@ with lib;
         }
       ];
     };
+    azure = {
+      autostart = false;
+      address = [ "10.1.0.100/32" ];
+      dns = [ "10.10.1.10" ];
+      privateKeyFile = "/home/akreuzer/.cache/wireguard/privatekey";
+
+      peers = [
+        {
+          publicKey = "AECyy0fEBSmqsEKvbNoMdXk8KfgY5mOyMvTgDgRrhE0=";
+          allowedIPs = [ "10.10.0.0/16" ];
+          endpoint = "40.88.124.71:51820";
+        }
+      ];
+    };
     proton = {
       autostart = false;
       address = [ "10.2.0.2/32" ];

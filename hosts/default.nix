@@ -21,7 +21,6 @@ with mk;
     name = "carnahan";
     system = "x86_64-linux";
     extraOverlays = [
-      hyprland.overlays.default
         neovim-nightly-overlay.overlay
     ];
     extraMods = [
