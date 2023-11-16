@@ -1,4 +1,4 @@
-{config, lib, pkgs, ...}:
+{config, lib, pkgs, inputs, ...}:
 with lib;
 {
   imports = [ ./hardware.nix ];
@@ -11,6 +11,13 @@ with lib;
       libinput-gestures
       wluma
     ;
+  };
+
+  # we have to install hyprland twice because the hm-module
+  # doesn't install all the needed shit :(
+  programs.hyprland = {
+    enable = true;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
   };
 
   services = {
@@ -57,6 +64,24 @@ with lib;
       };
     };
   };
+
+  # environment.etc = let
+  # json = pkgs.formats.json {};
+  # in {
+  #   "pipewire/pipewire-conf.d/91-rtp-sinks.conf".source = json.generate "91-rtp-sinks.conf" {
+  #      context.modules = [{
+  #        name = "libpipewire-module-rtp-sink";
+  #        args = {
+  #          local.ifname = "enp7s0";
+  #          destination.ip = "192.168.2.122";
+  #          destination.port = 46666;
+  #          stream.props = {
+  #              node.name = "rtp-sink";
+  #          };
+  #        };
+  #     }];
+  #   };
+  # };
 
   virtualisation = {
     libvirtd = {

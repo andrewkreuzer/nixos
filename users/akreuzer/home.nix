@@ -93,6 +93,8 @@ in
         cargo
         rustc
         opam
+        protobuf
+
         xxd
         _0x
         inotify-tools
