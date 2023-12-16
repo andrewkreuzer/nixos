@@ -9,7 +9,6 @@ with lib;
   environment.systemPackages = builtins.attrValues {
     inherit (pkgs)
       libinput-gestures
-      wluma
     ;
   };
 

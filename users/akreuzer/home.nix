@@ -58,7 +58,6 @@ in
         hyprpaper
         pulsemixer
         rofi-wayland
-        wluma
         grim
         slurp
 

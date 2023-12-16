@@ -284,7 +284,7 @@
       "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
     "temperature": {
-      "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
+      "hwmon-path": "/sys/class/hwmon/hwmon5/temp1_input",
       "critical-threshold": 80,
       "format-critical": " {temperatureC}°C",
       "format": " {temperatureC}°C"

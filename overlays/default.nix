@@ -1,10 +1,18 @@
 final: prev:
 {
+  postman = prev.postman.overrideAttrs (old: rec {
+    version = "10.18.10";
+    src = prev.fetchurl {
+      url = "https://dl.pstmn.io/download/version/${version}/linux64";
+      sha256 = "sha256-CAY9b2O+1vROUEfGRReZex9Sh5lb3sIC4TExVHRL6Vo=";
+      name = "postman-${version}.tar.gz";
+    };
+  });
   brave = prev.brave.overrideAttrs (old: rec {
-    version = "1.60.114";
+    version = "1.61.93";
     src = prev.fetchurl {
       url = "https://github.com/brave/brave-browser/releases/download/v${version}/brave-browser_${version}_amd64.deb";
-      sha256 = "sha256-SOnQBFIL+v5NdAWZ+mufj6XXBMIjqqCFKgO0oeveOBk=";
+      sha256 = "sha256-X94IE6u9VglKFCMU9GHETIC+seNzBQEUUcii/FicWdI=";
     };
   });
   alacritty = prev.alacritty.overrideAttrs (old: rec {

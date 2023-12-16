@@ -10,8 +10,21 @@ in
   plugins = with pkgs; [
     tmuxPlugins.cpu
     tmuxPlugins.yank
-    tmuxPlugins.resurrect
-    tmuxPlugins.continuum
+    {
+      plugin = tmuxPlugins.resurrect;
+      extraConfig = ''
+        set -g @resurrect-strategy-nvim 'session'
+        set -g @resurrect-capture-pane-contents 'on'
+        set -g @resurrect-dir '~/.cache/tmux/resurrect'
+        '';
+    }
+    {
+      plugin = tmuxPlugins.continuum;
+      extraConfig = ''
+        set -g @continuum-restore 'on'
+        set -g @continuum-save-interval '1' # minutes
+        '';
+    }
   ];
 
   escapeTime = 10;
@@ -31,7 +44,7 @@ in
 
 
     set -g status-position top
-    set -g status-justify right
+    set -g status-justify left
     set -g status-interval 1
     set -g status-right-length 10
 
@@ -44,8 +57,7 @@ in
 
     setw -g window-status-format "#[bg=${ayu.fg},fg=${ayu.bg}] #[bg=${ayu.fg},fg=${ayu.bg}] #I #W #[bg=${ayu.fg},fg=${ayu.bg}]"
     setw -g window-status-current-format "#[bg=green,fg=${ayu.bg}] #[bg=green,fg=${ayu.bg},bold] #I #W #[bg=green,fg=${ayu.bg}]"
-    set -g status-justify left
-    set -g status-right '#[bg=blue,fg=terminal]#{?client_prefix,  •  ,}'
+    set -g status-right '#(${pkgs.tmuxPlugins.continuum}/share/tmux-plugins/continuum/scripts/continuum_save.sh)#{continuum_status}#[bg=${ayu.bg},fg=terminal]#{?client_prefix,  •  ,}'
     set-option -g status-left ' '
 
     # Automatically renumber windows when some closes
@@ -58,11 +70,5 @@ in
     # Pane-border colors
     set -g pane-active-border-style fg=terminal,bold
     set -g pane-border-style fg=terminal,dim,overline
-
-    set -g @resurrect-strategy-nvim 'session'
-    set -g @resurrect-dir '~/.cache/tmux/resurrect'
-    set -g @resurrect-capture-pane-contents 'on'
-    set -g @continuum-restore 'on'
-    set -g @continuum-save-interval '10'
   '';
 }
