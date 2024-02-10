@@ -36,7 +36,6 @@ in
         ../system
         ../users
         ../pkgs
-      ];
-      extraModules = extraMods;
+      ] ++ extraMods;
     };
 }

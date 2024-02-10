@@ -13,6 +13,7 @@ with mk;
   lisbon = mkGenerator {
     inherit lib;
     name = "lisbon";
+    userName = "akreuzer";
     format = "virtualbox";
     system = "x86_64-linux";
     extraOverlays = [];
