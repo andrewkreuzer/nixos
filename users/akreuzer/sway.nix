@@ -47,12 +47,12 @@
     timeouts = [
     {
       timeout = 300;
-      command = "${scripts.timeout5m}";
+      command = "${scripts.timeout5m}/bin/timeout5m";
       resumeCommand = "cat /tmp/brightness > /sys/class/backlight/intel_backlight/brightness";
     }
     {
       timeout = 600;
-      command = "${pkgs.hyprland}/bin/hyprctl dispath dpms off";
+      command = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
     }
     ];
     events = [
