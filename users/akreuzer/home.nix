@@ -60,6 +60,9 @@ in
         rofi-wayland
         grim
         slurp
+        geeqie
+        gimp
+        darktable
 
         fluxcd
         gh
@@ -80,6 +83,7 @@ in
         vscode
         minikube
         kubelogin
+        burpsuite
 
         gnumake
         signify
