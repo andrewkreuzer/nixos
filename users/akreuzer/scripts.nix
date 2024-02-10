@@ -1,5 +1,11 @@
 {pkgs}:
 {
+  timeout5m = (pkgs.writeShellScriptBin "timeout5m" ''
+      cat /sys/class/backlight/intel_backlight/brightness > /tmp/brightness
+      echo 25 > /sys/class/backlight/intel_backlight/brightness
+      ${pkgs.swaylock-effects}/bin/swaylock -fF
+  '');
+
   screenshot = (pkgs.writeShellScriptBin "screenshot" ''
     grim -g "$(slurp)" /home/akreuzer/Pictures/Screenshots/$(date -d "today" +"%d-%m-%Y-%H%M").png
   '');

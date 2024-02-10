@@ -1,4 +1,4 @@
-{pkgs}:
+{pkgs, scripts}:
 {
   lock = {
     enable = true;
@@ -44,20 +44,26 @@
   idle = {
     enable = true;
     systemdTarget = "graphical-session.target";
+    timeouts = [
+    {
+      timeout = 300;
+      command = "${scripts.timeout5m}";
+      resumeCommand = "cat /tmp/brightness > /sys/class/backlight/intel_backlight/brightness";
+    }
+    {
+      timeout = 600;
+      command = "${pkgs.hyprland}/bin/hyprctl dispath dpms off";
+    }
+    ];
     events = [
     {
       event = "before-sleep";
       command = "${pkgs.systemd}/bin/loginctl lock-session";
     }
-    # {
-    #   event = "lock";
-    #   command = "${pkgs.swaylock-effects}/bin/swaylock -fF";
-    # }
+    {
+      event = "lock";
+      command = "${pkgs.swaylock-effects}/bin/swaylock -fF";
+    }
     ];
-# timeouts = [
-# {
-#   timeout = 330;
-#   command = suspendScript.outPath;
-# } ];
   };
 }

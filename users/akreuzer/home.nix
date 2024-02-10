@@ -4,11 +4,11 @@ let
   alacritty = import ./alacritty.nix { inherit pkgs config; };
   zsh = import ./zsh.nix { inherit pkgs config; };
   starship = import ./starship.nix { inherit pkgs config; };
-  sway = import ./sway.nix { inherit pkgs; };
   tmux = import ./tmux.nix { inherit pkgs; };
   neovim = import ./neovim.nix { inherit pkgs; };
   scripts = import ./scripts.nix { inherit pkgs; };
   waybar = import ./waybar { inherit pkgs; };
+  sway = import ./sway.nix { inherit pkgs scripts; };
 in
 {
   programs = {
