@@ -25,6 +25,7 @@
       sshfs
       apfs-fuse
       pkg-config
+      libinput-gestures
     ;
   } ++ [
   (import ./garmin/connectiq-sdk.nix { inherit pkgs; })

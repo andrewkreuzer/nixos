@@ -6,12 +6,6 @@ with lib;
   # disable gnomes use of power profile for tlp
   services.power-profiles-daemon.enable = mkForce false;
 
-  environment.systemPackages = builtins.attrValues {
-    inherit (pkgs)
-      libinput-gestures
-    ;
-  };
-
   # we have to install hyprland twice because the hm-module
   # doesn't install all the needed shit :(
   programs.hyprland = {
@@ -97,13 +91,21 @@ with lib;
   };
 
   location.provider = "geoclue2";
-  networking.hostId = "cb023b45";
   time.timeZone = "America/Toronto";
   networking = {
+    hostId = "cb023b45";
     hostName = "carnahan";
     useDHCP = false;
     networkmanager.enable = true;
-    firewall.enable = true;
+    firewall = {
+      enable = true;
+      interfaces."enp7s0".allowedTCPPorts = [ 5173 ];
+      interfaces."wlp0s20f3".allowedTCPPorts = [ 5173 ];
+    };
+    extraHosts =
+    ''
+      192.168.2.205 ecb5fafffe997dae
+    '';
   };
 
   nix = {
@@ -113,8 +115,8 @@ with lib;
       options = "--delete-older-than 7d";
     };
     settings = {
-      substituters = [ "https://hyprland.cachix.org" ];
-      trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+      substituters = [ "https://hyprland.cachix.org" "https://cuda-maintainers.cachix.org"];
+      trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="];
     };
   };
 
