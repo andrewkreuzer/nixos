@@ -108,18 +108,6 @@ with lib;
     '';
   };
 
-  nix = {
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
-    settings = {
-      substituters = [ "https://hyprland.cachix.org" "https://cuda-maintainers.cachix.org"];
-      trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="];
-    };
-  };
-
   fileSystems = let
     mkZfsMount = dataset: {
       device = "${dataset}";
