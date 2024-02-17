@@ -48,7 +48,7 @@
     {
       timeout = 300;
       command = "${scripts.timeout5m}/bin/timeout5m";
-      resumeCommand = "cat /tmp/brightness > /sys/class/backlight/intel_backlight/brightness";
+      resumeCommand = "${pkgs.coreutils}/bin/cat /tmp/brightness > /sys/class/backlight/intel_backlight/brightness";
     }
     {
       timeout = 600;
