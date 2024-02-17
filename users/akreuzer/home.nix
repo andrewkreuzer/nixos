@@ -1,6 +1,6 @@
 { config, pkgs, lib, inputs, specialArgs, options, modulesPath, nixosConfig, osConfig }:
 let
-  hyprland = import ./hyprland { inherit pkgs; };
+  hypr = import ./hypr { inherit pkgs; };
   alacritty = import ./alacritty.nix { inherit pkgs config; };
   zsh = import ./zsh.nix { inherit pkgs config; };
   starship = import ./starship.nix { inherit pkgs config; };
@@ -11,6 +11,7 @@ let
   sway = import ./sway.nix { inherit pkgs scripts; };
 in
 {
+  imports = [ ../../pkgs/hyprpaper.nix ];
   programs = {
     alacritty = alacritty;
     zsh = zsh;
@@ -19,9 +20,10 @@ in
     zoxide.enable = true;
     neovim = neovim;
     waybar = waybar;
+    swaylock = sway.lock;
+    hyprpaper = hypr.hyprpaper;
 
     java.enable = true;
-    swaylock = sway.lock;
 
     git = {
       enable = true;
@@ -35,7 +37,7 @@ in
     };
   };
 
-  wayland.windowManager.hyprland = hyprland;
+  wayland.windowManager.hyprland = hypr.hyprland;
   services = {
     swayidle = sway.idle;
     mako = {
@@ -55,7 +57,6 @@ in
         firefox
         brave
         htop
-        hyprpaper
         pulsemixer
         rofi-wayland
         grim
