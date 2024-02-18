@@ -206,7 +206,6 @@
     }
   },
   {
-    "include": "~/.config/waybar/custom_modules/modules",
     "name": "middle",
     "layer": "top",
     "output": "DP-2",
@@ -350,10 +349,16 @@
           ""
         ]
       }
+    },
+    "custom/dot": {
+      "format": " ",
+      "tooltip": false
+    },
+    "custom/space": {
+      "format": "     "
     }
   },
   {
-    "include": "~/.config/waybar/custom_modules/modules",
     "name": "right",
     "layer": "top",
     "output": "DP-3",
@@ -499,6 +504,14 @@
       },
       "format": "<b>{capacity}</b>",
       "max-length": 25,
+      "tooltip": false
+    },
+    "custom/dot": {
+      "format": " ",
+      "tooltip": false
+    },
+    "custom/left-arrw": {
+      "format": ">",
       "tooltip": false
     }
   }

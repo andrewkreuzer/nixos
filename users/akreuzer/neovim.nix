@@ -6,5 +6,6 @@
     rust-analyzer
     ocamlPackages.ocaml-lsp
     nil
+    pyright
   ];
 }
