@@ -36,27 +36,21 @@
     backupFileExtension = "bak";
     users.akreuzer = ./akreuzer/home.nix;
     extraSpecialArgs = specialArgs;
-    # sharedModules = [
-    #   inputs.hyprland.homeManagerModules.default
-    # ];
   };
 
-  # Uninstalled but kept for reference
-  # systemd.user.services.wluma = {
-  #   enable = true;
-  #   description = "Adjusting screen brightness based on screen contents and amount of ambient light";
-  #   unitConfig = {
-  #     PartOf = "graphical-session.target";
-  #     After = "graphical-session.target";
-  #   };
+  systemd.user.services.tmux = {
+    enable = true;
+    description = "tmux session for user %u";
+    unitConfig = {
+      After = "graphical-session.target";
+    };
 
-  #   serviceConfig = {
-  #     ExecStart = "${pkgs.wluma}/bin/wluma";
-  #     Restart = "always";
-  #     EnvironmentFile = "-%E/wluma/service.conf";
-  #     PrivateNetwork = "true";
-  #   };
+    serviceConfig = {
+      Type = "forking";
+      ExecStart = "${pkgs.tmux}/bin/tmux new-session -s %u -d";
+      ExecStop="${pkgs.tmux}/bin/tmux kill-session -t %u";
+    };
 
-  #   wantedBy = [ "graphical-session.target" ];
-  # };
+    wantedBy = [ "graphical-session.target" ];
+  };
 }
