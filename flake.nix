@@ -5,7 +5,13 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+
+    # maybe??
+    # dotfiles = {
+    #   flake = false;
+    #   url = "git+https://gitlab.com/andrewkreuzer/dotfiles?submodules=1";
+    # };
 
     home-manager = {
       url = "github:nix-community/home-manager/release-23.11";
@@ -23,7 +29,7 @@
       inputs.darwin.follows = "";
     };
 
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    # neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
   outputs = {
@@ -35,7 +41,8 @@
     home-manager,
     nixos-generators,
     agenix,
-    neovim-nightly-overlay,
+    # neovim-nightly-overlay,
+    # dotfiles,
   }@inputs: {
     nixosConfigurations = import ./hosts {
       inherit (nixpkgs) lib;
@@ -48,8 +55,8 @@
         hyprland
         home-manager
         nixos-generators
-        agenix
-        neovim-nightly-overlay;
+        agenix;
+        # neovim-nightly-overlay;
     };
 
     packages.x86_64-linux = import ./hosts/generators.nix {
