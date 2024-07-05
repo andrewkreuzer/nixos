@@ -3,7 +3,7 @@
   timeout5m = (pkgs.writeShellScriptBin "timeout5m" ''
     ${pkgs.coreutils}/bin/cat /sys/class/backlight/intel_backlight/brightness > /tmp/brightness
     ${pkgs.coreutils}/bin/echo 25 > /sys/class/backlight/intel_backlight/brightness
-    ${pkgs.swaylock-effects}/bin/swaylock -fF
+    ${pkgs.swaylock}/bin/swaylock -fF -e -d
   '');
 
   screenshot = (pkgs.writeShellScriptBin "screenshot" ''

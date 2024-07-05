@@ -2,19 +2,12 @@
 {
   lock = {
     enable = true;
-    package = pkgs.swaylock-effects;
+    # package = pkgs.swaylock-effects;
     settings = {
-      clock = true;
-      screenshots = true;
+      image = "/home/akreuzer/.dotfiles/background/.config/background.jpg";
       font = "SourceCodePro";
-      indicator = true;
       indicator-x-position = 100;
       indicator-y-position = 100;
-      disable-caps-lock-text = true;
-
-      effect-blur="7x5";
-      effect-vignette="0.5:0.5";
-
       key-hl-color=880033;
       separator-color="00000000Ubuntu";
       inside-color="00000099";
@@ -58,11 +51,7 @@
     events = [
     {
       event = "before-sleep";
-      command = "${pkgs.systemd}/bin/loginctl lock-session";
-    }
-    {
-      event = "lock";
-      command = "${pkgs.swaylock-effects}/bin/swaylock -fF";
+      command = "${pkgs.swaylock}/bin/swaylock -fF";
     }
     ];
   };
