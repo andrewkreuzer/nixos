@@ -4,7 +4,7 @@ set -e
 if [ -z "$1" ]; then
   echo "Not updating flake.lock"
 else
-  nix flake update --commit-lock-file
+  nix flake update
 fi
 
 nixos-rebuild build --flake .
