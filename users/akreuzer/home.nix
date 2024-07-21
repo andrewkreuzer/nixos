@@ -45,13 +45,14 @@ in
       backgroundColor = "#0f2028";
       textColor = "#f6e8f4";
       anchor="bottom-right";
+      defaultTimeout = 20000;
     };
   };
 
   home = {
-    stateVersion = "23.11";
+    stateVersion = "24.05";
     packages = [
-     pkgs.jetbrains.idea-community
+     (pkgs.jetbrains.plugins.addPlugins pkgs.jetbrains.idea-community [ "github-copilot" ])
     ] ++ builtins.attrValues {
       inherit (pkgs)
         firefox
@@ -98,6 +99,7 @@ in
         rustc
         opam
         protobuf
+        android-studio
 
         xxd
         _0x

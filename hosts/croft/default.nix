@@ -16,7 +16,7 @@ with lib;
     #};
     xserver = {
       enable = false;
-      xkbOptions = "caps:escape_shifted_capslock";
+      xkb.options = "caps:escape_shifted_capslock";
     };
     openssh = {
       enable = mkDefault true;

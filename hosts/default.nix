@@ -21,12 +21,12 @@ with mk;
     name = "carnahan";
     system = "x86_64-linux";
     extraOverlays = [
-        neovim-nightly-overlay.overlay
+        neovim-nightly-overlay.overlays.default
     ];
     extraMods = [
       nixos-hardware.nixosModules.dell-xps-15-9520-nvidia
-        agenix.nixosModules.default
-        home-manager.nixosModules.home-manager
+      agenix.nixosModules.default
+      home-manager.nixosModules.home-manager
     ];
   };
   lisbon = mkSystem {
@@ -36,7 +36,7 @@ with mk;
     extraOverlays = [ ];
     extraMods = [
       agenix.nixosModules.default
-        home-manager.nixosModules.home-manager
+      home-manager.nixosModules.home-manager
     ];
   };
   croft = mkSystem {
@@ -46,7 +46,7 @@ with mk;
     extraOverlays = [ ];
     extraMods = [
       agenix.nixosModules.default
-        home-manager.nixosModules.home-manager
+      home-manager.nixosModules.home-manager
     ];
   };
 }

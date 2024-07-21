@@ -58,7 +58,7 @@ with lib;
       displayManager.lightdm.enable = false;
       displayManager.gdm.enable = false;
       desktopManager.gnome.enable = false;
-      xkbOptions = "caps:escape_shifted_capslock";
+      xkb.options = "caps:escape_shifted_capslock";
     };
     openssh = {
       enable = mkDefault true;
