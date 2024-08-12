@@ -29,16 +29,6 @@ with mk;
       home-manager.nixosModules.home-manager
     ];
   };
-  lisbon = mkSystem {
-    inherit lib userName;
-    name = "croft";
-    system = "x86_64-linux";
-    extraOverlays = [ ];
-    extraMods = [
-      agenix.nixosModules.default
-      home-manager.nixosModules.home-manager
-    ];
-  };
   croft = mkSystem {
     inherit lib userName;
     name = "croft";

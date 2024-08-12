@@ -10,19 +10,6 @@ let
 in
 with mk;
 {
-  lisbon = mkGenerator {
-    inherit lib;
-    name = "lisbon";
-    userName = "akreuzer";
-    format = "virtualbox";
-    system = "x86_64-linux";
-    extraOverlays = [];
-    extraMods = [
-      home-manager.nixosModules.home-manager
-        agenix.nixosModules.default
-    ];
-  };
-
   jones = mkGenerator {
     inherit lib;
     name = "jones";
