@@ -4,7 +4,6 @@
   hardware.pulseaudio.enable = false;
   hardware.opengl.enable = true;
   hardware.nvidia = {
-    open = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     prime.offload.enableOffloadCmd = true;
 

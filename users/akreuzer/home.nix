@@ -56,57 +56,45 @@ in
      (pkgs.jetbrains.plugins.addPlugins pkgs.jetbrains.idea-community [ "github-copilot" ])
     ] ++ builtins.attrValues {
       inherit (pkgs)
+        # GUI
         firefox
         brave
-        htop
-        pulsemixer
-        rofi-wayland
-        grim
-        slurp
-        geeqie
-        gimp
-        darktable
-
-        fluxcd
-        gh
-        jq
-        kubectl
-        nodejs
-        rclone
-        remmina
-        ripgrep
         slack
-        unzip
-        zoxide
-
-        # openlens
-        # lens-desktop
+        android-studio
+        remmina
+        openlens
         postman
         wireshark
-        azure-cli
         vscode
-        minikube
-        kubelogin
         burpsuite
 
+        # CLI
+        gh
+        jq
+        rclone
+        ripgrep
+        unzip
+        zoxide
+        htop
+        pulsemixer
+        azure-cli
+        minikube
+        kubelogin
+        yubikey-manager
+
+        # Dev
         gnumake
         signify
         gcc
         glibc
-        go
         python3
-        cargo
-        rustc
-        opam
-        protobuf
-        android-studio
 
-        xxd
-        _0x
-        inotify-tools
+        # Tools 
         libnotify
-        yubikey-manager
-        qbittorrent
+        rofi-wayland
+        grim
+        slurp
+        geeqie
         ;
     } ++ [
       scripts.screenshot
