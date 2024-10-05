@@ -21,6 +21,18 @@
   defaultKeymap = "viins";
   sessionVariables = {};
 
+  shellAliases = {
+    ls = "ls --color=auto";
+    ll = "ls -alF";
+    la = "ls -A";
+    l = "ls -CF";
+    cp = "cp -i";
+    mv = "mv -i";
+    rm = "rm -i";
+    mkdir = "mkdir -p";
+    gitcnt = "git ls-files | xargs wc -l";
+  };
+
   initExtra = ''
     zmodload zsh/complist
     bindkey -M menuselect 'h' vi-backward-char

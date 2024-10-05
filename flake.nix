@@ -6,6 +6,14 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+    split-monitor-workspaces = {
+      url = "github:Duckonaut/split-monitor-workspaces";
+      inputs.hyprland.follows = "hyprland";
+    };
 
     # maybe??
     # dotfiles = {
@@ -38,6 +46,8 @@
     nixpkgs-unstable,
     nixos-hardware,
     hyprland,
+    hyprland-plugins,
+    split-monitor-workspaces,
     home-manager,
     nixos-generators,
     agenix,
@@ -51,12 +61,7 @@
         inputs
         nixpkgs
         nixpkgs-unstable
-        nixos-hardware
-        hyprland
-        home-manager
-        nixos-generators
-        agenix
-        neovim-nightly-overlay;
+        ;
     };
 
     packages.x86_64-linux = import ./hosts/generators.nix {

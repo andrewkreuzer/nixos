@@ -1,16 +1,17 @@
-{ config, pkgs, lib, inputs, specialArgs, options, modulesPath, nixosConfig, osConfig }:
+{ config, pkgs, pkgs-unstable, lib, inputs, specialArgs, options, modulesPath, nixosConfig, osConfig }:
 let
-  hypr = import ./hypr { inherit pkgs; };
+  hypr = import ./hypr { inherit pkgs inputs; };
   alacritty = import ./alacritty.nix { inherit pkgs config; };
   zsh = import ./zsh.nix { inherit pkgs config; };
   starship = import ./starship.nix { inherit pkgs config; };
   tmux = import ./tmux.nix { inherit pkgs; };
-  neovim = import ./neovim.nix { inherit pkgs; };
+  neovim = import ./neovim.nix { inherit pkgs pkgs-unstable; };
   scripts = import ./scripts.nix { inherit pkgs; };
   waybar = import ./waybar { inherit pkgs; };
   sway = import ./sway.nix { inherit pkgs scripts; };
 in
 {
+  # _module.args.pkgs = lib.mkForce pkgs-unstable;
   imports = [ ../../pkgs/hyprpaper.nix ];
   programs = {
     alacritty = alacritty;
@@ -78,7 +79,8 @@ in
         unzip
         zoxide
 
-        openlens
+        # openlens
+        # lens-desktop
         postman
         wireshark
         azure-cli
@@ -92,9 +94,7 @@ in
         gcc
         glibc
         go
-        lua
         python3
-        gopls
         cargo
         rustc
         opam

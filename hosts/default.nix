@@ -3,30 +3,29 @@
   lib,
   nixpkgs,
   nixpkgs-unstable,
-  nixos-hardware,
-  hyprland,
-  home-manager,
-  nixos-generators,
-  agenix,
-  neovim-nightly-overlay,
 }:
 let
   userName = "akreuzer";
-  mk = import ../lib { inherit lib nixos-generators nixpkgs nixpkgs-unstable; };
+  mk = import ../lib { inherit lib nixpkgs nixpkgs-unstable; };
 in
 with mk;
 {
-  carnahan = mkSystem {
+  carnahan = mkSystem rec {
     inherit lib userName inputs;
     name = "carnahan";
     system = "x86_64-linux";
     extraOverlays = [
-        neovim-nightly-overlay.overlays.default
+      inputs.neovim-nightly-overlay.overlays.default
+      # (final: prev: {
+      #   inputs.hyprland.packages.${system}.hyprland = prev.inputs.hyprland.packages.${system}.hyprland.overrideAttrs (old: {
+      #     legacyRenderer = true;
+      #   });
+      # })
     ];
     extraMods = [
-      nixos-hardware.nixosModules.dell-xps-15-9520-nvidia
-      agenix.nixosModules.default
-      home-manager.nixosModules.home-manager
+      inputs.nixos-hardware.nixosModules.dell-xps-15-9520-nvidia
+      inputs.agenix.nixosModules.default
+      inputs.home-manager.nixosModules.home-manager
     ];
   };
   croft = mkSystem {
@@ -35,8 +34,8 @@ with mk;
     system = "x86_64-linux";
     extraOverlays = [ ];
     extraMods = [
-      agenix.nixosModules.default
-      home-manager.nixosModules.home-manager
+      inputs.agenix.nixosModules.default
+      inputs.home-manager.nixosModules.home-manager
     ];
   };
 }

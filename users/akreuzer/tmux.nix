@@ -5,7 +5,7 @@ in
   enable = true;
   keyMode = "vi";
   shortcut = "a";
-  terminal = "xterm-256color";
+  terminal = "screen-256color";
 
   plugins = with pkgs; [
     tmuxPlugins.cpu

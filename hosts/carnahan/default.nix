@@ -11,6 +11,7 @@ with lib;
   programs.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
   };
 
   services = {
@@ -51,7 +52,7 @@ with lib;
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-      jack.enable = true;
+      jack.enable = false;
     };
     xserver = {
       enable = true;
