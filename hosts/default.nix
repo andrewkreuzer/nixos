@@ -29,10 +29,12 @@ with mk;
     ];
   };
   croft = mkSystem {
-    inherit lib userName;
+    inherit lib userName inputs;
     name = "croft";
     system = "x86_64-linux";
-    extraOverlays = [ ];
+    extraOverlays = [
+      inputs.neovim-nightly-overlay.overlays.default
+    ];
     extraMods = [
       inputs.agenix.nixosModules.default
       inputs.home-manager.nixosModules.home-manager

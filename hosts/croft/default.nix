@@ -152,6 +152,6 @@ with lib;
     "/boot/efis/ata-SanDisk_SDSSDA480G_163758443009-part1" =
       mkBootMount "ata-SanDisk_SDSSDA480G_163758443009-part1";
 
-    "/tmp" = mkTmpfsMount "2G";
+    "/tmp" = mkTmpfsMount "12G";
   };
 }

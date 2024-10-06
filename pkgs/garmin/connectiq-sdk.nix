@@ -7,7 +7,7 @@ stdenv.mkDerivation {
 
   src = fetchzip {
     url = "https://developer.garmin.com/downloads/connect-iq/sdk-manager/connectiq-sdk-manager-linux.zip";
-    sha256 = "sha256-rFF9HyHsXovsi8W2FNqQmNGLijRw52jzc8IDHelzMbk=";
+    sha256 = "sha256-mAFVvS8MN00s06fI1lQH3gz3QsfwUyKnlv9ziTQ90m4=";
     stripRoot = false;
   };
 
