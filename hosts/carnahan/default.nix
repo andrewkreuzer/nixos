@@ -1,7 +1,7 @@
 {config, lib, pkgs, inputs, ...}:
 with lib;
 {
-  imports = [ ./hardware.nix ];
+  imports = [ ./hardware.nix ./pkgs.nix ];
 
   # disable gnomes use of power profile for tlp
   services.power-profiles-daemon.enable = mkForce false;

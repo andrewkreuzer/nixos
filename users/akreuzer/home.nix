@@ -1,5 +1,6 @@
 { config, pkgs, pkgs-unstable, lib, inputs, specialArgs, options, modulesPath, nixosConfig, osConfig, userName }:
 let
+  cfg = osConfig.akreuzer.homemanager;
   hypr = import ./hypr { inherit pkgs inputs; };
   alacritty = import ./alacritty.nix { inherit pkgs config; };
   zsh = import ./zsh.nix { inherit pkgs config; };
@@ -52,51 +53,7 @@ in
 
   home = {
     stateVersion = "24.05";
-    packages = [
-     (pkgs.jetbrains.plugins.addPlugins pkgs.jetbrains.idea-community [ "github-copilot" ])
-    ] ++ builtins.attrValues {
-      inherit (pkgs)
-        # GUI
-        firefox
-        brave
-        slack
-        android-studio
-        remmina
-        openlens
-        postman
-        wireshark
-        vscode
-        burpsuite
-
-        # CLI
-        gh
-        jq
-        rclone
-        ripgrep
-        unzip
-        zoxide
-        htop
-        pulsemixer
-        azure-cli
-        minikube
-        kubelogin
-        yubikey-manager
-
-        # Dev
-        gnumake
-        signify
-        gcc
-        glibc
-        python3
-
-        # Tools 
-        libnotify
-        rofi-wayland
-        grim
-        slurp
-        geeqie
-        ;
-    } ++ [
+    packages = cfg.packages ++ [
       scripts.screenshot
       scripts.brightness
       scripts.hypr-powersave

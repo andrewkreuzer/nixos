@@ -1,7 +1,7 @@
 {pkgs, config, lib, ...}:
 with lib;
 {
-  imports = [ ./hardware.nix ];
+  imports = [ ./hardware.nix ./pkgs.nix ];
 
   services = {
     fwupd.enable = true;
