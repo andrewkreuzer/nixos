@@ -1,12 +1,32 @@
-{type, pkgs, lib, ...}:
-let
-  laptop = [ ./base.nix ];
+{ pkgs, ... }:
 
-  desktop = [ ./base.nix ];
+{
+  programs = {
+    zsh.enable = true;
+    git.enable = true;
+    tmux.enable = true;
+    adb.enable = true;
+    fuse.userAllowOther = true;
+    ssh.startAgent = true;
+  };
 
-  server = [ ./base.nix ];
+  fonts.packages = with pkgs; [
+    (nerdfonts.override { fonts = [ "SourceCodePro" ]; })
+  ];
 
-  vm = [ ./base.nix ];
-in {
- imports = [ ./base.nix ];
+  environment.systemPackages = builtins.attrValues {
+    inherit (pkgs)
+      nvd
+      libsecret
+      zip
+      openssl
+      virt-manager
+      sshfs
+      apfs-fuse
+      pkg-config
+      libinput-gestures
+    ;
+  } ++ [
+  (import ./garmin/connectiq-sdk.nix { inherit pkgs; })
+  ];
 }
