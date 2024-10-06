@@ -9,6 +9,7 @@
       nvim-treesitter.withAllGrammars
   ];
   extraPackages = with pkgs; [
+    nodejs
     gopls
     lua5_1
     luarocks
