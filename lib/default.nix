@@ -12,7 +12,7 @@ in
   in
     nixosSystem {
       inherit system pkgs lib;
-      specialArgs = { inherit inputs pkgs-unstable; };
+      specialArgs = { inherit inputs pkgs-unstable userName; };
       modules = [
         ../hosts/${name}
         ../system

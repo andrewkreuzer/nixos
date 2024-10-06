@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, inputs, lib, specialArgs, options, modulesPath }:
+{ config, pkgs, pkgs-unstable, inputs, lib, specialArgs, options, modulesPath, userName }:
 {
   age.secrets.akreuzer.file = ../secrets/akreuzer.age;
 

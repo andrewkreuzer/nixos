@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, lib, inputs, specialArgs, options, modulesPath, nixosConfig, osConfig }:
+{ config, pkgs, pkgs-unstable, lib, inputs, specialArgs, options, modulesPath, nixosConfig, osConfig, userName }:
 let
   hypr = import ./hypr { inherit pkgs inputs; };
   alacritty = import ./alacritty.nix { inherit pkgs config; };

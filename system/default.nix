@@ -1,4 +1,4 @@
-{ lib, pkgs, ...}:
+{ lib, pkgs, userName, ...}:
 with lib;
 {
   services.udev = {
@@ -38,7 +38,10 @@ with lib;
   };
 
   nix = {
-    settings.experimental-features = [ "nix-command" "flakes" ];
+    settings = {
+      trusted-users = [userName];
+      # experimental-features = [ "nix-command" "flakes" ];
+    };
     extraOptions = ''
       keep-outputs = true
       keep-derivations = true
