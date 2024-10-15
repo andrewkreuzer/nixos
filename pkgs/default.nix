@@ -1,32 +1,31 @@
 { pkgs, ... }:
-
 {
+  imports = [
+    ./greetd.nix
+    ./hyprland.nix
+    ./logind.nix
+    ./openssh.nix
+  ];
+
   programs = {
     zsh.enable = true;
     git.enable = true;
     tmux.enable = true;
     adb.enable = true;
-    fuse.userAllowOther = true;
     ssh.startAgent = true;
   };
+
+  services.fwupd.enable = true;
+  services.blueman.enable = true;
+  services.hardware.bolt.enable = true;
+  services.gnome.gnome-keyring.enable = true;
 
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "SourceCodePro" ]; })
   ];
 
-  environment.systemPackages = builtins.attrValues {
-    inherit (pkgs)
-      nvd
-      libsecret
-      zip
-      openssl
-      virt-manager
-      sshfs
-      apfs-fuse
-      pkg-config
-      libinput-gestures
-    ;
-  } ++ [
-  (import ./garmin/connectiq-sdk.nix { inherit pkgs; })
+  environment.systemPackages = builtins.attrValues
+    { inherit (pkgs) libsecret zip openssl; } ++ [
+    (import ./garmin/connectiq-sdk.nix { inherit pkgs; })
   ];
 }

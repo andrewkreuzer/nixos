@@ -1,4 +1,4 @@
-{pkgs}:
+{ pkgs }:
 let
   inherit (pkgs) stdenv fetchzip autoPatchelfHook gtk3 curl libsecret xorg webkitgtk libsoup glib-networking wrapGAppsHook jdk19;
 in
@@ -30,11 +30,11 @@ stdenv.mkDerivation {
 
   shellHook = ''
     export GIO_MODULE_DIR=${glib-networking}/lib/gio/modules/
-    '';
+  '';
 
   installPhase = ''
     mkdir -p "$out/bin"
     cp bin/sdkmanager "$out/bin"
     cp -r share "$out"
-    '';
+  '';
 }

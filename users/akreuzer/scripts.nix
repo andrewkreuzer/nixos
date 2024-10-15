@@ -1,4 +1,4 @@
-{pkgs}:
+{ pkgs }:
 {
   timeout5m = (pkgs.writeShellScriptBin "timeout5m" ''
     ${pkgs.coreutils}/bin/cat /sys/class/backlight/intel_backlight/brightness > /tmp/brightness

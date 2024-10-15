@@ -1,5 +1,6 @@
-final: prev:
-{
+{ inputs, ... }:
+final: prev: {
+  neovim = inputs.neovim-nightly-overlay.packages.${final.system}.default;
   # brave = prev.brave.overrideAttrs (old: rec {
   #   version = "1.66.115";
   #   src = prev.fetchurl {
