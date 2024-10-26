@@ -16,6 +16,8 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     treefmt-nix.url = "github:numtide/treefmt-nix";
+
+    dev-cli.url = "github:andrewkreuzer/dev-cli";
   };
 
   outputs = { ... }@inputs:

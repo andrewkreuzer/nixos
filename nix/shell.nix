@@ -10,7 +10,7 @@
       packages = with pkgs; [
         nixd
         nvd
-      ];
+      ] ++ [ inputs.dev-cli.packages.${system}.default ];
     };
 
     treefmt.config = {

@@ -1,7 +1,7 @@
 { pkgs, scripts, ... }:
 {
   programs.swaylock = {
-    enable = true;
+    enable = false;
     # package = pkgs.swaylock-effects;
     settings = {
       image = "/home/akreuzer/.dotfiles/background/.config/background.jpg";
@@ -35,7 +35,7 @@
     };
   };
   services.swayidle = {
-    enable = true;
+    enable = false;
     systemdTarget = "graphical-session.target";
     timeouts = [
       {

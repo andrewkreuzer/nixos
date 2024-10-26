@@ -70,8 +70,8 @@
   '');
 
   work = (pkgs.writeShellScriptBin "work" ''
-    brave --class=braveWork --profile-directory="Profile 1";
-    alacritty --class=alacrittyWork -e ssh w -t tmux new-session -A -s work;
+    exec brave --class=braveWork --profile-directory="Profile 1";
+    exec alacritty --class=alacrittyWork -e ssh w -t tmux new-session -A -s work;
   '');
 
   whatitdo = (pkgs.writeScriptBin "whatitdo" ''

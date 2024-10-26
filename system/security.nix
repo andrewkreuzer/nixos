@@ -1,6 +1,7 @@
 { lib, ... }:
 {
   security = {
+    pam.services.hyprlock = {};
     pam.services.swaylock = { };
     rtkit.enable = true;
     doas = {

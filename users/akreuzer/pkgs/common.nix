@@ -34,7 +34,6 @@
 
       # Tools
       libnotify
-      rofi-wayland
       grim
       slurp
       geeqie

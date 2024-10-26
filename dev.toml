@@ -1,4 +1,9 @@
-#!/usr/bin/env bash
+[run]
+update = { filetype = "bash", command = "nix flake update"}
+
+[run.build]
+filetype = "bash"
+command = """
 set -e
 
 if [ -z "$1" ]; then
@@ -19,3 +24,17 @@ elif [[ $REPLY =~ ^[Bb] ]]; then
 else
   echo "Cancelled"
 fi
+"""
+
+[run.iommu]
+filetype = "bash"
+command = """
+shopt -s nullglob
+for d in /sys/kernel/iommu_groups/*/devices/*; do 
+    n=${d#*/iommu_groups/*}; n=${n%%/*}
+    printf 'IOMMU Group %s ' "$n"
+    lspci -nns "${d##*/}"
+done;
+"""
+
+[repos]
