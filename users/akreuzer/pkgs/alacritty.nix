@@ -55,11 +55,13 @@
           "white" = "#FFFFFF";
         };
       };
-      "shell" = {
-        "program" = "zsh";
-        "args" = [
-          "--login"
-        ];
+      "terminal" = {
+        "shell" = {
+          "program" = "zsh";
+          "args" = [
+            "--login"
+          ];
+        };
       };
     };
   };

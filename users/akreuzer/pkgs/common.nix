@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = [
-    (pkgs.jetbrains.plugins.addPlugins pkgs.jetbrains.idea-community [ "github-copilot" ])
+    (pkgs.jetbrains.plugins.addPlugins pkgs.jetbrains.idea-community [ /* "github-copilot" */ ]) # no copilot :(
   ] ++ builtins.attrValues {
     inherit (pkgs)
       # GUI
@@ -11,12 +11,11 @@
       discord
       android-studio
       remmina
-      openlens
+      # lens-desktop
       postman
       wireshark
       vscode
       burpsuite
-      tela-circle-icon-theme
 
       #CLI
       gh
@@ -44,6 +43,9 @@
       gcc
       glibc
       python3
+
+      # Theme
+      tela-circle-icon-theme
       ;
   };
 }

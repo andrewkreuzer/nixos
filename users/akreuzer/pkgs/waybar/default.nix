@@ -1,11 +1,11 @@
-{ pkgs, ... }:
+{ pkgs-unstable, ... }:
 let
   file = builtins.readFile ./config.jsonc;
 in
 {
   programs.waybar = {
     enable = true;
-    package = pkgs.waybar;
+    package = pkgs-unstable.waybar;
     systemd = {
       enable = true;
     };

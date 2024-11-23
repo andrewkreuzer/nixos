@@ -9,7 +9,7 @@
       isNormalUser = true;
       openssh.authorizedKeys.keys = me.sshKeys;
       hashedPasswordFile = config.age.secrets.${me.username}.path;
-      extraGroups = [ "adbusers" "audio" "docker" "keys" "networkmanager" "plugdev" "video" "wheel" "input" "nixos" "libvirtd" ];
+      extraGroups = [ "adbusers" "audio" "docker" "keys" "networkmanager" "plugdev" "video" "wheel" "input" "nixos" "libvirtd"];
     };
   };
 

@@ -15,7 +15,6 @@
       lua5_1
       luarocks
       lua-language-server
-      rust-analyzer
       pyright
       jdt-language-server
       ocamlPackages.ocaml-lsp

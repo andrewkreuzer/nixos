@@ -46,7 +46,6 @@
       "battery",
       "pulseaudio",
       "pulseaudio#microphone",
-      "custom/notifications",
       "temperature",
       "custom/r_end",
       "custom/padd"
@@ -108,20 +107,6 @@
       "tooltip-format": "{title}",
       "on-click": "activate",
       "on-click-middle": "close"
-    },
-    "custom/spotify": {
-      "exec": "mediaplayer.py --player spotify",
-      "format": " {}",
-      "rotate": 0,
-      "return-type": "json",
-      "on-click": "playerctl play-pause --player spotify",
-      "on-click-right": "playerctl next --player spotify",
-      "on-click-middle": "playerctl previous --player spotify",
-      "on-scroll-up": "volumecontrol.sh -p spotify i",
-      "on-scroll-down": "volumecontrol.sh -p spotify d",
-      "max-length": 25,
-      "escape": true,
-      "tooltip": true
     },
     "idle_inhibitor": {
       "format": "{icon}",
@@ -274,31 +259,6 @@
       "on-scroll-down": "volumecontrol.sh -i d",
       "tooltip-format": "{format_source} {source_desc} // {source_volume}%",
       "scroll-step": 5
-    },
-    "custom/notifications": {
-      "tooltip": true,
-      "format": "{icon} {}",
-      "rotate": 0,
-      "format-icons": {
-        "email-notification": "<span foreground='white'><sup></sup></span>",
-        "chat-notification": "󱋊<span foreground='white'><sup></sup></span>",
-        "warning-notification": "󱨪<span foreground='yellow'><sup></sup></span>",
-        "error-notification": "󱨪<span foreground='red'><sup></sup></span>",
-        "network-notification": "󱂇<span foreground='white'><sup></sup></span>",
-        "battery-notification": "󰁺<span foreground='white'><sup></sup></span>",
-        "update-notification": "󰚰<span foreground='white'><sup></sup></span>",
-        "music-notification": "󰝚<span foreground='white'><sup></sup></span>",
-        "volume-notification": "󰕿<span foreground='white'><sup></sup></span>",
-        "notification": "<span foreground='white'><sup></sup></span>",
-        "none": ""
-      },
-      "return-type": "json",
-      "exec-if": "which mako",
-      "on-click": "sleep 0.1 && makoctl history",
-      "on-click-middle": "makoctl restore",
-      "on-click-right": "makoctl dismiss --all",
-      "interval": 1,
-      "escape": true
     },
     "temperature": {
       "format": "{temperatureC}°C ",
@@ -389,7 +349,6 @@
       "battery",
       "pulseaudio",
       "pulseaudio#microphone",
-      "custom/notifications",
       "temperature",
       "custom/r_end",
       "custom/padd"
@@ -451,20 +410,6 @@
       "tooltip-format": "{title}",
       "on-click": "activate",
       "on-click-middle": "close"
-    },
-    "custom/spotify": {
-      "exec": "mediaplayer.py --player spotify",
-      "format": " {}",
-      "rotate": 0,
-      "return-type": "json",
-      "on-click": "playerctl play-pause --player spotify",
-      "on-click-right": "playerctl next --player spotify",
-      "on-click-middle": "playerctl previous --player spotify",
-      "on-scroll-up": "volumecontrol.sh -p spotify i",
-      "on-scroll-down": "volumecontrol.sh -p spotify d",
-      "max-length": 25,
-      "escape": true,
-      "tooltip": true
     },
     "idle_inhibitor": {
       "format": "{icon}",
@@ -617,31 +562,6 @@
       "on-scroll-down": "volumecontrol.sh -i d",
       "tooltip-format": "{format_source} {source_desc} // {source_volume}%",
       "scroll-step": 5
-    },
-    "custom/notifications": {
-      "tooltip": true,
-      "format": "{icon} {}",
-      "rotate": 0,
-      "format-icons": {
-        "email-notification": "<span foreground='white'><sup></sup></span>",
-        "chat-notification": "󱋊<span foreground='white'><sup></sup></span>",
-        "warning-notification": "󱨪<span foreground='yellow'><sup></sup></span>",
-        "error-notification": "󱨪<span foreground='red'><sup></sup></span>",
-        "network-notification": "󱂇<span foreground='white'><sup></sup></span>",
-        "battery-notification": "󰁺<span foreground='white'><sup></sup></span>",
-        "update-notification": "󰚰<span foreground='white'><sup></sup></span>",
-        "music-notification": "󰝚<span foreground='white'><sup></sup></span>",
-        "volume-notification": "󰕿<span foreground='white'><sup></sup></span>",
-        "notification": "<span foreground='white'><sup></sup></span>",
-        "none": ""
-      },
-      "return-type": "json",
-      "exec-if": "which mako",
-      "on-click": "sleep 0.1 && makoctl history",
-      "on-click-middle": "makoctl restore",
-      "on-click-right": "makoctl dismiss --all",
-      "interval": 1,
-      "escape": true
     },
     "temperature": {
       "format": "{temperatureC}°C ",
@@ -732,7 +652,6 @@
       "battery",
       "pulseaudio",
       "pulseaudio#microphone",
-      "custom/notifications",
       "temperature",
       "custom/r_end",
       "custom/padd"
@@ -797,20 +716,6 @@
       "app_ids-mapping": {
         "brave": "brave-desktop"
       }
-    },
-    "custom/spotify": {
-      "exec": "mediaplayer.py --player spotify",
-      "format": " {}",
-      "rotate": 0,
-      "return-type": "json",
-      "on-click": "playerctl play-pause --player spotify",
-      "on-click-right": "playerctl next --player spotify",
-      "on-click-middle": "playerctl previous --player spotify",
-      "on-scroll-up": "volumecontrol.sh -p spotify i",
-      "on-scroll-down": "volumecontrol.sh -p spotify d",
-      "max-length": 25,
-      "escape": true,
-      "tooltip": true
     },
     "idle_inhibitor": {
       "format": "{icon}",
@@ -963,31 +868,6 @@
       "on-scroll-down": "volumecontrol.sh -i d",
       "tooltip-format": "{format_source} {source_desc} // {source_volume}%",
       "scroll-step": 5
-    },
-    "custom/notifications": {
-      "tooltip": true,
-      "format": "{icon} {}",
-      "rotate": 0,
-      "format-icons": {
-        "email-notification": "<span foreground='white'><sup></sup></span>",
-        "chat-notification": "󱋊<span foreground='white'><sup></sup></span>",
-        "warning-notification": "󱨪<span foreground='yellow'><sup></sup></span>",
-        "error-notification": "󱨪<span foreground='red'><sup></sup></span>",
-        "network-notification": "󱂇<span foreground='white'><sup></sup></span>",
-        "battery-notification": "󰁺<span foreground='white'><sup></sup></span>",
-        "update-notification": "󰚰<span foreground='white'><sup></sup></span>",
-        "music-notification": "󰝚<span foreground='white'><sup></sup></span>",
-        "volume-notification": "󰕿<span foreground='white'><sup></sup></span>",
-        "notification": "<span foreground='white'><sup></sup></span>",
-        "none": ""
-      },
-      "return-type": "json",
-      "exec-if": "which mako",
-      "on-click": "sleep 0.1 && makoctl history",
-      "on-click-middle": "makoctl restore",
-      "on-click-right": "makoctl dismiss --all",
-      "interval": 1,
-      "escape": true
     },
     "temperature": {
       "format": "{temperatureC}°C ",

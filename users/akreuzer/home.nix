@@ -15,6 +15,7 @@ in
     (self.utils.files.forAllNixFiles ./pkgs
       (fn: import fn));
 
+  xdg.enable = true;
   programs = {
     zoxide.enable = true;
     java.enable = true;

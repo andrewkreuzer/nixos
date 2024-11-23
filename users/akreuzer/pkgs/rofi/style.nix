@@ -6,7 +6,6 @@ in
   "*" = {
     font = "SauceCodePro 12";
 
-    background-color = mkLiteral "transparent";
     text-color = mkLiteral "@fg0";
 
     margin = mkLiteral "0px";
@@ -98,7 +97,7 @@ in
 
   element-icon = {
     size = mkLiteral "1em";
-    vertical-align = mkLiteral "0.5px";
+    vertical-align = mkLiteral "0.5em";
   };
 
   element-text = {

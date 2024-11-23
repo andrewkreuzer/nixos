@@ -14,10 +14,10 @@ in
   # When mesa doesn't match all hell breaks loose
   # also when we do update this alacritty and presumably
   # other opengl applicatoins will crash and burn
-  hardware.opengl = {
+  hardware.graphics = {
     package = pkgs-unstable.mesa.drivers;
-    driSupport32Bit = true;
     package32 = pkgs-unstable.pkgsi686Linux.mesa.drivers;
+    enable32Bit = true;
   };
 
   environment.systemPackages = [
