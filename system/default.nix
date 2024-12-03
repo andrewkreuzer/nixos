@@ -1,5 +1,6 @@
 {
   imports = [
+    ./fprintd.nix
     ./location.nix
     ./networking.nix
     ./nix-settings.nix

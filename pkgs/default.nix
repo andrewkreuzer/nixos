@@ -5,6 +5,7 @@
     ./hyprland.nix
     ./logind.nix
     ./openssh.nix
+    ./1password.nix
   ];
 
   programs = {

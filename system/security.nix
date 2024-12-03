@@ -1,8 +1,15 @@
 { lib, ... }:
 {
   security = {
-    pam.services.hyprlock = {};
-    pam.services.swaylock = { };
+    pam.services.hyprlock = {
+      logFailures = true;
+    };
+    pam.services.greetd = {
+      logFailures = true;
+      unixAuth = true;
+      fprintAuth = true;
+    };
+    # pam.services.swaylock = {};
     rtkit.enable = true;
     doas = {
       enable = true;
