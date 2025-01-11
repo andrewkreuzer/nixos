@@ -1,7 +1,7 @@
 {
   services.logind = {
-    powerKey = "poweroff";
-    lidSwitch = "suspend";
+    powerKey = "suspend"; # keep pressing this when scanning fprint
+    lidSwitch = "lock";
     lidSwitchExternalPower = "suspend";
   };
 }

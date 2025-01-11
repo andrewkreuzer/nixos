@@ -9,9 +9,10 @@ in
     settings = {
       general = {
         disable_loading_bar = true;
-        grace = 300;
+        grace = 120;
         hide_cursor = true;
         no_fade_in = false;
+        fractional_scaling = 1;
       };
 
       background = [
@@ -22,10 +23,47 @@ in
         }
       ];
 
+      shape = [
+        {
+          size = "400px, 140px";
+          color = "rgb(" + (builtins.replaceStrings ["#"] [""] colors.ayu.bg) + ")";
+          rounding = 50; # circle
+          border_size = 1;
+          border_color = "rgb(" + (builtins.replaceStrings ["#"] [""] colors.ayu.ui) + ")";
+          position = "0, 0";
+          halign = "center";
+          valign = "center";
+          zindex = 0;
+        }
+      ];
+
+      label = [
+        {
+          text = "Good luck, <i>$USER</i>";
+          font_size = "14";
+          font_family = "SauceCodePro Nerd Font";
+          color = "rgb(" + (builtins.replaceStrings ["#"] [""] colors.ayu.fg) + ")";
+          position = "-60, 30";
+          halign = "center";
+          valign = "center";
+          zindex = 1;
+        }
+        {
+          text = "cmd[update:200] echo \"<i>$PROMPT</i>\"";
+          font_size = "8";
+          font_family = "SauceCodePro Nerd Font";
+          color = "rgb(" + (builtins.replaceStrings ["#"] [""] colors.ayu.fg) + ")";
+          position = "0, 0";
+          halign = "center";
+          valign = "center";
+          zindex = 1;
+        }
+      ];
+
       input-field = [
         {
-          size = "200, 50";
-          position = "0, 0";
+          size = "300, 35";
+          position = "0, -30";
           monitor = "";
           dots_center = true;
           fade_on_empty = false;
@@ -34,10 +72,11 @@ in
           font_color = "rgb(" + (builtins.replaceStrings ["#"] [""] colors.ayu.fg) + ")";
           inner_color = "rgb(" + (builtins.replaceStrings ["#"] [""] colors.ayu.bg) + ")";
           outer_color = "rgb(" + (builtins.replaceStrings ["#"] [""] colors.ayu.ui) + ")";
-          placeholder_text = "<i>Input Password...</i>";
+          placeholder_text = "<i>input password...</i>";
           outline_thickness = 2;
           shadow_size = 1;
           shadow_passes = 2;
+          zindex = 1;
         }
       ];
     };

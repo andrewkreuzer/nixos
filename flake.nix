@@ -7,7 +7,7 @@
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
 
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    hyprland.url = "github:hyprwm/Hyprland/5f7ad767dbf0bac9ddd6bf6c825fb9ed7921308a?submodules=1";
     hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
     split-monitor-workspaces.url = "github:Duckonaut/split-monitor-workspaces";
     split-monitor-workspaces.inputs.hyprland.follows = "hyprland";
@@ -21,9 +21,11 @@
   };
 
   outputs = { ... }@inputs:
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+    with builtins;
+    inputs.flake-parts.lib.mkFlake { inherit inputs; }
+    {
       systems = [ "x86_64-linux" ];
       imports = map (fn: ./nix/${fn})
-        (builtins.attrNames (builtins.readDir ./nix));
+        (attrNames (readDir ./nix));
     };
 }

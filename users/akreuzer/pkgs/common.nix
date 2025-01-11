@@ -1,7 +1,12 @@
 { pkgs, ... }:
+let
+  # broke again :(
+  # idea = (pkgs.jetbrains.plugins.addPlugins pkgs.jetbrains.idea-community [ "github-copilot" ]);
+  idea = (pkgs.jetbrains.plugins.addPlugins pkgs.jetbrains.idea-community []);
+in
 {
   home.packages = [
-    (pkgs.jetbrains.plugins.addPlugins pkgs.jetbrains.idea-community [ /* "github-copilot" */ ]) # no copilot :(
+    idea
   ] ++ builtins.attrValues {
     inherit (pkgs)
       # GUI
@@ -9,13 +14,13 @@
       brave
       slack
       discord
-      android-studio
       remmina
       # lens-desktop
       postman
       wireshark
       vscode
       burpsuite
+      gimp
 
       #CLI
       gh
