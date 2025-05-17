@@ -27,7 +27,7 @@
     hostName = "carnahan";
     hostId = "cb023b45";
     extraHosts = ''
-      192.168.2.205 ecb5fafffe997dae
+      192.168.2.10 ecb5fafffe997dae
     '';
   };
 }

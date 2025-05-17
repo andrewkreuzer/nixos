@@ -7,7 +7,7 @@
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
 
-    hyprland.url = "github:hyprwm/Hyprland/5f7ad767dbf0bac9ddd6bf6c825fb9ed7921308a?submodules=1";
+    hyprland.url = "github:hyprwm/Hyprland/?submodules=1";
     hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
     split-monitor-workspaces.url = "github:Duckonaut/split-monitor-workspaces";
     split-monitor-workspaces.inputs.hyprland.follows = "hyprland";

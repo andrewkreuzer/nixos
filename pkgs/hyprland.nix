@@ -15,8 +15,8 @@ in
   # also when we do update this alacritty and presumably
   # other opengl applicatoins will crash and burn
   hardware.graphics = {
-    package = pkgs-unstable.mesa.drivers;
-    package32 = pkgs-unstable.pkgsi686Linux.mesa.drivers;
+    package = pkgs-unstable.mesa;
+    package32 = pkgs-unstable.pkgsi686Linux.mesa;
     enable32Bit = true;
   };
 

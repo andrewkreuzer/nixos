@@ -7,7 +7,7 @@
   '');
 
   screenshot = (pkgs.writeShellScriptBin "screenshot" ''
-    grim -g "$(slurp)" /home/akreuzer/Pictures/Screenshots/$(date -d "today" +"%d-%m-%Y-%H%M").png
+    grim -g "$(slurp)" /home/akreuzer/Pictures/Screenshots/$(date -d "today" +"%d-%m-%Y-%H%M%S").png
   '');
 
   brightness = (pkgs.writeShellScriptBin "brightness" ''

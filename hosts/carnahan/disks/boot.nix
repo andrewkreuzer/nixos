@@ -9,10 +9,10 @@
       ];
     in
     {
-      kernelPackages = pkgs.linuxPackages_6_6;
+      kernelPackages = pkgs.linuxPackages_6_12;
       initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usbhid" "rtsx_pci_sdmmc" ];
       kernelModules = [ "kvm-intel" ];
-      kernelParams = [ "mem_sleep_default=deep" "intel_iommu=on" ];
+      kernelParams = [ "intel_iommu=on" ];
       supportedFilesystems = [ "zfs" ];
       zfs.devNodes = devNodes;
       zfs.forceImportRoot = false;
