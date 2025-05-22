@@ -22,7 +22,7 @@
   services.gnome.gnome-keyring.enable = true;
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "SourceCodePro" ]; })
+    nerd-fonts.sauce-code-pro
   ];
 
   environment.systemPackages = builtins.attrValues

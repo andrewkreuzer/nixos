@@ -34,7 +34,7 @@
       gitcnt = "git ls-files | xargs wc -l";
     };
 
-    initExtra = ''
+    initContent = ''
       zmodload zsh/complist
       bindkey -M menuselect 'h' vi-backward-char
       bindkey -M menuselect 'k' vi-up-line-or-history

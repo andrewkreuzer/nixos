@@ -9,7 +9,7 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.bluetooth.enable = true;
   hardware.graphics.enable = true;
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.nvidia = {
     open = lib.mkForce false; # suspend on lid close is still broken on open

@@ -2,14 +2,16 @@
 {
   services.mako = {
     enable = true;
-    font = "SauceCodePro Nerd Font 10";
-    backgroundColor = colors.ayu.bg;
-    textColor = colors.ayu.fg;
-    anchor = "top-left";
-    defaultTimeout = 10000;
+    settings = {
+      font = "SauceCodePro Nerd Font 10";
+      background-color = colors.ayu.bg;
+      text-color = colors.ayu.fg;
+      anchor = "top-left";
+      default-timeout = 10000;
 
-    borderSize = 1;
-    borderColor = colors.ayu.line;
-    borderRadius = 5;
+      border-size = 1;
+      border-color = colors.ayu.line;
+      border-radius = 5;
+    };
   };
 }
