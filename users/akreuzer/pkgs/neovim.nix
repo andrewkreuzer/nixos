@@ -2,9 +2,7 @@
 {
   programs.neovim = {
     enable = true;
-    # packages unstable no longer outputs 'maintainers' (now teams)
-    # and causes a build falure when home-manager tries to use it
-    # package = pkgs-unstable.neovim-unwrapped;
+    package = pkgs-unstable.neovim-unwrapped;
 
     # extraLuaPackages = luaPkgs: [
     #   (import ../../.dotfiles/nvim/.config/nvim/default.nix {inherit luaPkgs;})
@@ -27,6 +25,7 @@
       ocamlPackages.ocamlformat
       nodePackages.yaml-language-server
       nodePackages.typescript-language-server
+      nodePackages.svelte-language-server
     ] ++ (with pkgs-unstable; [
       zls
     ]);

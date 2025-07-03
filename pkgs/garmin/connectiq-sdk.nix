@@ -1,6 +1,6 @@
 { pkgs }:
 let
-  inherit (pkgs) stdenv fetchzip autoPatchelfHook gtk3 curl libsecret xorg webkitgtk libsoup glib-networking wrapGAppsHook jdk21;
+  inherit (pkgs) stdenv fetchzip autoPatchelfHook gtk3 curl libsecret xorg webkitgtk libsoup_2_4 glib-networking wrapGAppsHook jdk21;
 in
 stdenv.mkDerivation {
   name = "connectiq-sdk-manager";
@@ -22,7 +22,7 @@ stdenv.mkDerivation {
     libsecret
     xorg.libXxf86vm
     webkitgtk
-    libsoup
+    libsoup_2_4
     (pkgs.libjpeg.override { enableJpeg8 = true; })
     glib-networking
     jdk21

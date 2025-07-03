@@ -7,7 +7,10 @@ in
   _module.args.scripts = scripts;
   _module.args.pkgs-unstable = import inputs.nixpkgs-unstable {
     inherit (pkgs) system;
-    config = { allowUnfree = true; };
+    config = {
+      allowUnfree = true;
+      android_sdk.accept_license = true;
+    };
     overlays = [ self.overlays.default ];
   };
 

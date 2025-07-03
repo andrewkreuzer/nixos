@@ -9,7 +9,7 @@
       ];
     in
     {
-      kernelPackages = pkgs.linuxPackages_6_12;
+      kernelPackages = pkgs.linuxPackages_6_15;
       initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usbhid" "rtsx_pci_sdmmc" ];
       kernelModules = [ "kvm-intel" ];
       kernelParams = [ "intel_iommu=on" ];

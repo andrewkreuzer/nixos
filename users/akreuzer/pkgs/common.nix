@@ -35,6 +35,7 @@ in
       minikube
       kubelogin
       yubikey-manager
+      claude-code
 
       # Tools
       libnotify
