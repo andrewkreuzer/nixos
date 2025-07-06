@@ -42,22 +42,7 @@ in
     };
 
     homeConfigurations = {
-      ${config.me.username} = inputs.home-manager.lib.homeManagerConfiguration {
-          modules = [
-            {
-              home.username = config.me.username;
-              home.homeDirectory = "/home/${config.me.username}";
-            }
-            ../users/${config.me.username}/home.nix
-          ];
-          extraSpecialArgs = specialArgs;
-          pkgs = import inputs.nixpkgs {
-            system = "x86_64-linux";
-            config = {
-              allowUnfree = true;
-            };
-          };
-        };
+      ${config.me.username} = self.lib.mkHome ../users/${config.me.username}/home.nix;
     };
 
     nixosConfigurations = self.utils.files.forAllNixFiles ../hosts
