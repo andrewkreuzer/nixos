@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 let
   # broke again :(
   # idea = (pkgs.jetbrains.plugins.addPlugins pkgs.jetbrains.idea-community [ "github-copilot" ]);
@@ -7,6 +7,7 @@ in
 {
   home.packages = [
     idea
+    pkgs-unstable.claude-code
   ] ++ builtins.attrValues {
     inherit (pkgs)
       # GUI
@@ -35,7 +36,6 @@ in
       minikube
       kubelogin
       yubikey-manager
-      claude-code
 
       # Tools
       libnotify

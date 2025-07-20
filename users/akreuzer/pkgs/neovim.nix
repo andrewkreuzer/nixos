@@ -21,6 +21,7 @@
       pyright
       nixd
       jdt-language-server
+      rust-analyzer
       ocamlPackages.ocaml-lsp
       ocamlPackages.ocamlformat
       nodePackages.yaml-language-server
