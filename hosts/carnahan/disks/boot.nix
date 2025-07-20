@@ -9,14 +9,7 @@
       ];
     in
     {
-      kernelPackages = pkgs.linuxPackages_6_15;
-      initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usbhid" "rtsx_pci_sdmmc" ];
-      kernelModules = [ "kvm-intel" ];
-      kernelParams = [ "intel_iommu=on" ];
-      supportedFilesystems = [ "zfs" ];
       zfs.devNodes = devNodes;
-      zfs.forceImportRoot = false;
-
       loader = {
         efi = {
           canTouchEfiVariables = false;
