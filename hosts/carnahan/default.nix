@@ -7,6 +7,7 @@
 
   system.stateVersion = "22.11";
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware.enableAllFirmware = true;
   hardware.cpu.intel.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;
 
@@ -45,9 +46,6 @@
 
   boot = {
     kernelPackages = pkgs.linuxPackages_6_15;
-    # extraModprobeConfig = ''
-    #   options iwlwifi
-    # '';
     initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usbhid" "rtsx_pci_sdmmc" ];
     initrd.kernelModules = [ "i915" ];
     kernelModules = [ "kvm-intel" ];

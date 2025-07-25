@@ -3,7 +3,9 @@
   # disable gnomes use of power profile for tlp
   services.power-profiles-daemon.enable = lib.mkForce false;
   services.tlp = {
-    enable = true;
+    # tlp fucks with wifi power management on the ax211,
+    # and I've been dealing with it for too long
+    enable = false;
     settings = {
       SOUND_POWER_SAVE_ON_AC = 0;
       CPU_MAX_PERF_ON_AC = 100;
