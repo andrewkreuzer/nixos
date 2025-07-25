@@ -8,12 +8,13 @@ in
     package = pkgs-unstable.hyprlock;
     settings = {
       general = {
-        disable_loading_bar = true;
         grace = 120;
         hide_cursor = true;
-        no_fade_in = false;
         fractional_scaling = 1;
       };
+
+      bezier = "linear, 1, 1, 0, 0";
+      animation = "fade, 1, 1.8, linear";
 
       background = [
         {
