@@ -10,7 +10,7 @@
       "window" = {
         "padding" = {
           "x" = 5;
-          "y" = 0;
+          "y" = 1;
         };
         "dynamic_padding" = true;
       };
