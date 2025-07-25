@@ -14,6 +14,7 @@
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    ghostty.url = "github:ghostty-org/ghostty";
     treefmt-nix.url = "github:numtide/treefmt-nix";
 
     dev-cli.url = "github:andrewkreuzer/dev-cli";
