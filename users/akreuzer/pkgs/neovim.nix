@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, ... }:
+{ pkgs, pkgs-unstable, inputs, ... }:
 {
   programs.neovim = {
     enable = true;
@@ -27,8 +27,8 @@
       nodePackages.yaml-language-server
       nodePackages.typescript-language-server
       nodePackages.svelte-language-server
-    ] ++ (with pkgs-unstable; [
-      zls
-    ]);
+    ] ++ [
+      inputs.zls.packages.${pkgs.system}.default
+    ];
   };
 }

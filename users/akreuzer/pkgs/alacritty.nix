@@ -1,8 +1,8 @@
-{ pkgs-unstable, ... }:
+{ pkgs, ... }:
 {
   programs.alacritty = {
-    enable = true;
-    package = pkgs-unstable.alacritty;
+    enable = false;
+    package = pkgs.alacritty;
     settings = {
       "env" = {
         "TERM" = "xterm-256color";

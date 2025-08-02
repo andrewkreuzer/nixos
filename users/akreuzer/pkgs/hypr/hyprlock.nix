@@ -8,7 +8,6 @@ in
     package = pkgs-unstable.hyprlock;
     settings = {
       general = {
-        grace = 120;
         hide_cursor = true;
         fractional_scaling = 1;
       };
