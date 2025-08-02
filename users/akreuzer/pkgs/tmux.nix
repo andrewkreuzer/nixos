@@ -55,8 +55,8 @@ let ayu = colors.ayu; in
       setw -g window-status-style bg=terminal
       setw -g window-status-separator ""
 
-      setw -g window-status-format "#[bg=${ayu.fg},fg=${ayu.bg}] #[bg=${ayu.fg},fg=${ayu.bg}] #W #[bg=${ayu.fg},fg=${ayu.bg}]"
-      setw -g window-status-current-format "#[bg=green,fg=${ayu.bg}] #[bg=green,fg=${ayu.bg},bold] #W #[bg=green,fg=${ayu.bg}]"
+      setw -g window-status-format "#[bg=${ayu.bg},fg=${ayu.fg}]#[bg=${ayu.fg},fg=${ayu.bg}]#{b:pane_current_path}#[bg=${ayu.bg},fg=${ayu.fg}] "
+      setw -g window-status-current-format "#[bg=${ayu.bg},fg=green]#[bg=green,fg=${ayu.bg},bold]#{b:pane_current_path}#[bg=${ayu.bg},fg=green] "
       set -g status-right '#(${pkgs.tmuxPlugins.continuum}/share/tmux-plugins/continuum/scripts/continuum_save.sh)#{continuum_status}#[bg=${ayu.bg},fg=terminal]#{?client_prefix,  •  ,}'
       set-option -g status-left ' '
 

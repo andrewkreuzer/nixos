@@ -3,7 +3,7 @@
   programs.starship = {
     enable = true;
     settings = {
-      "format" = "[┌────────────❯](bold green)$username$hostname$git_branch$git_status\n[│](bold green)$directory$rust$python$nodejs$golang$terraform$package\n[│](bold green)\n[└─](bold green)$character$git_state$status ";
+      "format" = "[┌────────────❯](bold green)$username$hostname$git_branch$git_status\n[│](bold green)$directory$rust$zig$python$nodejs$golang$terraform$package$nix_shell\n[│](bold green)\n[└─](bold green)$character$git_state$status ";
       "username" = {
         "disabled" = false;
         "show_always" = true;
@@ -46,9 +46,14 @@
         "cherry_pick" = " [ picking](bold red) ";
         "merge" = " [ merging](bold 105) ";
       };
-      "status" = {
-        "format" = "[ \\[$status\\]]($style) ";
+      "nix_shell" = {
         "disabled" = false;
+        "format" = "via [$symbol$state]($style) ";
+        "symbol" = "❄️";
+      };
+      "status" = {
+        "disabled" = false;
+        "format" = "[ \\[$status\\]]($style) ";
       };
       "aws" = {
         "symbol" = "  ";
@@ -95,9 +100,6 @@
       "nim" = {
         "symbol" = " ";
       };
-      "nix_shell" = {
-        "symbol" = " ";
-      };
       "nodejs" = {
         "symbol" = " ";
       };
@@ -112,6 +114,9 @@
       };
       "rust" = {
         "symbol" = " ";
+      };
+      "zig" = {
+        "symbol" = " ";
       };
     };
   };
