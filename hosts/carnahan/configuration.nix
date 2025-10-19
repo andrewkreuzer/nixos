@@ -10,6 +10,7 @@ in
   let
     devNodes = "/dev/disk/by-id/";
     bootDevices = [
+      "nvme-Samsung_SSD_980_PRO_500GB_S5NYNG0RA13085Z"
       "nvme-Samsung_SSD_980_PRO_500GB_S5NYNG0RA13096T"
     ];
   in
