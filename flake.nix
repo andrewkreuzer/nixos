@@ -5,6 +5,9 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
+    colmena.url = "github:zhaofengli/colmena";
 
     hyprland.url = "github:hyprwm/Hyprland/?submodules=1";
     hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
@@ -26,7 +29,7 @@
     inputs.flake-parts.lib.mkFlake { inherit inputs; }
     {
       systems = [ "x86_64-linux" ];
-      imports = map (fn: ./nix/${fn})
+      imports = map (file: ./nix/${file})
         (attrNames (readDir ./nix));
     };
 }

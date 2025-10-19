@@ -1,28 +1,29 @@
-{ self, ... }:
+{ self, inputs, ... }:
 let
   name = baseNameOf ./.;
-  tags = [ "laptop" ];
+  tags = [ "coven" ];
   systemConfig = {
     imports = [
-      ./nvidia.nix
+      ./disk-config.nix
       ./configuration.nix
       ./hardware-configuration.nix
+      inputs.disko.nixosModules.disko
 
+      self.nixosModules.common
       self.nixosModules.users
-      self.nixosModules.laptop
+      self.nixosModules.tui
 
       self.nixosModules.home-manager
       {
         home-manager.sharedModules = [
-          self.homeModules.gui
           self.homeModules.tui
         ];
       }
     ];
 
-    system.stateVersion = "22.11";
-    networking.hostName = "carnahan";
-    networking.hostId = "cb023b45";
+    system.stateVersion = "25.05";
+    networking.hostName = "goode";
+    networking.hostId = "550589ae";
   };
 
   systemArgs = { inherit tags systemConfig; };

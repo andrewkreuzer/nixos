@@ -10,7 +10,10 @@
       packages = with pkgs; [
         nixd
         nvd
-      ] ++ [ inputs.dev-cli.packages.${system}.default ];
+      ] ++ [
+        inputs.colmena.packages.${system}.colmena
+        inputs.dev-cli.packages.${system}.default
+      ];
     };
 
     treefmt.config = {

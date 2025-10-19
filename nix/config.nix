@@ -21,9 +21,7 @@ let
   };
 in
 {
-  imports = [
-    ../me.nix
-  ];
+  imports = [ ../me.nix ];
   options = {
     me = lib.mkOption {
       type = userSubmodule;
