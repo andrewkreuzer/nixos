@@ -1,12 +1,17 @@
-{ self, lib, pkgs, ... }: {
+{ inputs, self, pkgs, ... }:
+let
+  nixModules = self.modules.nixos;
+in
+{
   services.fprintd.enable = true;
 
   imports = [
-    self.nixosModules.common
-    self.nixosModules.networking
-    self.nixosModules.security
-    self.nixosModules.tui
-    self.nixosModules.gui
+    nixModules.common
+    nixModules.tui.default
+    nixModules.gui.default
+
+    nixModules.networking
+    nixModules.security.default
   ];
 
   hardware.bluetooth.enable = true;
@@ -26,6 +31,7 @@
   services.blueman.enable = true;
   services.thermald.enable = true;
   services.pulseaudio.enable = false;
+  security.rtkit.enable = true;
 
   services.logind = {
     powerKey = "suspend"; # keep pressing this when scanning fprint
@@ -34,10 +40,6 @@
     lidSwitchExternalPower = "suspend";
     lidSwitchDocked = "suspend";
   };
-
-  # I did have tlp enabled, but it
-  # caused issues with many things
-  services.power-profiles-daemon.enable = lib.mkForce false;
 
   services.xserver = {
     enable = true;

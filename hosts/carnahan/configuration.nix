@@ -6,6 +6,9 @@ in
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
 
+  services.greetd.settings.default_session.command =
+    "${pkgs.greetd.tuigreet}/bin/tuigreet --remember --time --cmd Hyprland";
+
   boot =
   let
     devNodes = "/dev/disk/by-id/";

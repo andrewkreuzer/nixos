@@ -35,9 +35,8 @@ done;
 filetype = "bash"
 command = """
 nix run github:nix-community/nixos-anywhere -- \
-  --generate-hardware-config nixos-generate-config ./hosts/montgomery/hardware-configuration.nix \
   --env-password \
-  --flake .#montgomery --target-host nixos@192.168.2.48
+  --flake .#day --target-host nixos@192.168.2.56
 """
 
 [repos]

@@ -9,7 +9,6 @@
     inherit tags;
     targetHost = name;
     targetUser = "root";
-    # targetUser = me.username;
   };
   imports = [
     systemConfig

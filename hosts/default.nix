@@ -17,7 +17,7 @@ in
 
   options = {
     flake = flake-parts-lib.mkSubmoduleOptions {
-      colmena = mkOption {
+      colmenaConfigurations = mkOption {
         type = types.attrsOf types.anything;
         default = { };
         description = ''

@@ -1,5 +1,9 @@
 { self, inputs, ... }:
 let
+  nixModules = self.modules.nixos;
+  homeModules = self.modules.home-manager;
+in
+let
   name = baseNameOf ./.;
   tags = [ "coven" ];
   systemConfig = {
@@ -9,16 +13,20 @@ let
       ./hardware-configuration.nix
       inputs.disko.nixosModules.disko
 
-      self.nixosModules.common
-      self.nixosModules.users
-      self.nixosModules.tui
+      nixModules.common
+      nixModules.users
+      nixModules.tui.default
+      nixModules.security.openssh
+      nixModules.security.privliage-escalation
 
-      self.nixosModules.home-manager
+      nixModules.home-manager
       {
         home-manager.sharedModules = [
-          self.homeModules.tui
+          homeModules.tui.default
         ];
       }
+
+      nixModules.microvm-host
     ];
 
     system.stateVersion = "25.05";
@@ -29,6 +37,6 @@ let
   systemArgs = { inherit tags systemConfig; };
 in
 {
-  flake.colmena.${name} = self.lib.mkColmenaSystem systemArgs;
   flake.nixosConfigurations.${name} = self.lib.mkSystem systemConfig;
+  flake.colmenaConfigurations.${name} = self.lib.mkColmenaSystem systemArgs;
 }

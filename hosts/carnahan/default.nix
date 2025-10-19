@@ -1,5 +1,9 @@
 { self, ... }:
 let
+  nixModules = self.modules.nixos;
+  homeModules = self.modules.home-manager;
+in
+let
   name = baseNameOf ./.;
   tags = [ "laptop" ];
   systemConfig = {
@@ -8,14 +12,14 @@ let
       ./configuration.nix
       ./hardware-configuration.nix
 
-      self.nixosModules.users
-      self.nixosModules.laptop
+      nixModules.users
+      nixModules.laptop
 
-      self.nixosModules.home-manager
+      nixModules.home-manager
       {
         home-manager.sharedModules = [
-          self.homeModules.gui
-          self.homeModules.tui
+          homeModules.gui.default
+          homeModules.tui.default
         ];
       }
     ];
@@ -28,6 +32,6 @@ let
   systemArgs = { inherit tags systemConfig; };
 in
 {
-  flake.colmena.${name} = self.lib.mkColmenaSystem systemArgs;
   flake.nixosConfigurations.${name} = self.lib.mkSystem systemConfig;
+  flake.colmenaConfigurations.${name} = self.lib.mkColmenaSystem systemArgs;
 }

@@ -1,11 +1,9 @@
 { self, inputs, config, ... }:
+let
+  inherit (inputs) haumea;
+in
 {
-  imports = [
-    inputs.home-manager.flakeModules.home-manager
-    ../modules
-    ../hosts
-    ../packages
-  ];
+  imports = [ ../hosts ];
 
   flake = {
     overlays = self.lib.scanDirWithFn ../overlays
@@ -14,6 +12,11 @@
     specialArgs = {
       inherit (config) me;
       inherit self inputs;
+    };
+
+    modules = haumea.lib.load {
+      loader = haumea.lib.loaders.verbatim;
+      src = ../modules;
     };
 
     homeConfigurations = {
@@ -29,6 +32,10 @@
           overlays = [ self.overlays.default ];
         };
       };
-    } // self.colmena);
+    } // self.colmenaConfigurations);
+  };
+
+  perSystem = { pkgs, ... }: {
+    packages = import ../packages { inherit pkgs; };
   };
 }
