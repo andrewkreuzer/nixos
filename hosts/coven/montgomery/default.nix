@@ -16,7 +16,7 @@ let
       nixModules.common
       nixModules.users
       nixModules.tui.default
-      nixModules.security.openssh
+      nixModules.security.openssh-root
       nixModules.security.privliage-escalation
 
       nixModules.home-manager

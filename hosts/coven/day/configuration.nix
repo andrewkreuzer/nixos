@@ -1,8 +1,5 @@
-{ me, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 {
-  services.openssh.settings.PermitRootLogin = lib.mkForce "yes";
-  users.users.root.openssh.authorizedKeys.keys = me.sshKeys;
-
   services.greetd.settings.default_session.command = lib.mkForce
     "${pkgs.greetd.tuigreet}/bin/tuigreet --remember --time --cmd zsh";
 
