@@ -58,6 +58,7 @@
         imports = [
           self.modules.nixos.security.openssh-root
           self.modules.nixos.microvm.vm
+          self.modules.nixos.kubernetes
         ];
       };
     };
