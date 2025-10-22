@@ -1,10 +1,10 @@
 {
   systemd.network.enable = true;
   systemd.network.networks."20-lan" = {
-    matchConfig.Type = "ether";
+    matchConfig.Name = "ens2";
     networkConfig = {
-      Gateway = "192.168.3.1";
-      DNS = ["192.168.1.1"];
+      Gateway = "192.168.2.1";
+      DNS = ["192.168.2.1"];
       DHCP = "no";
     };
   };
@@ -16,6 +16,12 @@
       tag = "etc";
       source = "etc";
       mountPoint = "/etc";
+      proto = "virtiofs";
+    }
+    {
+      tag = "cfssl";
+      source = "cfssl";
+      mountPoint = "/var/lib/cfssl";
       proto = "virtiofs";
     }
     {
