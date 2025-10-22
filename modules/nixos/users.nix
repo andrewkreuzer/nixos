@@ -1,4 +1,4 @@
-{ self, config, pkgs, me, ... }:
+{ me, self, config, pkgs, ... }:
 let
   relativeToRoot = self.lib.relativeToRoot;
 in

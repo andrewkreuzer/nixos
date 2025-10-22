@@ -1,4 +1,4 @@
-{ inputs, lib, ... }:
+{ self, inputs, pkgs, lib, ... }:
 {
   imports = [
     inputs.microvm.nixosModules.host
@@ -42,47 +42,23 @@
   microvm.vms = {
     k8s = {
       pkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
-
-      #specialArgs = {};
+      specialArgs = self.specialArgs;
 
       config = {
         system.stateVersion = "25.05";
+        microvm.mem = 10240;
+        microvm.vcpu = 4;
 
-        systemd.network.enable = true;
-        systemd.network.networks."20-lan" = {
-          matchConfig.Type = "ether";
-          networkConfig = {
-            Gateway = "192.168.3.1";
-            DNS = ["192.168.1.1"];
-            DHCP = "no";
-          };
+        environment.systemPackages = builtins.attrValues {
+          inherit (pkgs)
+            htop
+            ;
         };
 
-        users.users.root.password = "toor";
-        services.openssh = {
-          enable = true;
-          settings.PermitRootLogin = "yes";
-        };
-
-        microvm = {
-          mem = 8192;
-          vcpu = 4;
-          hypervisor = "cloud-hypervisor";
-          shares = [
-            {
-              tag = "etc";
-              source = "etc";
-              mountPoint = "/etc";
-              proto = "virtiofs";
-            }
-            {
-              tag = "ro-store";
-              source = "/nix/store";
-              mountPoint = "/nix/.ro-store";
-              proto = "virtiofs";
-            }
-          ];
-        };
+        imports = [
+          self.modules.nixos.security.openssh-root
+          self.modules.nixos.microvm.vm
+        ];
       };
     };
   };

@@ -26,7 +26,7 @@ let
         ];
       }
 
-      nixModules.microvm-host
+      nixModules.microvm.host
     ];
 
     system.stateVersion = "25.05";
