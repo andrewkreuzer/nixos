@@ -26,7 +26,7 @@ let
         ];
       }
 
-      nixModules.microvm.host
+      nixModules.microvm.k8s-host
     ];
 
     system.stateVersion = "25.05";

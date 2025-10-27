@@ -23,18 +23,14 @@
         matchConfig.Name = "br0";
         networkConfig = {
           Gateway = "192.168.2.1";
-          DNS = ["192.168.2.1"];
+          DNS = [ "192.168.2.1" ];
           IPv6AcceptRA = true;
         };
         linkConfig.RequiredForOnline = "routable";
       };
       "50-vm" = {
-        matchConfig.Name = ["vm-*"];
+        matchConfig.Name = [ "vm-*" ];
         networkConfig.Bridge = "br0";
-      };
-      "60-docker" = {
-        matchConfig.Name = "veth*";
-        linkConfig.Unmanaged = true;
       };
     };
   };
@@ -57,8 +53,7 @@
 
         imports = [
           self.modules.nixos.security.openssh-root
-          self.modules.nixos.microvm.vm
-          self.modules.nixos.kubernetes
+          self.modules.nixos.microvm.k8s-vm
         ];
       };
     };

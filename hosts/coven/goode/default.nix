@@ -26,7 +26,8 @@ let
         ];
       }
 
-      nixModules.microvm.host
+      nixModules.microvm.k8s-host
+      nixModules.nix-containers.haproxy.default
     ];
 
     system.stateVersion = "25.05";
