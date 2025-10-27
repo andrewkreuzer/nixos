@@ -3,16 +3,19 @@
   imports = [
     inputs.treefmt-nix.flakeModule
   ];
-  perSystem = { config, pkgs, ... }: {
+  perSystem = { inputs', config, pkgs, ... }: {
     devShells.default = pkgs.mkShell {
       name = "nix shell";
       inputsFrom = [ config.treefmt.build.devShell ];
       packages = with pkgs; [
         nixd
         nvd
+
+        cfssl
       ] ++ [
-        inputs.colmena.packages.${system}.colmena
-        inputs.dev-cli.packages.${system}.default
+        inputs'.agenix.packages.default
+        inputs'.colmena.packages.colmena
+        inputs'.dev-cli.packages.default
       ];
     };
 

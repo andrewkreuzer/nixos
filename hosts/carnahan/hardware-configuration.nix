@@ -5,11 +5,11 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
   boot.initrd.availableKernelModules = [
-  "xhci_pci"
-  "thunderbolt"
-  "nvme"
-  "usbhid"
-  "rtsx_pci_sdmmc"
+    "xhci_pci"
+    "thunderbolt"
+    "nvme"
+    "usbhid"
+    "rtsx_pci_sdmmc"
   ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

@@ -1,4 +1,4 @@
-{ self, ...}:
+{ self, ... }:
 {
   imports = self.lib.scanDir ./.;
 }

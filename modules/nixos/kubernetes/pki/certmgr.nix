@@ -257,36 +257,36 @@ in
       specs =
         let
           mkSpec = _: cert: lib.mkMerge [
-          {
-            inherit (cert) action;
-            authority = {
-              remote = cert.remote;
-              label = cert.label;
-              profile = cert.profile;
-              root_ca = cert.caCert;
-              auth_key_file = certmgrAPITokenPath;
-            };
-          }
-          (lib.mkIf (cert.CN == null) {
-            certificate = null;
-            private_key = null;
-            request = null;
-            authority.file = cert.caFile;
-          })
-          (lib.mkIf (cert.CN != null) {
-            certificate.path = cert.cert;
-            private_key = cert.privateKeyOptions;
-            request = {
-              hosts = [ cert.CN ] ++ cert.hosts;
-              inherit (cert) CN;
-              key = {
-                algo = "ecdsa";
-                size = 256;
+            {
+              inherit (cert) action;
+              authority = {
+                remote = cert.remote;
+                label = cert.label;
+                profile = cert.profile;
+                root_ca = cert.caCert;
+                auth_key_file = certmgrAPITokenPath;
               };
-              names = [ cert.fields ];
-            };
-          })
-        ];
+            }
+            (lib.mkIf (cert.CN == null) {
+              certificate = null;
+              private_key = null;
+              request = null;
+              authority.file = cert.caFile;
+            })
+            (lib.mkIf (cert.CN != null) {
+              certificate.path = cert.cert;
+              private_key = cert.privateKeyOptions;
+              request = {
+                hosts = [ cert.CN ] ++ cert.hosts;
+                inherit (cert) CN;
+                key = {
+                  algo = "ecdsa";
+                  size = 256;
+                };
+                names = [ cert.fields ];
+              };
+            })
+          ];
         in
         lib.mapAttrs mkSpec certs;
     };

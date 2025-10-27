@@ -165,17 +165,19 @@ in
     };
 
     systemd.services.multirootca.preStart = lib.concatStrings
-      (lib.mapAttrsToList (name: values: ''
-        if [ ! -f "${values.certFile}" ]; then
-          ${pkgs.cfssl}/bin/cfssl gencert \
-            -config ${cfsslConfig} \
-            -profile ${values.profile} \
-            -ca ${config.age.secrets.k8s-ca.path} \
-            -ca-key ${config.age.secrets.k8s-ca-key.path} \
-            ${values.csr} \
-            | ${pkgs.cfssl}/bin/cfssljson -bare ${values.path}
-        fi
-      '') certs);
+      (lib.mapAttrsToList
+        (name: values: ''
+          if [ ! -f "${values.certFile}" ]; then
+            ${pkgs.cfssl}/bin/cfssl gencert \
+              -config ${cfsslConfig} \
+              -profile ${values.profile} \
+              -ca ${config.age.secrets.k8s-ca.path} \
+              -ca-key ${config.age.secrets.k8s-ca-key.path} \
+              ${values.csr} \
+              | ${pkgs.cfssl}/bin/cfssljson -bare ${values.path}
+          fi
+        '')
+        certs);
 
     systemd.services.multirootca = {
       description = "multirootca CA API server";

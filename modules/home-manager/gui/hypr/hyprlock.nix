@@ -26,10 +26,10 @@ in
       shape = [
         {
           size = "400px, 140px";
-          color = "rgb(" + (builtins.replaceStrings ["#"] [""] colors.ayu.bg) + ")";
+          color = "rgb(" + (builtins.replaceStrings [ "#" ] [ "" ] colors.ayu.bg) + ")";
           rounding = 50; # circle
           border_size = 1;
-          border_color = "rgb(" + (builtins.replaceStrings ["#"] [""] colors.ayu.ui) + ")";
+          border_color = "rgb(" + (builtins.replaceStrings [ "#" ] [ "" ] colors.ayu.ui) + ")";
           position = "0, 0";
           halign = "center";
           valign = "center";
@@ -42,7 +42,7 @@ in
           text = "Good luck, <i>$USER</i>";
           font_size = "14";
           font_family = "SauceCodePro Nerd Font";
-          color = "rgb(" + (builtins.replaceStrings ["#"] [""] colors.ayu.fg) + ")";
+          color = "rgb(" + (builtins.replaceStrings [ "#" ] [ "" ] colors.ayu.fg) + ")";
           position = "-60, 30";
           halign = "center";
           valign = "center";
@@ -52,7 +52,7 @@ in
           text = "cmd[update:200] echo \"<i>$PROMPT</i>\"";
           font_size = "8";
           font_family = "SauceCodePro Nerd Font";
-          color = "rgb(" + (builtins.replaceStrings ["#"] [""] colors.ayu.fg) + ")";
+          color = "rgb(" + (builtins.replaceStrings [ "#" ] [ "" ] colors.ayu.fg) + ")";
           position = "0, 0";
           halign = "center";
           valign = "center";
@@ -69,9 +69,9 @@ in
           fade_on_empty = false;
           rounding = -1;
           font_family = "SauceCodePro Nerd Font";
-          font_color = "rgb(" + (builtins.replaceStrings ["#"] [""] colors.ayu.fg) + ")";
-          inner_color = "rgb(" + (builtins.replaceStrings ["#"] [""] colors.ayu.bg) + ")";
-          outer_color = "rgb(" + (builtins.replaceStrings ["#"] [""] colors.ayu.ui) + ")";
+          font_color = "rgb(" + (builtins.replaceStrings [ "#" ] [ "" ] colors.ayu.fg) + ")";
+          inner_color = "rgb(" + (builtins.replaceStrings [ "#" ] [ "" ] colors.ayu.bg) + ")";
+          outer_color = "rgb(" + (builtins.replaceStrings [ "#" ] [ "" ] colors.ayu.ui) + ")";
           placeholder_text = "<i>input password...</i>";
           outline_thickness = 2;
           shadow_size = 1;

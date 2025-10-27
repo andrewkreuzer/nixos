@@ -15,12 +15,14 @@ in
     # imports = self.lib.scanDir ./pkgs;
     scanDir = dir: builtins.map (f: (dir + "/${f}")) (
       builtins.attrNames (
-        lib.attrsets.filterAttrs (
-          path: _type:
-          (_type == "directory")
-          || ((path != "default.nix")
-            && (lib.strings.hasSuffix ".nix" path))
-        ) (builtins.readDir dir)
+        lib.attrsets.filterAttrs
+          (
+            path: _type:
+              (_type == "directory")
+              || ((path != "default.nix")
+              && (lib.strings.hasSuffix ".nix" path))
+          )
+          (builtins.readDir dir)
       )
     );
 
@@ -35,15 +37,19 @@ in
     # overlays = self.lib.scanDirWithFn ../overlays
     #   (fn: import fn { inherit inputs; });
     scanDirWithFn = dir: func: lib.mapAttrs'
-    (file: v: lib.nameValuePair (lib.removeSuffix ".nix" file) v)
-      (lib.genAttrs (builtins.attrNames (
-        lib.attrsets.filterAttrs (
-          path: _type:
-          (_type == "directory")
-          || (lib.strings.hasSuffix ".nix" path)
-          ) (builtins.readDir dir)
+      (file: v: lib.nameValuePair (lib.removeSuffix ".nix" file) v)
+      (lib.genAttrs
+        (builtins.attrNames (
+          lib.attrsets.filterAttrs
+            (
+              path: _type:
+                (_type == "directory")
+                || (lib.strings.hasSuffix ".nix" path)
+            )
+            (builtins.readDir dir)
         )
-    ) (file: func (dir + "/${file}")));
+        )
+        (file: func (dir + "/${file}")));
 
     # Helpers for defining disk mounts and swap
     # DEPRECATED: should use disko instead

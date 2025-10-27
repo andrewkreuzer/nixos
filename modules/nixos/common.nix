@@ -1,4 +1,4 @@
-{ me, inputs, pkgs, ...}: {
+{ me, inputs, pkgs, ... }: {
   location.provider = "geoclue2";
   time.timeZone = "America/Toronto";
 
@@ -17,7 +17,7 @@
       libsecret
       zip
       openssl;
-    };
+  };
 
   environment.variables = {
     EDITOR = "nvim";

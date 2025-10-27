@@ -5,11 +5,11 @@ in
 homeConfig: inputs.home-manager.lib.homeManagerConfiguration {
   inherit lib;
   modules = [
-  {
-    home.username = config.me.username;
-    home.homeDirectory = "/home/${config.me.username}";
-  }
-  homeConfig
+    {
+      home.username = config.me.username;
+      home.homeDirectory = "/home/${config.me.username}";
+    }
+    homeConfig
   ];
   extraSpecialArgs = self.specialArgs;
   pkgs = import inputs.nixpkgs {

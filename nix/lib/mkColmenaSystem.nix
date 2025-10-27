@@ -1,8 +1,7 @@
 { inputs }:
 { tags, systemConfig }:
-{
-  name,
-  ...
+{ name
+, ...
 }:
 {
   deployment = {

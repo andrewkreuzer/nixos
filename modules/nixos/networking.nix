@@ -10,13 +10,13 @@ in
     useDHCP = lib.mkForce false;
     networkmanager.enable = true;
     firewall.enable = true;
-    firewall.allowedTCPPorts = [spotifydTCPPort exceptPort pyHttpServer];
-    firewall.allowedUDPPorts = [mDNS];
+    firewall.allowedTCPPorts = [ spotifydTCPPort exceptPort pyHttpServer ];
+    firewall.allowedUDPPorts = [ mDNS ];
 
     # for hue but I don't think this is
     # the right ip anymore
     extraHosts = ''
-    192.168.2.10 ecb5fafffe997dae
+      192.168.2.10 ecb5fafffe997dae
     '';
 
     wg-quick.interfaces = {

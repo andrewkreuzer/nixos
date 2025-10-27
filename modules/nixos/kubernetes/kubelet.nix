@@ -15,7 +15,7 @@ let
   apiserverAddress = "https://${kubeMasterAddress}:${toString kubeMasterAPIServerPort}";
 
   clusterDomain = "kubernetes.local";
-  clusterDns = ["172.16.0.254"];
+  clusterDns = [ "172.16.0.254" ];
 
   healthzBind = "127.0.0.1";
   healthzPort = 10248;

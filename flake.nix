@@ -32,9 +32,9 @@
   outputs = { ... }@inputs:
     with builtins;
     inputs.flake-parts.lib.mkFlake { inherit inputs; }
-    {
-      systems = [ "x86_64-linux" ];
-      imports = map (file: ./nix/${file})
-        (attrNames (readDir ./nix));
-    };
+      {
+        systems = [ "x86_64-linux" ];
+        imports = map (file: ./nix/${file})
+          (attrNames (readDir ./nix));
+      };
 }

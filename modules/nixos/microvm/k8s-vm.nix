@@ -69,26 +69,30 @@ in
       source = "etc";
       mountPoint = "/etc";
       proto = "virtiofs";
-    } {
-      tag = "multirootca";
-      source = "multirootca";
-      mountPoint = "/var/lib/multirootca";
-      proto = "virtiofs";
-    } {
-      tag = "etcd";
-      source = "etcd";
-      mountPoint = "/var/lib/etcd";
-      proto = "virtiofs";
-    } {
-      tag = "cfssl";
-      source = "cfssl";
-      mountPoint = "/var/lib/cfssl";
-      proto = "virtiofs";
-    } {
-      tag = "ro-store";
-      source = "/nix/store";
-      mountPoint = "/nix/.ro-store";
-      proto = "virtiofs";
-    }];
+    }
+      {
+        tag = "multirootca";
+        source = "multirootca";
+        mountPoint = "/var/lib/multirootca";
+        proto = "virtiofs";
+      }
+      {
+        tag = "etcd";
+        source = "etcd";
+        mountPoint = "/var/lib/etcd";
+        proto = "virtiofs";
+      }
+      {
+        tag = "cfssl";
+        source = "cfssl";
+        mountPoint = "/var/lib/cfssl";
+        proto = "virtiofs";
+      }
+      {
+        tag = "ro-store";
+        source = "/nix/store";
+        mountPoint = "/nix/.ro-store";
+        proto = "virtiofs";
+      }];
   };
 }

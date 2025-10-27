@@ -17,9 +17,11 @@ let
     k8s-montgomery = "192.168.2.31";
   };
 
-  genInitialCluster = port: lib.mapAttrsToList (
-    name: value: "${name}=https://${value}:${toString port}"
-  ) ips;
+  genInitialCluster = port: lib.mapAttrsToList
+    (
+      name: value: "${name}=https://${value}:${toString port}"
+    )
+    ips;
 
   peerUrls = genInitialCluster peerPort;
   peerListeningUrls = [ "https://${ips.${hostname}}:${toString peerPort}" ];
@@ -40,7 +42,7 @@ in
       peerCertFile
       peerKeyFile
       peerTrustedCaFile
-    ;
+      ;
     enable = true;
     openFirewall = true;
     dataDir = "/var/lib/etcd";

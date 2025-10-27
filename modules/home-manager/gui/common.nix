@@ -2,7 +2,7 @@
 let
   # broke again :(
   # idea = (pkgs.jetbrains.plugins.addPlugins pkgs.jetbrains.idea-community [ "github-copilot" ]);
-  idea = (pkgs.jetbrains.plugins.addPlugins pkgs.jetbrains.idea-community []);
+  idea = (pkgs.jetbrains.plugins.addPlugins pkgs.jetbrains.idea-community [ ]);
 in
 {
 
@@ -36,6 +36,8 @@ in
       gcc
       glibc
       python3
+
+      spotify
 
       # Theme
       tela-circle-icon-theme

@@ -3,6 +3,6 @@
   programs._1password.enable = true;
   programs._1password-gui = {
     enable = true;
-    polkitPolicyOwners = [me.username];
+    polkitPolicyOwners = [ me.username ];
   };
 }
