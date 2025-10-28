@@ -4,7 +4,7 @@
 }:
 let
   package = pkgs.kubernetes;
-  allowPrivileged = false;
+  allowPrivileged = true;
   bindAddress = "0.0.0.0";
   kubeMasterAddress = "192.168.2.9";
 
@@ -92,12 +92,10 @@ in
         Restart = "on-failure";
         RestartSec = 5;
       };
-
-      unitConfig = {
-        StartLimitIntervalSec = 0;
-      };
+      unitConfig.StartLimitIntervalSec = 0;
     };
 
+    # TODO: applied this manually
     services.kubernetes.addonManager.bootstrapAddons = {
       apiserver-kubelet-api-admin-crb = {
         apiVersion = "rbac.authorization.k8s.io/v1";

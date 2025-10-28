@@ -1,4 +1,4 @@
-{ inputs, self, pkgs, ... }:
+{ self, pkgs, ... }:
 let
   nixModules = self.modules.nixos;
 in

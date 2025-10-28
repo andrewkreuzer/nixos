@@ -1,14 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 let
   kubeMasterIP = "192.168.2.9";
   kubeMasterAddress = "192.168.2.9";
-  apiserverbindAddress = "0.0.0.0";
   apiserverAddress = "https://${kubeMasterAddress}:443";
-
-  clusterCidr = "172.17.0.0/24";
-  serviceCidr = "172.16.0.0/24";
-  apiAudiences = "api,https://kubernetes.default.svc";
-  serviceAccountIssuer = "https://kubernetes.default.svc";
 
   adminKubeconfigCertFile = "/var/lib/pki/cluster-admin.pem";
   adminKubeconfigKeyFile = "/var/lib/pki/cluster-admin-key.pem";
@@ -53,84 +47,15 @@ let
   kubeControllerManagerAPI = 10257;
   kubeNodePortStart = 30000;
   kubeNodePortEnd = 32767;
-
-  etcdcaFile = "";
-  etcdKeyFile = "";
-  etcdCertFile = "";
   etcdClientPort = 2379;
   etcdPeerPort = 2380;
-  etcdDataDir = "/var/lib/etcd";
-  etcdTrustedCaFile = "";
-  etcdCLientEndpoints = [
-    "https://192.168.2.11:2379"
-    "https://192.168.2.21:2379"
-    "https://192.168.2.31:2379"
-  ];
-  etcdPeerEndpoints = [
-    "https://192.168.2.11:2380"
-    "https://192.168.2.21:2380"
-    "https://192.168.2.31:2380"
-  ];
-
-  storageBackend = "etcd3";
-
-  # controller manager
-  allocateNodeCIDRs = true;
-  controllerManagerBindAddress = "127.0.0.1";
-  controllerManagerLeaderElect = true; # start before main loop;
-  controllerManagerSecurePort = 10252;
-
-  # kubelet
-  kubeletBindAddress = "0.0.0.0";
-  kubeletClusterDns = "";
-  kubeletClusterDomain = "cluster.local";
-  kubeletCniPackage = "flannel"; # change to cilium
-  kubeletCniConfig = "";
-  kubeletCniConfigDir = "";
-  kubeletcontainerRuntimeEndpoint = "unix:///run/containerd/containerd.sock";
-  kubeletHealthzBindAddress = "127.0.0.1";
-  kubeletHealthzPort = 10248;
-  kubeletHostName = lib.toLower config.networking.fqdnOrHostName;
-  kubeletNodeTaints = "";
-  kubeletUnschedulable = false;
-
-  # proxy
-  proxyBindAddress = "0.0.0.0";
-  proxyHostName = lib.toLower config.networking.fqdnOrHostName;
-
-  # scheduler
-  schedulerBindAddress = "127.0.0.1";
-  schedulerLeaderElect = true;
-  schedulerPort = 10251;
 
   dataDir = "/var/lib/kubernetes";
   secretsPath = "/var/lib/pki";
   caFile = secretsPath + "/kubernetes-ca.pem"; # will likely be agenix path
-  clientCaFile = secretsPath + "";
-  kubeletClientCaFile = "";
-  kubeletClientCertFile = "";
-  kubeletClientKeyFile = "";
-
-  proxyClientCertFile = "";
-  proxyClientKeyFile = "";
-
-  runtimeConfig = "authentication.k8s.io/v1beta1=true";
-
-  tokenAuthFile = "";
-  authorizationMode = "RBAC";
-  enableAdmissionPlugins = [
-    "NamespaceLifecycle"
-    "LimitRanger"
-    "ServiceAccount"
-    "ResourceQuota"
-    "DefaultStorageClass"
-    "DefaultTolerationSeconds"
-    "NodeRestriction"
-  ];
 in
 {
-  boot.initrd.kernelModules = [ "br_netfilter" ];
-  boot.initrd.availableKernelModules = [ "br_netfilter" ];
+  # boot.kernelModules = [ "br_netfilter" ];
   networking.nftables.enable = true;
   networking.extraHosts = ''
     ${kubeMasterIP} ${kubeMasterAddress}
@@ -148,11 +73,11 @@ in
     kubeControllerManagerAPI
   ];
   networking.firewall.allowedTCPPortRanges = [
-    { from = 2379; to = 2380; } # etcd
-    { from = 30000; to = 32767; } # NodePort Services
+    { from = etcdClientPort; to = etcdPeerPort; } # etcd
+    { from = kubeNodePortStart; to = kubeNodePortEnd; } # NodePort Services
   ];
   networking.firewall.allowedUDPPortRanges = [
-    { from = 30000; to = 32767; } # NodePort Services
+    { from = kubeNodePortStart; to = kubeNodePortEnd; } # NodePort Services
   ];
 
   systemd.targets.kubernetes = {

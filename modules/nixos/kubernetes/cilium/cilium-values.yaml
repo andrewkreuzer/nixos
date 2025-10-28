@@ -1,0 +1,9 @@
+k8s:
+  apiServerURLs: 192.168.2.9:443
+cni:
+  customConf: true
+  uninstall: false
+ipam:
+  operator:
+    clusterPoolIPv4PodCIDRList:
+      - "172.17.0.0/22"

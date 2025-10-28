@@ -70,14 +70,14 @@ let
       (
         i: entry: pkgs.writeTextDir "${toString (10 + i)}-${entry.type}.conf" (builtins.toJSON entry)
       ) [{
-      name = "mynet";
-      type = "flannel";
       cniVersion = "0.3.1";
-      delegate = {
-        isDefaultGateway = true;
-        hairpinMode = true;
-        bridge = "mynet";
-      };
+      name = "cilium";
+      type = "cilium-cni";
+      plugins = [{
+        type = "cilium-cni";
+        enable-debug = true;
+        log-file = "/var/log/cilium-cni.log";
+      }];
     }];
   });
 
@@ -148,7 +148,7 @@ in
         ${lib.concatMapStrings (pkg: ''
           echo "Linking cni package: ${pkg}"
           ln -fs ${pkg}/bin/* /opt/cni/bin
-        '') [ pkgs.cni-plugins pkgs.cni-plugin-flannel ]}
+        '') [ pkgs.cni-plugins ]}
       '';
       serviceConfig = {
         Slice = "kubernetes.slice";

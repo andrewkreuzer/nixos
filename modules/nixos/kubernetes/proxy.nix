@@ -6,7 +6,7 @@ let
   package = pkgs.kubernetes;
 
   bindAddress = "0.0.0.0";
-  clusterCidr = "172.17.0.0/24";
+  clusterCidr = "172.17.0.0/22";
   kubeMasterAddress = "192.168.2.9";
   kubeMasterAPIServerPort = 443;
   apiserverAddress = "https://${kubeMasterAddress}:${toString kubeMasterAPIServerPort}";

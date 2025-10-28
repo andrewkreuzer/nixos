@@ -25,14 +25,6 @@
         };
         imports = [
           self.modules.nixos.kubernetes.pki.multirootca
-
-          self.modules.nixos.etcd
-          self.modules.nixos.kubernetes.default
-          self.modules.nixos.kubernetes.apiserver
-          self.modules.nixos.kubernetes.kubelet
-          self.modules.nixos.kubernetes.proxy
-          self.modules.nixos.kubernetes.scheduler
-          self.modules.nixos.kubernetes.controller-manager
         ];
         microvm = {
           interfaces = [{

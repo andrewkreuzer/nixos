@@ -10,7 +10,7 @@ let
   apiserverAddress = "https://${kubeMasterAddress}:${toString kubeMasterAPIServerPort}";
   allocateNodeCIDRs = true;
   bindAddress = "127.0.0.1";
-  clusterCidr = "172.17.0.0/24";
+  clusterCidr = "172.17.0.0/22";
   leaderElect = true; # start before main loop;
   securePort = 10252;
 

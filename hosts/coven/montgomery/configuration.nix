@@ -24,15 +24,6 @@
           networkConfig.Address = [ "192.168.2.31/24" ];
         };
         certmgr.remote = "https://192.168.2.11:8888";
-        imports = [
-          self.modules.nixos.etcd
-          self.modules.nixos.kubernetes.default
-          self.modules.nixos.kubernetes.apiserver
-          self.modules.nixos.kubernetes.kubelet
-          self.modules.nixos.kubernetes.proxy
-          self.modules.nixos.kubernetes.scheduler
-          self.modules.nixos.kubernetes.controller-manager
-        ];
         microvm = {
           interfaces = [
             {
