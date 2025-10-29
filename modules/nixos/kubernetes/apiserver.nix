@@ -94,27 +94,5 @@ in
       };
       unitConfig.StartLimitIntervalSec = 0;
     };
-
-    # TODO: applied this manually
-    services.kubernetes.addonManager.bootstrapAddons = {
-      apiserver-kubelet-api-admin-crb = {
-        apiVersion = "rbac.authorization.k8s.io/v1";
-        kind = "ClusterRoleBinding";
-        metadata = {
-          name = "system:kube-apiserver:kubelet-api-admin";
-        };
-        roleRef = {
-          apiGroup = "rbac.authorization.k8s.io";
-          kind = "ClusterRole";
-          name = "system:kubelet-api-admin";
-        };
-        subjects = [
-          {
-            kind = "User";
-            name = "system:kube-apiserver";
-          }
-        ];
-      };
-    };
   };
 }

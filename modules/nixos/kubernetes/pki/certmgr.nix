@@ -81,6 +81,7 @@ let
       label = "front_proxy_ca";
       action = "systemctl restart kube-apiserver.service";
     };
+
     etcd = mkCert {
       name = "kube-etcd";
       CN = "kube-etcd";
@@ -186,6 +187,13 @@ let
         O = "system:masters";
       };
       privateKeyOwner = "root";
+    };
+    addonManager = mkCert {
+      name = "kube-addon-manager";
+      CN = "system:kube-addon-manager";
+      label = "kubernetes_ca";
+      profile = "client";
+      action = "systemctl restart kube-addon-manager.service";
     };
 
     controllerManager = mkCert {
