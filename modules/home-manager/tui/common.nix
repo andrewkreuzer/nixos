@@ -17,6 +17,9 @@
       kubelogin
       minikube
       kubectl
+      cilium-cli
+      hubble
+      kubernetes-helm-wrapped
 
       pulsemixer
       yubikey-manager
