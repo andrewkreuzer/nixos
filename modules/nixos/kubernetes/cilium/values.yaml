@@ -20,3 +20,17 @@ encryption:
 
 hostFirewall:
   enabled: true
+ 
+# TODO: install certmanager
+# or figure out how to use the certmanager
+# already running on the nodes
+clustermesh:
+  apiserver:
+    tls:
+      auto:
+        method: cronJob
+
+hubble:
+  tls:
+    auto:
+      method: cronJob
