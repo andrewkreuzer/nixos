@@ -1,4 +1,5 @@
-{ lib
+{ config
+, lib
 , pkgs
 , ...
 }:
@@ -6,7 +7,6 @@ let
   package = pkgs.kubernetes;
   allowPrivileged = true;
   bindAddress = "0.0.0.0";
-  kubeMasterAddress = "192.168.2.9";
 
   dataDir = "/var/lib/kubernetes";
   authorizationMode = "RBAC,Node";
@@ -27,11 +27,11 @@ let
   storageBackend = "etcd3";
   serviceClusterIpRange = "172.16.0.0/24";
   runtimeConfig = "authentication.k8s.io/v1beta1=true";
-  apiAudiences = "api,https://kubernetes.default.svc";
+  apiAudiences = "https://kubernetes.default.svc";
 
   serviceAccountIssuer = "https://kubernetes.default.svc";
-  serviceAccountSigningKeyFile = "/var/lib/pki/service-account-key.pem";
-  serviceAccountKeyFile = "/var/lib/pki/service-account.pem";
+  serviceAccountSigningKeyFile = config.age.secrets.sa-key.path;
+  serviceAccountKeyFile = config.age.secrets.sa.path;
 
   enableAdmissionPlugins = [
     "NamespaceLifecycle"
@@ -62,7 +62,6 @@ in
           --allow-privileged=${lib.boolToString allowPrivileged} \
           --authorization-mode=${authorizationMode} \
           --bind-address=${bindAddress} \
-          --advertise-address=${kubeMasterAddress} \
           --client-ca-file=${clientCaFile} \
           --enable-admission-plugins=${lib.concatStringsSep "," enableAdmissionPlugins} \
           --etcd-servers=${lib.concatStringsSep "," etcdCLientEndpoints} \
@@ -83,7 +82,7 @@ in
           --service-cluster-ip-range=${serviceClusterIpRange} \
           --storage-backend=${storageBackend} \
           --tls-cert-file=${tlsCertFile} \
-          --tls-private-key-file=${tlsKeyFile} \
+          --tls-private-key-file=${tlsKeyFile}
         '';
         WorkingDirectory = dataDir;
         User = "kubernetes";
@@ -93,6 +92,27 @@ in
         RestartSec = 5;
       };
       unitConfig.StartLimitIntervalSec = 0;
+    };
+
+    kubernetes.addonManager.bootstrapAddons = {
+      apiserver-kubelet-api-admin-crb = {
+        apiVersion = "rbac.authorization.k8s.io/v1";
+        kind = "ClusterRoleBinding";
+        metadata = {
+          name = "system:kube-apiserver:kubelet-api-admin";
+        };
+        roleRef = {
+          apiGroup = "rbac.authorization.k8s.io";
+          kind = "ClusterRole";
+          name = "system:kubelet-api-admin";
+        };
+        subjects = [
+          {
+            kind = "User";
+            name = "system:kube-apiserver";
+          }
+        ];
+      };
     };
   };
 }

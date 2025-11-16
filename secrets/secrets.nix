@@ -24,5 +24,8 @@ in
   "ca-key.age".publicKeys = [ akreuzer ];
   "k8s-ca.age".publicKeys = k8s ++ [ akreuzer ];
   "k8s-ca-key.age".publicKeys = k8s ++ [ akreuzer ];
+  "k8s-sa.age".publicKeys = k8s ++ [ akreuzer ];
+  "k8s-sa-key.age".publicKeys = k8s ++ [ akreuzer ];
   "multirootca-auth-key.age".publicKeys = k8s ++ [ akreuzer ];
+  "tailscale.age".publicKeys = users ++ systems;
 }

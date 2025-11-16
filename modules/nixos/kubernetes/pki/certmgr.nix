@@ -167,17 +167,6 @@ let
       action = "systemctl restart kube-apiserver.service";
     };
 
-    serviceAccount = mkCert {
-      name = "service-account";
-      CN = "system:service-account-signer";
-      label = "kubernetes_ca";
-      profile = "service_account";
-      action = ''
-        systemctl restart \
-        kube-apiserver.service \
-        kube-controller-manager.service
-      '';
-    };
     clusterAdmin = mkCert {
       name = "cluster-admin";
       CN = "cluster-admin";

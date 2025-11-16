@@ -3,8 +3,9 @@ let
   imageName = "coredns/coredns";
   version = "1.10.1";
   replicas = 2;
-  clusterDomain = "kubernetes.local";
+  clusterDomain = "cluster.local";
   clusterIp = "172.16.0.254";
+  upstreamDns = "192.168.2.1";
   ports = {
     dns = 10053;
     health = 10054;
@@ -20,7 +21,7 @@ let
       fallthrough in-addr.arpa ip6.arpa
     }
     prometheus :${toString ports.metrics}
-    forward . /etc/resolv.conf
+    forward . ${upstreamDns}
     cache 30
     loop
     reload

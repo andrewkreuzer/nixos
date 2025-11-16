@@ -60,6 +60,16 @@ in
     multirootca-auth-key.group = "multirootca";
     multirootca-auth-key.file = relativeToRoot
       "secrets/multirootca-auth-key.age";
+
+    sa.owner = "kubernetes";
+    sa.group = "kubernetes";
+    sa.file = relativeToRoot
+      "secrets/k8s-sa.age";
+
+    sa-key.owner = "kubernetes";
+    sa-key.group = "kubernetes";
+    sa-key.file = relativeToRoot
+      "secrets/k8s-sa-key.age";
   };
 
   microvm = {
@@ -71,29 +81,23 @@ in
       mountPoint = "/etc";
       proto = "virtiofs";
     }
-      {
-        tag = "multirootca";
-        source = "multirootca";
-        mountPoint = "/var/lib/multirootca";
-        proto = "virtiofs";
-      }
-      {
-        tag = "etcd";
-        source = "etcd";
-        mountPoint = "/var/lib/etcd";
-        proto = "virtiofs";
-      }
-      {
-        tag = "cfssl";
-        source = "cfssl";
-        mountPoint = "/var/lib/cfssl";
-        proto = "virtiofs";
-      }
-      {
-        tag = "ro-store";
-        source = "/nix/store";
-        mountPoint = "/nix/.ro-store";
-        proto = "virtiofs";
-      }];
+    {
+      tag = "multirootca";
+      source = "multirootca";
+      mountPoint = "/var/lib/multirootca";
+      proto = "virtiofs";
+    }
+    {
+      tag = "etcd";
+      source = "etcd";
+      mountPoint = "/var/lib/etcd";
+      proto = "virtiofs";
+    }
+    {
+      tag = "ro-store";
+      source = "/nix/store";
+      mountPoint = "/nix/.ro-store";
+      proto = "virtiofs";
+    }];
   };
 }

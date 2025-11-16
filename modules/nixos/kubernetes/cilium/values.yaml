@@ -1,9 +1,22 @@
-k8s:
-  apiServerURLs: 192.168.2.9:443
+commonLabels:
+  addonmanager.kubernetes.io/mode: "Reconcile"
+
+kubeProxyReplacement: true
+k8sServiceHost: 192.168.2.9
+k8sServicePort: 443
+
 cni:
+  install: false
   customConf: true
-  uninstall: false
+
 ipam:
   operator:
     clusterPoolIPv4PodCIDRList:
       - "172.17.0.0/22"
+
+encryption:
+  enabled: true
+  type: wireguard
+
+hostFirewall:
+  enabled: true

@@ -2,6 +2,13 @@
 final: prev: {
   neovim = inputs.neovim-nightly-overlay.packages.${final.system}.default ?
     inputs.neovim-nightly-overlay.packages.${final.system}.default;
+  # go = prev.go.overrideAttrs (old: rec {
+  #   version = "1.25.4";
+  #   src = prev.fetchurl {
+  #     url = "https://go.dev/dl/go${version}.linux-amd64.tar.gz";
+  #     sha256 = "sha256-+VZ4P6Y5f0m3jZ5x5k7j3Yh6v5Y5Z5Y5Z5Y5Z5Y5Z5Y=";
+  #   };
+  # });
   # brave = prev.brave.overrideAttrs (old: rec {
   #   version = "1.66.115";
   #   src = prev.fetchurl {

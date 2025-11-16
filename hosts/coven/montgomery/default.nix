@@ -18,6 +18,7 @@ let
       nixModules.tui.default
       nixModules.security.openssh-root
       nixModules.security.privliage-escalation
+      nixModules.tailscale.default
 
       nixModules.home-manager
       {
@@ -27,6 +28,7 @@ let
       }
 
       nixModules.microvm.k8s-host
+      nixModules.nix-containers.haproxy.default
     ];
 
     system.stateVersion = "25.05";

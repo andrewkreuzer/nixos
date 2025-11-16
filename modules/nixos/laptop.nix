@@ -14,6 +14,7 @@ in
     nixModules.security.security
     nixModules.security.openssh
     nixModules.security.privliage-escalation
+    nixModules.tailscale.default
   ];
 
   hardware.bluetooth.enable = true;

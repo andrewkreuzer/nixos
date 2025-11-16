@@ -11,15 +11,6 @@ in
     portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
   };
 
-  # When mesa doesn't match all hell breaks loose
-  # also when we do update this alacritty and presumably
-  # other opengl applicatoins will crash and burn
-  hardware.graphics = {
-    package = pkgs-unstable.mesa;
-    package32 = pkgs-unstable.pkgsi686Linux.mesa;
-    enable32Bit = true;
-  };
-
   environment.systemPackages = [
     pkgs.libinput-gestures
     pkgs.egl-wayland

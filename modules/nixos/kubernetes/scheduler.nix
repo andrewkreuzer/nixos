@@ -63,7 +63,7 @@ in
           --bind-address=${address} \
           --kubeconfig=${kubeconfig} \
           --leader-elect=${lib.boolToString leaderElect} \
-          --secure-port=${toString port} \
+          --secure-port=${toString port}
         '';
         WorkingDirectory = dataDir;
         User = "kubernetes";

@@ -37,6 +37,17 @@
     };
   };
 
+  containers.haproxy = rec {
+    localAddress = "192.168.2.12";
+    config.services.keepalived.vrrpInstances.haproxy-vip = {
+      unicastSrcIp = localAddress;
+      unicastPeers = [
+        "192.168.2.22"
+        "192.168.2.32"
+      ];
+    };
+  };
+
   virtualisation.libvirtd.enable = true;
 
   boot.zfs.devNodes = "/dev/disk/by-id/";

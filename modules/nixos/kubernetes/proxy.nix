@@ -1,12 +1,11 @@
-{ config, pkgs, ... }:
-
-# with lib;
+{ pkgs, ... }:
 
 let
   package = pkgs.kubernetes;
 
   bindAddress = "0.0.0.0";
   clusterCidr = "172.17.0.0/22";
+  proxyMode = "nftables";
   kubeMasterAddress = "192.168.2.9";
   kubeMasterAPIServerPort = 443;
   apiserverAddress = "https://${kubeMasterAddress}:${toString kubeMasterAPIServerPort}";
@@ -57,7 +56,7 @@ in
       wantedBy = [ "kubernetes.target" ];
       after = [ "kube-apiserver.service" ];
       path = with pkgs; [
-        iptables
+        nftables
         conntrack-tools
       ];
       serviceConfig = {
@@ -67,6 +66,7 @@ in
           --bind-address=${bindAddress} \
           --cluster-cidr=${clusterCidr} \
           --kubeconfig=${kubeconfig} \
+          --proxy-mode=${proxyMode}
         '';
         WorkingDirectory = dataDir;
         Restart = "on-failure";

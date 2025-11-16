@@ -8,16 +8,21 @@ let
   cfg = config.kubernetes.addonManager;
 
   dataDir = "/var/lib/kubernetes";
-  addons = pkgs.runCommand "kubernetes-addons" { } ''
-    mkdir -p $out
-    # since we are mounting the addons to the addon manager, they need to be copied
-    ${lib.concatMapStringsSep ";" (a: "cp -v ${a}/* $out/") (
-      lib.mapAttrsToList (name: addon: pkgs.writeTextDir "${name}.json" (builtins.toJSON addon)) (
-        cfg.addons
-      )
-    )}
-  '';
-
+  addons = pkgs.linkFarm "kubernetes-addons" (
+    lib.mapAttrsToList (name: path:
+      if builtins.isPath path then
+        { inherit name path; }
+      else
+      let
+        filename = "${name}.json";
+      in
+        {
+          name = filename;
+          path = pkgs.writeText
+            filename (builtins.toJSON path);
+        }
+    ) cfg.addons
+  );
   caFile = "/var/lib/pki/kubernetes-ca.pem";
   certFile = "/var/lib/pki/kube-addon-manager.pem";
   keyFile = "/var/lib/pki/kube-addon-manager-key.pem";
@@ -87,7 +92,7 @@ in
     addons = lib.mkOption {
       description = "Kubernetes addons (any kind of Kubernetes resource can be an addon).";
       default = { };
-      type = attrsOf (either attrs (listOf attrs));
+      type = attrsOf (oneOf [ attrs (listOf attrs) path (listOf path)]);
       example = lib.literalExpression ''
         {
           "my-service" = {
@@ -106,7 +111,7 @@ in
   };
 
   config = {
-    environment.etc."kubernetes/addons".source = "${addons}/";
+    environment.etc."kubernetes/addons".source = addons;
 
     systemd.services.kube-addon-manager = {
       description = "Kubernetes addon manager";
@@ -142,15 +147,13 @@ in
     kubernetes.addonManager.bootstrapAddons = (
       let
         name = "system:kube-addon-manager";
-        namespace = "kube-system";
       in
       {
-
-        kube-addon-manager-r = {
+        kube-addon-manager-cluster-cr = {
           apiVersion = "rbac.authorization.k8s.io/v1";
-          kind = "Role";
+          kind = "ClusterRole";
           metadata = {
-            inherit name namespace;
+            name = "${name}:cluster";
           };
           rules = [
             {
@@ -161,75 +164,21 @@ in
           ];
         };
 
-        kube-addon-manager-rb = {
-          apiVersion = "rbac.authorization.k8s.io/v1";
-          kind = "RoleBinding";
-          metadata = {
-            inherit name namespace;
-          };
-          roleRef = {
-            apiGroup = "rbac.authorization.k8s.io";
-            kind = "Role";
-            inherit name;
-          };
-          subjects = [
-            {
-              apiGroup = "rbac.authorization.k8s.io";
-              kind = "User";
-              inherit name;
-            }
-          ];
-        };
-
-        kube-addon-manager-cluster-lister-cr = {
-          apiVersion = "rbac.authorization.k8s.io/v1";
-          kind = "ClusterRole";
-          metadata = {
-            name = "${name}:cluster-lister";
-          };
-          rules = [
-            {
-              apiGroups = [ "*" ];
-              resources = [ "*" ];
-              verbs = [ "list" ];
-            }
-          ];
-        };
-
-        kube-addon-manager-cluster-lister-crb = {
+        kube-addon-manager-cluster-crb = {
           apiVersion = "rbac.authorization.k8s.io/v1";
           kind = "ClusterRoleBinding";
           metadata = {
-            name = "${name}:cluster-lister";
+            name = "${name}:cluster";
           };
           roleRef = {
             apiGroup = "rbac.authorization.k8s.io";
             kind = "ClusterRole";
-            name = "${name}:cluster-lister";
+            name = "${name}:cluster";
           };
           subjects = [
             {
               kind = "User";
               inherit name;
-            }
-          ];
-        };
-
-        apiserver-kubelet-api-admin-crb = {
-          apiVersion = "rbac.authorization.k8s.io/v1";
-          kind = "ClusterRoleBinding";
-          metadata = {
-            name = "system:kube-apiserver:kubelet-api-admin";
-          };
-          roleRef = {
-            apiGroup = "rbac.authorization.k8s.io";
-            kind = "ClusterRole";
-            name = "system:kubelet-api-admin";
-          };
-          subjects = [
-            {
-              kind = "User";
-              name = "system:kube-apiserver";
             }
           ];
         };

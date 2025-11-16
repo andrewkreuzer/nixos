@@ -10,6 +10,8 @@ let
   ciliumWireguard = 51871;
 in
 {
+  kubernetes.addonManager.addons."cilium.yaml" = ./cilium.yaml;
+
   networking.firewall.allowedUDPPorts = [
     ciliumVxlan
     ciliumWireguard

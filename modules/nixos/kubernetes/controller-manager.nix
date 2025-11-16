@@ -1,4 +1,5 @@
-{ lib
+{ config
+, lib
 , pkgs
 , ...
 }:
@@ -18,7 +19,7 @@ let
   path = [ ];
 
   rootCaFile = "/var/lib/pki/kubernetes-ca.pem";
-  serviceAccountKeyFile = "/var/lib/pki/service-account-key.pem";
+  serviceAccountKeyFile = config.age.secrets.sa-key.path;
   tlsCertFile = "/var/lib/pki/kube-controller-manager.pem";
   tlsKeyFile = "/var/lib/pki/kube-controller-manager-key.pem";
 
@@ -82,7 +83,7 @@ in
           --service-account-private-key-file=${serviceAccountKeyFile} \
           --tls-cert-file=${tlsCertFile} \
           --tls-private-key-file=${tlsKeyFile} \
-          --use-service-account-credentials \
+          --use-service-account-credentials
         '';
         WorkingDirectory = dataDir;
         User = "kubernetes";

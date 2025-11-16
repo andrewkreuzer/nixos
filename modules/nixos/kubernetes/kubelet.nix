@@ -1,4 +1,5 @@
-{ config
+{ inputs
+, config
 , lib
 , pkgs
 , ...
@@ -14,7 +15,7 @@ let
   kubeMasterAPIServerPort = 443;
   apiserverAddress = "https://${kubeMasterAddress}:${toString kubeMasterAPIServerPort}";
 
-  clusterDomain = "kubernetes.local";
+  clusterDomain = "cluster.local";
   clusterDns = [ "172.16.0.254" ];
 
   healthzBind = "127.0.0.1";
@@ -68,18 +69,18 @@ let
     name = "kubernetes-cni-config";
     paths = lib.imap
       (
-        i: entry: pkgs.writeTextDir "${toString (10 + i)}-${entry.type}.conf" (builtins.toJSON entry)
+        i: entry: pkgs.writeTextDir "${toString (10 + i)}-${entry.name}.conflist" (builtins.toJSON entry)
       ) [{
       cniVersion = "0.3.1";
       name = "cilium";
-      type = "cilium-cni";
       plugins = [{
         type = "cilium-cni";
-        enable-debug = true;
-        log-file = "/var/log/cilium-cni.log";
+        enable-debug = false;
+        log-file = "/var/run/cilium/cilium-cni.log";
       }];
     }];
   });
+
 
   kubeletConfig = pkgs.writeText "kubelet-config" (
     builtins.toJSON {
@@ -87,15 +88,11 @@ let
       kind = "KubeletConfiguration";
       address = address;
       port = port;
+      authorization.mode = "Webhook";
       authentication = {
-        x509 = lib.optionalAttrs (clientCaFile != null) { clientCAFile = clientCaFile; };
-        webhook = {
-          enabled = true;
-          cacheTTL = "10s";
-        };
-      };
-      authorization = {
-        mode = "Webhook";
+        x509.clientCAFile = clientCaFile;
+        webhook.enabled = true;
+        webhook.cacheTTL = "10s";
       };
       cgroupDriver = "systemd";
       hairpinMode = "hairpin-veth";
@@ -107,6 +104,11 @@ let
       tlsPrivateKeyFile = tlsKeyFile;
       clusterDomain = clusterDomain;
       clusterDNS = clusterDns;
+      # produces ContainerStatusUnknown
+      # killed pods will be automatically rescheduled
+      # during node shutdown and left in this state
+      # shutdownGracePeriod = "30s";
+      # shutdownGracePeriodCriticalPods = "10s";
     }
   );
 in
@@ -148,7 +150,10 @@ in
         ${lib.concatMapStrings (pkg: ''
           echo "Linking cni package: ${pkg}"
           ln -fs ${pkg}/bin/* /opt/cni/bin
-        '') [ pkgs.cni-plugins ]}
+        '') [
+          pkgs.cni-plugins
+          inputs.self.packages.${pkgs.system}.cilium-cni
+        ]}
       '';
       serviceConfig = {
         Slice = "kubernetes.slice";
@@ -160,17 +165,15 @@ in
           ${package}/bin/kubelet \
           --config=${kubeletConfig} \
           --kubeconfig=${kubeconfig} \
-          --pod-infra-container-image=pause \
-          --root-dir=${dataDir} \
+          --root-dir=${dataDir}
         '';
         WorkingDirectory = dataDir;
       };
       unitConfig.StartLimitIntervalSec = 0;
     };
 
-    boot.kernelModules = [
-      "br_netfilter"
-      "overlay"
-    ];
+    boot.initrd.availableKernelModules = [ "br_netfilter" ];
+    boot.initrd.kernelModules = [ "br_netfilter" ];
+    boot.kernelModules = [ "br_netfilter" "overlay" ];
   };
 }
