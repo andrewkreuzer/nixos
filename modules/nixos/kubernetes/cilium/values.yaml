@@ -31,6 +31,8 @@ clustermesh:
         method: cronJob
 
 hubble:
+  relay:
+    enabled: true
   tls:
     auto:
       method: cronJob
