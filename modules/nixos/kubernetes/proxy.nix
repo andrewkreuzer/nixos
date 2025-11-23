@@ -16,7 +16,7 @@ let
   certFile = "/var/lib/pki/kube-proxy-client.pem";
   keyFile = "/var/lib/pki/kube-proxy-client-key.pem";
 
-  kubeconfig = pkgs.writeText "kube-scheduler-kubeconfig" (
+  kubeconfig = pkgs.writeText "kube-proxy-kubeconfig" (
     builtins.toJSON {
       apiVersion = "v1";
       kind = "Config";
@@ -29,7 +29,7 @@ let
       ];
       users = [
         {
-          name = "kube-scheduler";
+          name = "kube-proxy";
           user = {
             client-certificate = certFile;
             client-key = keyFile;
@@ -40,7 +40,7 @@ let
         {
           context = {
             cluster = "local";
-            user = "kube-scheduler";
+            user = "kube-proxy";
           };
           name = "local";
         }

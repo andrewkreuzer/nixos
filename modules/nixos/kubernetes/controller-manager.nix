@@ -27,7 +27,7 @@ let
   certFile = "/var/lib/pki/kube-controller-manager-client.pem";
   keyFile = "/var/lib/pki/kube-controller-manager-client-key.pem";
 
-  kubeconfig = pkgs.writeText "kube-scheduler-kubeconfig" (
+  kubeconfig = pkgs.writeText "kube-controller-manager-kubeconfig" (
     builtins.toJSON {
       apiVersion = "v1";
       kind = "Config";
@@ -40,7 +40,7 @@ let
       ];
       users = [
         {
-          name = "kube-scheduler";
+          name = "kube-controller-manager";
           user = {
             client-certificate = certFile;
             client-key = keyFile;
@@ -51,7 +51,7 @@ let
         {
           context = {
             cluster = "local";
-            user = "kube-scheduler";
+            user = "kube-controller-manager";
           };
           name = "local";
         }

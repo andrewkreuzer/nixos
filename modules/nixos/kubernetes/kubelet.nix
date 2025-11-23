@@ -32,7 +32,7 @@ let
 
   path = [ ];
 
-  kubeconfig = pkgs.writeText "kube-scheduler-kubeconfig" (
+  kubeconfig = pkgs.writeText "kubelet-kubeconfig" (
     builtins.toJSON {
       apiVersion = "v1";
       kind = "Config";
@@ -45,7 +45,7 @@ let
       ];
       users = [
         {
-          name = "kube-scheduler";
+          name = "kubelet";
           user = {
             client-certificate = certFile;
             client-key = keyFile;
@@ -56,7 +56,7 @@ let
         {
           context = {
             cluster = "local";
-            user = "kube-scheduler";
+            user = "kubelet";
           };
           name = "local";
         }
@@ -111,6 +111,21 @@ let
       # shutdownGracePeriodCriticalPods = "10s";
     }
   );
+
+  clusterAdminKubeconfig = "/etc/kubernetes/cluster-admin.kubeconfig";
+  drainScript = pkgs.writeShellScript "kubelet-drain" ''
+    set -e
+    NODE_NAME=$(${pkgs.nettools}/bin/hostname)
+    echo "Draining node $NODE_NAME before shutdown"
+    ${pkgs.kubectl}/bin/kubectl cordon $NODE_NAME
+    ${pkgs.kubectl}/bin/kubectl drain $NODE_NAME \
+      --ignore-daemonsets \
+      --delete-emptydir-data \
+      --force \
+      --grace-period=30 \
+      --timeout=3m
+    echo "Node $NODE_NAME drained"
+  '';
 in
 {
 
@@ -170,6 +185,24 @@ in
         WorkingDirectory = dataDir;
       };
       unitConfig.StartLimitIntervalSec = 0;
+    };
+
+    systemd.services.kubelet-dain = {
+      description = "Kubernetes Kubelet Shutdown";
+      wantedBy = [ "halt.target" "poweroff.target" "reboot.target" ];
+      before = [ "halt.target" "poweroff.target" "reboot.target" ];
+      requires = [ "kubelet.service" ];
+      after = [ "kubelet.service" ];
+      path = with pkgs; [ kubectl ];
+      serviceConfig = {
+        Slice = "kubernetes.slice";
+        Type = "oneshot";
+        ExecStart = drainScript;
+        Environment = "KUBECONFIG=${clusterAdminKubeconfig}";
+        WorkingDirectory = dataDir;
+        TimeoutStartSec = "300";
+        RemainAfterExit = true;
+      };
     };
 
     boot.initrd.availableKernelModules = [ "br_netfilter" ];
