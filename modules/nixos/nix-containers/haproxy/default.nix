@@ -20,8 +20,8 @@
           interface = "eth0";
           virtualRouterId = 32;
           priority = 100;
-          virtualIps = [{addr = "192.168.2.9/24";}];
-          trackScripts = ["chk_haproxy"];
+          virtualIps = [{ addr = "192.168.2.9/24"; }];
+          trackScripts = [ "chk_haproxy" ];
         };
         vrrpScripts = {
           chk_haproxy = {

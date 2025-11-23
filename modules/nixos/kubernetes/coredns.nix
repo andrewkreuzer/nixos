@@ -13,20 +13,20 @@ let
   };
 
   corefile = ''
-  .:${toString ports.dns} {
-    errors
-    health :${toString ports.health}
-    kubernetes ${clusterDomain} in-addr.arpa ip6.arpa {
-      pods insecure
-      fallthrough in-addr.arpa ip6.arpa
-    }
-    prometheus :${toString ports.metrics}
-    forward . ${upstreamDns}
-    cache 30
-    loop
-    reload
-    loadbalance
-  }'';
+    .:${toString ports.dns} {
+      errors
+      health :${toString ports.health}
+      kubernetes ${clusterDomain} in-addr.arpa ip6.arpa {
+        pods insecure
+        fallthrough in-addr.arpa ip6.arpa
+      }
+      prometheus :${toString ports.metrics}
+      forward . ${upstreamDns}
+      cache 30
+      loop
+      reload
+      loadbalance
+    }'';
 in
 {
   kubernetes.addonManager.bootstrapAddons = {

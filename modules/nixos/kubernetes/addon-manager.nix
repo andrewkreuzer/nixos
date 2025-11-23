@@ -1,27 +1,29 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }:
 let
   cfg = config.kubernetes.addonManager;
 
   dataDir = "/var/lib/kubernetes";
   addons = pkgs.linkFarm "kubernetes-addons" (
-    lib.mapAttrsToList (name: path:
-      if builtins.isPath path then
-        { inherit name path; }
-      else
-      let
-        filename = "${name}.json";
-      in
-        {
-          name = filename;
-          path = pkgs.writeText
-            filename (builtins.toJSON path);
-        }
-    ) cfg.addons
+    lib.mapAttrsToList
+      (name: path:
+        if builtins.isPath path then
+          { inherit name path; }
+        else
+          let
+            filename = "${name}.json";
+          in
+          {
+            name = filename;
+            path = pkgs.writeText
+              filename
+              (builtins.toJSON path);
+          }
+      )
+      cfg.addons
   );
   caFile = "/var/lib/pki/kubernetes-ca.pem";
   certFile = "/var/lib/pki/kube-addon-manager.pem";
@@ -92,7 +94,7 @@ in
     addons = lib.mkOption {
       description = "Kubernetes addons (any kind of Kubernetes resource can be an addon).";
       default = { };
-      type = attrsOf (oneOf [ attrs (listOf attrs) path (listOf path)]);
+      type = attrsOf (oneOf [ attrs (listOf attrs) path (listOf path) ]);
       example = lib.literalExpression ''
         {
           "my-service" = {
@@ -132,15 +134,17 @@ in
       };
       preStart =
         with pkgs;
-      let
-        files = lib.mapAttrsToList (
-            n: v: writeText "${n}.json" (builtins.toJSON v)
-            ) cfg.bootstrapAddons;
-      in
+        let
+          files = lib.mapAttrsToList
+            (
+              n: v: writeText "${n}.json" (builtins.toJSON v)
+            )
+            cfg.bootstrapAddons;
+        in
         ''
-        export KUBECONFIG=/etc/kubernetes/cluster-admin.kubeconfig
-      ${kubernetes}/bin/kubectl apply -f ${lib.concatStringsSep " \\\n -f " files}
-      '';
+            export KUBECONFIG=/etc/kubernetes/cluster-admin.kubeconfig
+          ${kubernetes}/bin/kubectl apply -f ${lib.concatStringsSep " \\\n -f " files}
+        '';
       unitConfig.StartLimitIntervalSec = 0;
     };
 
