@@ -1,16 +1,21 @@
-{ self, inputs, ... }:
+{ self, inputs, lib, ... }:
 let
   relativeToRoot = self.lib.relativeToRoot;
 in
 {
   systemd.network.enable = true;
   systemd.network.networks."20-lan" = {
-    matchConfig.Name = "ens2";
+    matchConfig.Name = lib.mkDefault "ens4";
     networkConfig = {
       Gateway = "192.168.2.1";
       DNS = [ "192.168.2.1" ];
       DHCP = "no";
     };
+  };
+
+  # avoid issues like slow ceph commands or mons falling out of quorum.
+  systemd.services.containerd.serviceConfig = {
+    LimitNOFILE = lib.mkForce null;
   };
 
   virtualisation.containerd = {
@@ -75,6 +80,18 @@ in
   microvm = {
     hypervisor = "cloud-hypervisor";
     vsock.cid = 3;
+    volumes = [{
+      image = "/dev/nvme0n1p2";
+      autoCreate = false;
+      mountPoint = null;
+    }
+    {
+      image = "/var/lib/microvms/k8s/containerd.img";
+      autoCreate = true;
+      size = 65536;
+      fsType = "ext4";
+      mountPoint = "/var/lib/containerd";
+    }];
     shares = [{
       tag = "etc";
       source = "etc";
@@ -91,6 +108,12 @@ in
       tag = "etcd";
       source = "etcd";
       mountPoint = "/var/lib/etcd";
+      proto = "virtiofs";
+    }
+    {
+      tag = "rook";
+      source = "rook";
+      mountPoint = "/var/lib/rook";
       proto = "virtiofs";
     }
     {

@@ -15,5 +15,6 @@
     self.modules.nixos.kubernetes.coredns
     self.modules.nixos.kubernetes.cilium.default
     self.modules.nixos.kubernetes.metallb.default
+    self.modules.nixos.kubernetes.rook-ceph.default
   ];
 }

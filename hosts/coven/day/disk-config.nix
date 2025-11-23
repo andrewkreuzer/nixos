@@ -18,6 +18,10 @@
                 mountOptions = [ "umask=0077" "noatime" "nofail" ];
               };
             };
+            ceph-0 = {
+              name = "ceph-0";
+              size = "256G";
+            };
             root = {
               size = "100%";
               content = {
@@ -48,31 +52,33 @@
         options.autotrim = "on";
         postCreateHook = "zfs list -t snapshot -H -o name | grep -E '^rpool@blank$' || zfs snapshot rpool@blank";
         datasets = {
-          "rpool/USERDATA" = {
+          "USERDATA" = {
             type = "zfs_fs";
           };
-          "rpool/USERDATA/akreuzer" = {
+          "USERDATA/akreuzer" = {
             type = "zfs_fs";
             mountpoint = "/home/akreuzer";
             options."com.sun:auto-snapshot" = "true";
+            postCreateHook = "zfs list -t snapshot -H -o name | grep -E '^rpool/USERDATA/akreuzer@blank$' || zfs snapshot rpool/USERDATA/akreuzer@blank";
           };
-          "rpool/USERDATA/root" = {
+          "USERDATA/root" = {
             type = "zfs_fs";
             mountpoint = "/root";
           };
-          "rpool/ROOT/nixos" = {
+          "ROOT/nixos" = {
             type = "zfs_fs";
             mountpoint = "/";
+            postCreateHook = "zfs list -t snapshot -H -o name | grep -E '^rpool/ROOT/nixos@blank$' || zfs snapshot rpool/ROOT/nixos@blank";
           };
-          "rpool/ROOT/nixos/nix" = {
+          "ROOT/nixos/nix" = {
             type = "zfs_fs";
             mountpoint = "/nix";
           };
-          "rpool/ROOT/nixos/nix/store" = {
+          "ROOT/nixos/nix/store" = {
             type = "zfs_fs";
             mountpoint = "/nix/store";
           };
-          "rpool/ROOT/nixos/var/lib/docker" = {
+          "ROOT/nixos/var/lib/docker" = {
             type = "zfs_fs";
             mountpoint = "/var/lib/docker";
           };

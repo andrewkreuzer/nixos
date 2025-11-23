@@ -20,11 +20,17 @@
       config = {
         networking.hostName = "k8s-montgomery";
         systemd.network.networks."20-lan" = {
+          matchConfig.Name = "ens5";
           matchConfig.Type = "ether";
           networkConfig.Address = [ "192.168.2.31/24" ];
         };
         certmgr.remote = "https://192.168.2.11:8888";
         microvm = {
+          volumes = [{
+            image = "/dev/nvme1n1";
+            autoCreate = false;
+            mountPoint = null;
+          }];
           interfaces = [
             {
               type = "tap";

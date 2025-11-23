@@ -4,6 +4,9 @@
     inputs.microvm.nixosModules.host
   ];
 
+  users.mutableUsers = false;
+  users.users."microvm".extraGroups = [ "disk" ];
+
   networking.useDHCP = lib.mkForce false;
   systemd.network.enable = true;
   systemd.network = {

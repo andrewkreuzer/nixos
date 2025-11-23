@@ -1,0 +1,44 @@
+namespace: rook-ceph
+labels:
+  - pairs:
+      addonmanager.kubernetes.io/mode: "Reconcile"
+
+resources:
+  - crds.yaml
+  - common.yaml
+  - csi-operator.yaml
+  - operator.yaml
+
+patches:
+  - patch: |-
+      apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: rook-ceph-operator-config
+      data:
+        ROOK_CSI_KUBELET_DIR_PATH: "/var/lib/kubernetes"
+        CSI_CEPHFS_PLUGIN_VOLUME: |
+         - name: lib-modules
+           hostPath:
+             path: /run/current-system/kernel-modules/lib/modules/
+         - name: host-nix
+           hostPath:
+             path: /nix
+        CSI_CEPHFS_PLUGIN_VOLUME_MOUNT: |
+         - name: host-nix
+           mountPath: /nix
+           readOnly: true
+        CSI_RBD_PLUGIN_VOLUME: |
+         - name: lib-modules
+           hostPath:
+             path: /run/current-system/kernel-modules/lib/modules/
+         - name: host-nix
+           hostPath:
+             path: /nix
+        CSI_RBD_PLUGIN_VOLUME_MOUNT: |
+         - name: host-nix
+           mountPath: /nix
+           readOnly: true
+    target:
+      kind: ConfigMap
+      name: rook-ceph-operator-config

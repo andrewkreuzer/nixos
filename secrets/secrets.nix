@@ -4,13 +4,13 @@ let
 
   carnahan = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC71Hbqlv1V+9M/aywgfga8F80TsmADFrwJwL8hutZIt";
   croft = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIELzGrsWvM2X/J80cO4q7c9K1ySXJK5skQk+l+IM4wiF";
-  day = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIt3eBHBdr5a4BY4wSuke/SiB9uxHjgo91gSEzA4W4gN";
-  goode = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPN/TlYyzbGCp2mYAzvwzCSpNcg76wT0xcw7So4zPLsj";
-  montgomery = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBwo4ktN6gu7oGEWSNnEdLC/AL0WA5gxOGhfxH5mxWlN";
+  day = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICzYxIPadSDK9/GScNu4U8wIY8rxR3mkQ6230ZmPxOJe";
+  goode = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN4PdCDOFPSNotXXq9NgYAGvza5kuKH1U9zF/jUqKdyw";
+  montgomery = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPYFG4QfZYhthk79ftSts3Rtxw16qbBlLqjcJn8Zvauv";
 
-  k8s-day = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID3jPYT9fIVwQpavx0yFCn0oYKmHcHgs4vb1Das2+pUu";
-  k8s-goode = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPn4DPOZtYjZCb1kgTRH19lqe/zW82v8+sKheR9cljyt";
-  k8s-montgomery = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGeCrVKjHCxWOpWqW8kjLKIrR6sRO0cS2ifwDU39vPDX";
+  k8s-day = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN/yeGnd2ZT0569BmxWybFhWTHHbSwM++n6k/JnhuOtL";
+  k8s-goode = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFfghbKjwL7Rd0PID9rPmF7GUL0newYMp5y5/9Ti+MYd";
+  k8s-montgomery = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDJw8tHzpy3PaJjvRAHcZYDDRO226TdAkug4uhhzuMOp";
   k8s = [ k8s-day k8s-montgomery k8s-goode ];
 
   systems = [ carnahan croft day goode montgomery ];

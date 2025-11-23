@@ -1,0 +1,25 @@
+# cephBlockPools: []
+cephObjectStores: []
+cephFileSystems: []
+
+cephClusterSpec:
+  cleanupPolicy:
+    wipeDevicesFromOtherClusters: true
+  dashboard:
+    ssl: false
+  storage:
+    useAllNodes: false
+    useAllDevices: false
+    nodes:
+      - name: k8s-day
+        devices:
+          - name: "vda"
+      - name: k8s-goode
+        devices:
+          - name: "vda"
+      - name: k8s-montgomery
+        devices:
+          - name: "vda"
+          - name: "vdc"
+            config:
+              deviceClass: "large"
