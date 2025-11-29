@@ -36,19 +36,19 @@ in
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
 
-  services.logind = {
-    powerKey = "suspend"; # keep pressing this when scanning fprint
-    powerKeyLongPress = "poweroff";
-    lidSwitch = "suspend";
-    lidSwitchExternalPower = "suspend";
-    lidSwitchDocked = "suspend";
+  services.logind.settings.Login = {
+    HandlePowerKey = "suspend"; # keep pressing this when scanning fprint
+    HandlePowerKeyLongPress = "poweroff";
+    HandleLidSwitch = "suspend";
+    HandleLidSwitchExternalPower = "suspend";
+    HandleLidSwitchDocked = "suspend";
   };
 
+  services.desktopManager.gnome.enable = false;
+  services.displayManager.gdm.enable = false;
   services.xserver = {
     enable = true;
     displayManager.lightdm.enable = false;
-    displayManager.gdm.enable = false;
-    desktopManager.gnome.enable = false;
     xkb.options = "caps:escape_shifted_capslock";
   };
 

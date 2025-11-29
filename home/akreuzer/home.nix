@@ -2,7 +2,7 @@
 let
   scripts = import ./scripts.nix { inherit pkgs; };
   pkgsUnstable = import inputs.nixpkgs-unstable {
-    inherit (pkgs) system;
+    system = pkgs.stdenv.hostPlatform.system;
     config = {
       allowUnfree = true;
       android_sdk.accept_license = true;

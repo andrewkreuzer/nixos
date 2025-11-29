@@ -1,7 +1,7 @@
 { self, lib, pkgs, ... }:
 {
   services.greetd.settings.default_session.command = lib.mkForce
-    "${pkgs.greetd.tuigreet}/bin/tuigreet --remember --time --cmd zsh";
+    "${pkgs.tuigreet}/bin/tuigreet --remember --time --cmd zsh";
 
   environment.systemPackages = map lib.lowPrio [
     pkgs.curl

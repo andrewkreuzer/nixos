@@ -7,7 +7,7 @@ in
   hardware.enableRedistributableFirmware = true;
 
   services.greetd.settings.default_session.command =
-    "${pkgs.greetd.tuigreet}/bin/tuigreet --remember --time --cmd Hyprland";
+    "${pkgs.tuigreet}/bin/tuigreet --remember --time --cmd Hyprland";
 
   boot =
     let
@@ -18,7 +18,7 @@ in
       ];
     in
     {
-      kernelPackages = pkgs.linuxPackages_6_12;
+      kernelPackages = pkgs.linuxPackages_6_17;
       initrd.kernelModules = [ "i915" ];
       kernelParams = [ "intel_iommu=on" ];
       supportedFilesystems = [ "zfs" ];

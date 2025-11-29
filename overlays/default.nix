@@ -1,7 +1,7 @@
 { inputs, ... }:
 final: prev: {
-  neovim = inputs.neovim-nightly-overlay.packages.${final.system}.default ?
-    inputs.neovim-nightly-overlay.packages.${final.system}.default;
+  neovim = inputs.neovim-nightly-overlay.packages.${final.stdenv.hostPlatform.system}.default ?
+    inputs.neovim-nightly-overlay.packages.${final.stdenv.hostPlatform.system}.default;
   # go = prev.go.overrideAttrs (old: rec {
   #   version = "1.25.4";
   #   src = prev.fetchurl {

@@ -28,7 +28,7 @@
       nodePackages.typescript-language-server
       nodePackages.svelte-language-server
     ] ++ [
-      inputs.zls.packages.${pkgs.system}.default
+      inputs.zls.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
   };
 }

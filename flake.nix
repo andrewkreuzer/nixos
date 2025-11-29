@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     agenix.url = "github:ryantm/agenix";
@@ -14,7 +14,7 @@
     microvm.url = "github:microvm-nix/microvm.nix";
     microvm.inputs.nixpkgs.follows = "nixpkgs";
 
-    hyprland.url = "github:hyprwm/Hyprland/?submodules=1";
+    hyprland.url = "github:hyprwm/Hyprland/7e1e24fea615503a3cc05218c12b06c1b6cabdc7?submodules=1";
     hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
     split-monitor-workspaces.url = "github:Duckonaut/split-monitor-workspaces";
     split-monitor-workspaces.inputs.hyprland.follows = "hyprland";
