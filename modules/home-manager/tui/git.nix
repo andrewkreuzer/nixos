@@ -1,8 +1,10 @@
 { me, ... }:
 {
-  programs.git.settings = {
+  programs.git = {
     enable = true;
-    user.name = me.githubUsername;
-    user.email = me.email;
+    settings = {
+      user.name = me.githubUsername;
+      user.email = me.email;
+    };
   };
 }
