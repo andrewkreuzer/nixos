@@ -167,7 +167,7 @@ in
           ln -fs ${pkg}/bin/* /opt/cni/bin
         '') [
           pkgs.cni-plugins
-          inputs.self.packages.${pkgs.system}.cilium-cni
+          inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.cilium-cni
         ]}
       '';
       serviceConfig = {

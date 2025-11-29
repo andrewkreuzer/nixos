@@ -21,8 +21,6 @@ let
 
     vendorHash = null;
 
-    CGO_ENABLED = 0;
-
     ldflags = [
       "-X='github.com/cilium/cilium/pkg/version.ciliumVersion=${version}'"
       "-s"
