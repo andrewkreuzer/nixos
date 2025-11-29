@@ -31,7 +31,6 @@ let
             expiry = "8760h";
             usages = [
               "digital signature"
-              "key encipherment"
               "server auth"
             ];
             auth_key = "ca-auth";
@@ -40,7 +39,6 @@ let
             expiry = "8760h";
             usages = [
               "digital signature"
-              "key encipherment"
               "client auth"
             ];
             auth_key = "ca-auth";
@@ -54,7 +52,6 @@ let
             expiry = "8760h";
             usages = [
               "digital signature"
-              "key encipherment"
               "client auth"
               "server auth"
             ];

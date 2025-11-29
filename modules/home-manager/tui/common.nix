@@ -6,6 +6,7 @@
       #CLI
       htop
       jq
+      yq-go
       rclone
       ripgrep
       unzip
