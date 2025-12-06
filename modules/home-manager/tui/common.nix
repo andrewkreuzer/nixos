@@ -21,6 +21,7 @@
       cilium-cli
       hubble
       kubernetes-helm-wrapped
+      fluxcd
 
       pulsemixer
       yubikey-manager

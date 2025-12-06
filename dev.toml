@@ -39,4 +39,15 @@ nix run github:nix-community/nixos-anywhere -- \
   --flake .#day --target-host nixos@192.168.2.56
 """
 
+[run.bootstrap]
+filetype = "bash"
+command = """
+flux bootstrap git \
+  --url=ssh://git@github.com/andrewkreuzer/manifests \
+  --branch=main \
+  --private-key-file=/home/akreuzer/.ssh/id_ecdsa_flux \
+  --path=clusters/coven \
+  --components-extra image-reflector-controller,image-automation-controller
+"""
+
 [repos]
