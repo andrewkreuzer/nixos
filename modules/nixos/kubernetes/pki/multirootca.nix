@@ -40,6 +40,10 @@ let
             usages = [
               "digital signature"
               "client auth"
+              # only adding due to nix module missing key_usage parameter
+              # certmgr defaults to key usage server auth and will throw
+              # invalid error when certs without server auth are verified
+              "server auth"
             ];
             auth_key = "ca-auth";
           };
@@ -59,7 +63,7 @@ let
           };
           intermediate = {
             expiry = "8760h";
-            usages = [ "cert sign" ];
+            usages = [ "cert sign" "crl sign"  "digital signature" ];
             auth_key = "ca-auth";
             ca_constraint = {
               is_ca = true;
