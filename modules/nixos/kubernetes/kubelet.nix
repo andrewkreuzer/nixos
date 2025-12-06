@@ -187,23 +187,24 @@ in
       unitConfig.StartLimitIntervalSec = 0;
     };
 
-    systemd.services.kubelet-dain = {
-      description = "Kubernetes Kubelet Shutdown";
-      wantedBy = [ "halt.target" "poweroff.target" "reboot.target" ];
-      before = [ "halt.target" "poweroff.target" "reboot.target" ];
-      requires = [ "kubelet.service" ];
-      after = [ "kubelet.service" ];
-      path = with pkgs; [ kubectl ];
-      serviceConfig = {
-        Slice = "kubernetes.slice";
-        Type = "oneshot";
-        ExecStart = drainScript;
-        Environment = "KUBECONFIG=${clusterAdminKubeconfig}";
-        WorkingDirectory = dataDir;
-        TimeoutStartSec = "300";
-        RemainAfterExit = true;
-      };
-    };
+    # TODO
+    # systemd.services.kubelet-dain = {
+    #   description = "Kubernetes Kubelet Shutdown";
+    #   wantedBy = [ "halt.target" "poweroff.target" "reboot.target" ];
+    #   before = [ "halt.target" "poweroff.target" "reboot.target" ];
+    #   requires = [ "kubelet.service" ];
+    #   after = [ "kubelet.service" ];
+    #   path = with pkgs; [ kubectl ];
+    #   serviceConfig = {
+    #     Slice = "kubernetes.slice";
+    #     Type = "oneshot";
+    #     ExecStart = drainScript;
+    #     Environment = "KUBECONFIG=${clusterAdminKubeconfig}";
+    #     WorkingDirectory = dataDir;
+    #     TimeoutStartSec = "300";
+    #     RemainAfterExit = true;
+    #   };
+    # };
 
     boot.initrd.availableKernelModules = [ "br_netfilter" ];
     boot.initrd.kernelModules = [ "br_netfilter" ];

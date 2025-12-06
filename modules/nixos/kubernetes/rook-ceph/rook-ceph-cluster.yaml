@@ -27,6 +27,21 @@ reclaimPolicy: Delete
 allowVolumeExpansion: true
 volumeBindingMode: Immediate
 ---
+# Source: rook-ceph-cluster/templates/cephobjectstore.yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: ceph-bucket
+  labels:
+    addonmanager.kubernetes.io/mode: Reconcile
+provisioner: rook-ceph.ceph.rook.io/bucket
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+parameters:
+  objectStoreName: ceph-objectstore
+  objectStoreNamespace: rook-ceph
+  region: us-east-1
+---
 # Source: rook-ceph-cluster/templates/cephblockpool.yaml
 kind: CephBlockPool
 apiVersion: ceph.rook.io/v1
@@ -178,10 +193,42 @@ spec:
       - devices:
           - name: vda
           - config:
-              deviceClass: large
+              deviceClass: s3
             name: vdc
         name: k8s-montgomery
     useAllDevices: false
     useAllNodes: false
   upgradeOSDRequiresHealthyPGs: false
   waitTimeoutForHealthyOSDInMinutes: 10
+---
+# Source: rook-ceph-cluster/templates/cephobjectstore.yaml
+kind: CephObjectStore
+apiVersion: ceph.rook.io/v1
+metadata:
+  name: ceph-objectstore
+  namespace: rook-ceph # namespace:cluster
+  labels:
+    addonmanager.kubernetes.io/mode: Reconcile
+spec:
+  dataPool:
+    erasureCoded:
+      codingChunks: 1
+      dataChunks: 2
+    failureDomain: host
+    parameters:
+      bulk: "true"
+  gateway:
+    instances: 1
+    port: 80
+    priorityClassName: system-cluster-critical
+    resources:
+      limits:
+        memory: 2Gi
+      requests:
+        cpu: 1000m
+        memory: 1Gi
+  metadataPool:
+    failureDomain: host
+    replicated:
+      size: 3
+  preservePoolsOnDelete: true

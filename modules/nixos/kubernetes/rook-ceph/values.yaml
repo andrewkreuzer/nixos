@@ -1,5 +1,3 @@
-# cephBlockPools: []
-cephObjectStores: []
 cephFileSystems: []
 
 cephClusterSpec:
@@ -22,4 +20,4 @@ cephClusterSpec:
           - name: "vda"
           - name: "vdc"
             config:
-              deviceClass: "large"
+              deviceClass: "s3"
