@@ -221,6 +221,7 @@ let
     kubelet = mkCert {
       name = "kubelet";
       CN = lib.toLower config.networking.fqdnOrHostName;
+      hosts = [ (lib.toLower config.networking.fqdnOrHostName) ];
       label = "kubernetes_ca";
       profile = "server";
       usages = usages.server;
@@ -302,8 +303,8 @@ in
               # key_usages = cert.usages;
               private_key = cert.privateKeyOptions;
               request = {
-                hosts = cert.hosts;
                 inherit (cert) CN;
+                hosts = cert.hosts;
                 key = {
                   algo = "ecdsa";
                   size = 256;

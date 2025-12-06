@@ -11,6 +11,7 @@
         nixd
         nvd
 
+        age
         cfssl
       ] ++ [
         inputs'.agenix.packages.default

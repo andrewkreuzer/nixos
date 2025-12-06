@@ -30,6 +30,7 @@ in
   "k8s-sa.age".publicKeys = k8s ++ [ akreuzer ];
   "k8s-sa-key.age".publicKeys = k8s ++ [ akreuzer ];
   "multirootca-auth-key.age".publicKeys = k8s ++ [ akreuzer ];
+  "flux-ssh.age".publicKeys = users;
 
   "tailscale.age".publicKeys = users ++ systems;
 }
