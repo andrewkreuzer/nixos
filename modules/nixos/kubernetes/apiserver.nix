@@ -18,6 +18,7 @@ let
   kubeletClientCaFile = "/var/lib/pki/kubernetes-ca.pem";
   kubeletClientCertFile = "/var/lib/pki/kube-apiserver-kubelet-client.pem";
   kubeletClientKeyFile = "/var/lib/pki/kube-apiserver-kubelet-client-key.pem";
+  proxyClientCaFile = "/var/lib/pki/front-proxy-ca.pem";
   proxyClientCertFile = "/var/lib/pki/kube-apiserver-proxy-client.pem";
   proxyClientKeyFile = "/var/lib/pki/kube-apiserver-proxy-client-key.pem";
   tlsCertFile = "/var/lib/pki/kube-apiserver.pem";
@@ -73,6 +74,7 @@ in
           --kubelet-client-key=${kubeletClientKeyFile} \
           --proxy-client-cert-file=${proxyClientCertFile} \
           --proxy-client-key-file=${proxyClientKeyFile} \
+          --requestheader-client-ca-file=${proxyClientCaFile} \
           --runtime-config=${runtimeConfig} \
           --secure-port=${toString securePort} \
           --api-audiences=${toString apiAudiences} \

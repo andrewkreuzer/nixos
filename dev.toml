@@ -47,7 +47,7 @@ flux bootstrap git \
   --branch=main \
   --private-key-file=/home/akreuzer/.ssh/id_ecdsa_flux \
   --path=clusters/coven \
-  --components-extra image-reflector-controller,image-automation-controller
+  --components-extra image-reflector-controller,image-automation-controller,source-watcher
 """
 
 [repos]

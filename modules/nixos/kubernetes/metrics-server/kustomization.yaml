@@ -1,0 +1,9 @@
+labels:
+  - pairs:
+      addonmanager.kubernetes.io/mode: "Reconcile"
+
+resources:
+  - https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
+patches:
+  - path: front-proxy-ca-patch.yaml

@@ -45,7 +45,7 @@
 
       config = {
         system.stateVersion = "25.05";
-        microvm.mem = 10240;
+        microvm.mem = 12288;
         microvm.vcpu = 8;
 
         environment.systemPackages = builtins.attrValues {

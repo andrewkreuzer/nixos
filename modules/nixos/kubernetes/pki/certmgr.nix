@@ -6,6 +6,11 @@ let
   caCert = config.age.secrets.k8s-ca.path;
   certmgrAPITokenPath = config.age.secrets.multirootca-auth-key.path;
 
+  nodeIP = lib.replaceString "/24" "" (
+    builtins.head
+    config.systemd.network.networks."20-lan".networkConfig.Address
+  );
+
   usages = {
     server = ["digital signature" "server auth" ];
     client = ["digital signature" "client auth" ];
@@ -221,7 +226,10 @@ let
     kubelet = mkCert {
       name = "kubelet";
       CN = lib.toLower config.networking.fqdnOrHostName;
-      hosts = [ (lib.toLower config.networking.fqdnOrHostName) ];
+      hosts = [
+        (lib.toLower config.networking.fqdnOrHostName)
+        nodeIP
+      ];
       label = "kubernetes_ca";
       profile = "server";
       usages = usages.server;
