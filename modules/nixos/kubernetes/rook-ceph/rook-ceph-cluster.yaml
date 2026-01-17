@@ -40,7 +40,6 @@ volumeBindingMode: Immediate
 parameters:
   objectStoreName: ceph-objectstore
   objectStoreNamespace: rook-ceph
-  region: us-east-1
 ---
 # Source: rook-ceph-cluster/templates/cephblockpool.yaml
 kind: CephBlockPool
@@ -155,10 +154,10 @@ spec:
         memory: 100Mi
     mgr:
       limits:
-        memory: 1Gi
+        memory: 768Mi
       requests:
         cpu: 500m
-        memory: 512Mi
+        memory: 768Mi
     mgr-sidecar:
       limits:
         memory: 100Mi
@@ -167,10 +166,10 @@ spec:
         memory: 40Mi
     mon:
       limits:
-        memory: 2Gi
+        memory: 768Mi
       requests:
         cpu: 1000m
-        memory: 1Gi
+        memory: 768Mi
     osd:
       limits:
         memory: 4Gi
@@ -185,13 +184,13 @@ spec:
   storage:
     nodes:
       - devices:
-          - name: vda
+          - name: vdb
         name: k8s-day
       - devices:
-          - name: vda
+          - name: vdb
         name: k8s-goode
       - devices:
-          - name: vda
+          - name: vdb
           - config:
               deviceClass: s3
             name: vdc
@@ -211,24 +210,32 @@ metadata:
     addonmanager.kubernetes.io/mode: Reconcile
 spec:
   dataPool:
-    erasureCoded:
-      codingChunks: 1
-      dataChunks: 2
+    deviceClass: s3
     failureDomain: host
-    parameters:
-      bulk: "true"
+    replicated:
+      size: 1
   gateway:
     instances: 1
+    placement:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: kubernetes.io/hostname
+                  operator: In
+                  values:
+                    - k8s-montgomery
     port: 80
     priorityClassName: system-cluster-critical
     resources:
       limits:
-        memory: 2Gi
+        memory: 1Gi
       requests:
         cpu: 1000m
         memory: 1Gi
   metadataPool:
+    deviceClass: s3
     failureDomain: host
     replicated:
-      size: 3
+      size: 1
   preservePoolsOnDelete: true

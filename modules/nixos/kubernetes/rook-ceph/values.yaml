@@ -1,4 +1,48 @@
 cephFileSystems: []
+cephObjectStores:
+  - name: ceph-objectstore
+    spec:
+      metadataPool:
+        failureDomain: host
+        replicated:
+          size: 1
+        deviceClass: "s3"
+      dataPool:
+        failureDomain: host
+        replicated:
+          size: 1
+        deviceClass: "s3"
+      preservePoolsOnDelete: true
+      gateway:
+        port: 80
+        resources:
+          limits:
+            memory: "1Gi"
+          requests:
+            cpu: "1000m"
+            memory: "1Gi"
+        # securePort: 443
+        # sslCertificateRef:
+        instances: 1
+        priorityClassName: system-cluster-critical
+        placement:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: kubernetes.io/hostname
+                  operator: In
+                  values:
+                  - "k8s-montgomery"
+    storageClass:
+      enabled: true
+      name: ceph-bucket
+      reclaimPolicy: Delete
+      volumeBindingMode: "Immediate"
+    ingress:
+      enabled: false
+    route:
+      enabled: false
 
 cephClusterSpec:
   cleanupPolicy:
@@ -11,13 +55,29 @@ cephClusterSpec:
     nodes:
       - name: k8s-day
         devices:
-          - name: "vda"
+          - name: "vdb"
       - name: k8s-goode
         devices:
-          - name: "vda"
+          - name: "vdb"
       - name: k8s-montgomery
         devices:
-          - name: "vda"
+          - name: "vdb"
           - name: "vdc"
             config:
               deviceClass: "s3"
+  resources:
+    mgr:
+      limits:
+        memory: "768Mi"
+      requests:
+        memory: "768Mi"
+    mon:
+      limits:
+        memory: "768Mi"
+      requests:
+        memory: "768Mi"
+    osd:
+      limits:
+        memory: "4Gi"
+      requests:
+        memory: "4Gi"
