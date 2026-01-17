@@ -81,46 +81,41 @@ in
     hypervisor = "cloud-hypervisor";
     vsock.cid = 3;
     volumes = [{
-      image = "/dev/nvme0n1p2";
-      autoCreate = false;
-      mountPoint = null;
-    }
-      {
-        image = "/var/lib/microvms/k8s/containerd.img";
-        autoCreate = true;
-        size = 65536;
-        fsType = "ext4";
-        mountPoint = "/var/lib/containerd";
-      }];
+      image = "/var/lib/microvms/k8s/containerd.img";
+      autoCreate = true;
+      size = 65536;
+      fsType = "ext4";
+      mountPoint = "/var/lib/containerd";
+    }];
     shares = [{
       tag = "etc";
       source = "etc";
       mountPoint = "/etc";
       proto = "virtiofs";
     }
-      {
-        tag = "multirootca";
-        source = "multirootca";
-        mountPoint = "/var/lib/multirootca";
-        proto = "virtiofs";
-      }
-      {
-        tag = "etcd";
-        source = "etcd";
-        mountPoint = "/var/lib/etcd";
-        proto = "virtiofs";
-      }
-      {
-        tag = "rook";
-        source = "rook";
-        mountPoint = "/var/lib/rook";
-        proto = "virtiofs";
-      }
-      {
-        tag = "ro-store";
-        source = "/nix/store";
-        mountPoint = "/nix/.ro-store";
-        proto = "virtiofs";
-      }];
+    {
+      tag = "multirootca";
+      source = "multirootca";
+      mountPoint = "/var/lib/multirootca";
+      proto = "virtiofs";
+    }
+    {
+      tag = "etcd";
+      source = "etcd";
+      mountPoint = "/var/lib/etcd";
+      proto = "virtiofs";
+    }
+    {
+      tag = "rook";
+      source = "rook";
+      mountPoint = "/var/lib/rook";
+      proto = "virtiofs";
+    }
+    {
+      tag = "ro-store";
+      source = "/nix/store";
+      mountPoint = "/nix/.ro-store";
+      proto = "virtiofs";
+    }];
   };
 }

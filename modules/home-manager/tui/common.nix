@@ -22,6 +22,7 @@
       hubble
       kubernetes-helm-wrapped
       fluxcd
+      k9s
 
       pulsemixer
       yubikey-manager

@@ -1,19 +1,16 @@
 { pkgs-unstable, ... }:
-let
-  pkgs = pkgs-unstable;
-in
 {
-  home.packages = with pkgs; [
-    (android-studio.withSdk (androidenv.composeAndroidPackages {
-      includeNDK = true;
-      ndkVersions = [ "27.2.12479018" ];
-      platformToolsVersion = "35.0.2";
-      buildToolsVersions = [ "35.0.1" ];
-      includeEmulator = true;
-      emulatorVersion = "35.6.2";
-      cmakeVersions = [ "3.31.6" ];
-    }).androidsdk)
-  ];
+  # home.packages = with pkgs-unstable; [
+  #   (android-studio.withSdk (androidenv.composeAndroidPackages {
+  #     includeNDK = true;
+  #     ndkVersions = [ "27.2.12479018" ];
+  #     platformToolsVersion = "35.0.2";
+  #     buildToolsVersions = [ "35.0.1" ];
+  #     includeEmulator = true;
+  #     emulatorVersion = "35.6.2";
+  #     cmakeVersions = [ "3.31.6" ];
+  #   }).androidsdk)
+  # ];
 
   home.file.".ideavimrc" = {
     text = ''

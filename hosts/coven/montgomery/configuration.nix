@@ -27,7 +27,12 @@
         certmgr.remote = "https://192.168.2.11:8888";
         microvm = {
           volumes = [{
-            image = "/dev/nvme1n1";
+            image = "/dev/disk/by-id/nvme-PM9A1_NVMe_SED_Samsung_512GB__S65SNF0R906032-part2";
+            autoCreate = false;
+            mountPoint = null;
+          }
+          {
+            image = "/dev/disk/by-id/nvme-PC_SN810_NVMe_WDC_1024GB_22085J801490_1";
             autoCreate = false;
             mountPoint = null;
           }];
@@ -56,7 +61,9 @@
 
   virtualisation.libvirtd.enable = true;
 
+  boot.kernelPackages = pkgs.linuxPackages_6_18;
   boot.zfs.devNodes = "/dev/disk/by-id/";
+  boot.zfs.package = pkgs.zfs_2_4;
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.editor = false;
   boot.loader.systemd-boot.configurationLimit = 5;

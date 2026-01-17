@@ -27,6 +27,11 @@
           self.modules.nixos.kubernetes.pki.multirootca
         ];
         microvm = {
+          volumes = [{
+            image = "/dev/disk/by-id/nvme-PM9A1_NVMe_SED_Samsung_512GB__S65SNF0R906152-part2";
+            autoCreate = false;
+            mountPoint = null;
+          }];
           interfaces = [{
             type = "tap";
             id = "vm-k8s";
@@ -50,7 +55,9 @@
 
   virtualisation.libvirtd.enable = true;
 
+  boot.kernelPackages = pkgs.linuxPackages_6_18;
   boot.zfs.devNodes = "/dev/disk/by-id/";
+  boot.zfs.package = pkgs.zfs_2_4;
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.editor = false;
   boot.loader.systemd-boot.configurationLimit = 5;
