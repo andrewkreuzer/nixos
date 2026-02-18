@@ -20,6 +20,15 @@ else
 fi
 """
 
+[run.home]
+filetype = "bash"
+command = """
+set -e
+
+home-manager switch --flake .#akreuzer --extra-experimental-features nix-command --extra-experimental-features flakes
+"""
+
+
 [run.iommu]
 filetype = "bash"
 command = """

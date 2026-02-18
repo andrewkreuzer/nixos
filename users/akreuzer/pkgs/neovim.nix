@@ -26,6 +26,9 @@
       nodePackages.yaml-language-server
       nodePackages.typescript-language-server
       nodePackages.svelte-language-server
+      terraform-ls
+      zls
+      bash-language-server
     ] ++ (with pkgs-unstable; [
       zls
     ]);

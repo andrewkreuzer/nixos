@@ -24,10 +24,14 @@ in
     java.enable = true;
     direnv.enable = true;
     direnv.nix-direnv.enable = true;
+    home-manager.enable = true;
   };
+  services.gnome-keyring.enable = true;
 
+  # nix.settings.experimental-features = "nix-command flakes";
   home.stateVersion = "24.05";
   home.packages = [
+    pkgs.libsecret
     scripts.screenshot
     scripts.brightness
     scripts.hypr-powersave
