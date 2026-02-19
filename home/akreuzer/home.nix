@@ -26,12 +26,5 @@ in
   };
 
   home.stateVersion = "24.05";
-  home.packages = [
-    scripts.screenshot
-    scripts.brightness
-    scripts.hypr-powersave
-    scripts.work
-    scripts.whatitdo
-    scripts.mkcd
-  ];
+  home.packages = builtins.attrValues scripts;
 }

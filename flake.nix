@@ -19,6 +19,9 @@
     split-monitor-workspaces.url = "github:Duckonaut/split-monitor-workspaces";
     split-monitor-workspaces.inputs.hyprland.follows = "hyprland";
 
+    nix-darwin.url = "github:nix-darwin/nix-darwin/master";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
@@ -33,7 +36,7 @@
     with builtins;
     inputs.flake-parts.lib.mkFlake { inherit inputs; }
       {
-        systems = [ "x86_64-linux" ];
+        systems = [ "x86_64-linux" "aarch64-darwin" ];
         imports = map (file: ./nix/${file})
           (attrNames (readDir ./nix));
       };

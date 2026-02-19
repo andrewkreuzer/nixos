@@ -5,6 +5,7 @@ in
 {
   flake.lib = {
     mkSystem = import ./mkSystem.nix { inherit self inputs config; };
+    mkDarwinSystem = import ./mkDarwinSystem.nix { inherit self inputs config; };
     mkColmenaSystem = import ./mkColmenaSystem.nix { inherit inputs; };
     mkHome = import ./mkHome.nix { inherit self inputs config; };
 
