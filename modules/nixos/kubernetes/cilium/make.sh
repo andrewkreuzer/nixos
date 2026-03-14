@@ -1,7 +1,7 @@
 #/usr/bin/env bash
 set -e
 
-VERSION="1.18.6"
+VERSION="1.19.1"
 NAMESPACE="kube-system"
 
 helm template cilium cilium/cilium \

@@ -18,6 +18,7 @@
       kubelogin
       minikube
       kubectl
+      kubectl-rook-ceph
       cilium-cli
       hubble
       kubernetes-helm-wrapped

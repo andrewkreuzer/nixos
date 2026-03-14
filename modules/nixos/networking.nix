@@ -17,6 +17,7 @@ in
     # the right ip anymore
     extraHosts = ''
       192.168.2.10 ecb5fafffe997dae
+      192.168.2.227 nginx.local
     '';
 
     wg-quick.interfaces = {

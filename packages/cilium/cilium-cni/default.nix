@@ -8,7 +8,7 @@
 let
   self = buildGo125Module rec {
     pname = "cilium-cni";
-    version = "1.18.3";
+    version = "1.19.1";
 
     src = fetchFromGitHub {
       owner = "cilium";

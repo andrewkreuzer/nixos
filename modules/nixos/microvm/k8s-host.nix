@@ -38,11 +38,23 @@
     };
   };
 
+  systemd.services.disable-nic-offload-enp0s31f6 = {
+  description = "Disable NIC offloading for Intel I219 (hardware unit hang fix)";
+  after = [ "sys-subsystem-net-devices-enp0s31f6.device" ];
+  bindsTo = [ "sys-subsystem-net-devices-enp0s31f6.device" ];
+  wantedBy = [ "network-pre.target" ];
+  serviceConfig = {
+    Type = "oneshot";
+    ExecStart = "${pkgs.ethtool}/bin/ethtool -K enp0s31f6 gso off gro off tso off tx off rx off rxvlan off txvlan off";
+  };
+};
+
   microvm.vms = {
     k8s = {
       pkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
       specialArgs = self.specialArgs;
 
+      autostart = true;
       config = {
         system.stateVersion = "25.05";
         microvm.mem = 12288;
