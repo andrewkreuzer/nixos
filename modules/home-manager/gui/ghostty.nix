@@ -16,6 +16,9 @@
     # keybind=ctrl+a>c=new_tab
     # keybind=ctrl+a>n=new_window
     shell-integration=zsh
+
+    # Disable the close confirmation dialog
+    confirm-close-surface=false
   '';
   programs.ghostty = {
     enable = true;

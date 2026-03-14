@@ -1,10 +1,10 @@
 { pkgs }:
 {
-  timeout5m = (pkgs.writeShellScriptBin "timeout5m" ''
-    ${pkgs.coreutils}/bin/cat /sys/class/backlight/intel_backlight/brightness > /tmp/brightness
-    ${pkgs.coreutils}/bin/echo 25 > /sys/class/backlight/intel_backlight/brightness
-    ${pkgs.swaylock}/bin/swaylock -fF -e -d
-  '');
+  # timeout5m = (pkgs.writeShellScriptBin "timeout5m" ''
+  #   ${pkgs.coreutils}/bin/cat /sys/class/backlight/intel_backlight/brightness > /tmp/brightness
+  #   ${pkgs.coreutils}/bin/echo 25 > /sys/class/backlight/intel_backlight/brightness
+  #   ${pkgs.swaylock}/bin/swaylock -fF -e -d
+  # '');
 
   screenshot = (pkgs.writeShellScriptBin "screenshot" ''
     grim -g "$(slurp)" /home/akreuzer/Pictures/Screenshots/$(date -d "today" +"%d-%m-%Y-%H%M%S").png
@@ -84,4 +84,20 @@
   mkcd = (pkgs.writeScriptBin "mkcd" ''
     mkdir -p $1 && cd $1
   '');
+
+  waybar-power = (pkgs.writeShellScriptBin "waybar-power" ''
+    case $1 in
+      1)
+        loginctl lock-session
+        ;;
+      2)
+        systemctl poweroff
+        ;;
+    esac
+  '');
+
+  waybar-spotify = (pkgs.writers.writePython3Bin "waybar-spotify" {
+    libraries = [ ];
+    flakeIgnore = [ "E501" ];
+  } ./scripts/waybar-spotify.py);
 }

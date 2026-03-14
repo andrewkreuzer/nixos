@@ -10,6 +10,7 @@
 
     plugins = with pkgs-unstable.vimPlugins; [
       nvim-treesitter.withAllGrammars
+      nvim-treesitter-parsers.qmljs
     ];
 
     extraPackages = with pkgs; [
