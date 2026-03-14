@@ -18,7 +18,7 @@ let
       nixModules.tui.default
       nixModules.security.openssh-root
       nixModules.security.privliage-escalation
-      nixModules.tailscale.default
+      nixModules.tailscale.advertise-routes
 
       nixModules.home-manager
       {
