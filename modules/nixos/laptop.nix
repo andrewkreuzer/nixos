@@ -10,6 +10,7 @@ in
     nixModules.tui.default
     nixModules.gui.default
 
+    nixModules.tlp
     nixModules.networking
     nixModules.security.security
     nixModules.security.openssh
@@ -41,7 +42,7 @@ in
     HandlePowerKeyLongPress = "poweroff";
     HandleLidSwitch = "suspend";
     HandleLidSwitchExternalPower = "suspend";
-    HandleLidSwitchDocked = "suspend";
+    HandleLidSwitchDocked = "ignore";
   };
 
   services.desktopManager.gnome.enable = false;
