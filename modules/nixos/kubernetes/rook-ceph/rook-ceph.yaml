@@ -14540,6 +14540,12 @@ spec:
                           nullable
                           optional
                         type: object
+                      labels:
+                        additionalProperties:
+                          type: string
+                        description: The labels-related configuration to add/set on
+                          each rgw service.
+                        type: object
                     type: object
                   sslCertificateRef:
                     description: The name of the secret that stores the ssl certificate
@@ -15291,10 +15297,12 @@ spec:
                           description: |-
                             The data pool used to store ObjectStore data that cannot use erasure coding (ex: multi-part uploads).
                             If dataPoolName is not erasure coded, then there is no need for dataNonECPoolName.
+                            WARNING: Do not change this field after creation. Pool names are used in RADOS namespaces and renaming leads to data loss.
                           type: string
                         dataPoolName:
-                          description: The data pool used to store ObjectStore objects
-                            data.
+                          description: |-
+                            The data pool used to store ObjectStore objects data.
+                            WARNING: Do not change this field after creation. Pool names are used in RADOS namespaces and renaming leads to data loss.
                           minLength: 1
                           type: string
                         default:
@@ -15303,8 +15311,9 @@ spec:
                             Default is false.
                           type: boolean
                         metadataPoolName:
-                          description: The metadata pool used to store ObjectStore
-                            bucket index.
+                          description: |-
+                            The metadata pool used to store ObjectStore bucket index.
+                            WARNING: Do not change this field after creation. Pool names are used in RADOS namespaces and renaming leads to data loss.
                           minLength: 1
                           type: string
                         name:
@@ -15321,8 +15330,9 @@ spec:
                           items:
                             properties:
                               dataPoolName:
-                                description: DataPoolName is the data pool used to
-                                  store ObjectStore objects data.
+                                description: |-
+                                  DataPoolName is the data pool used to store ObjectStore objects data.
+                                  WARNING: Do not change this field after creation. Pool names are used in RADOS namespaces and renaming leads to data loss.
                                 minLength: 1
                                 type: string
                               name:
@@ -15339,6 +15349,7 @@ spec:
                             - dataPoolName
                             - name
                             type: object
+                          maxItems: 10
                           type: array
                       required:
                       - dataPoolName
@@ -16480,10 +16491,12 @@ spec:
                           description: |-
                             The data pool used to store ObjectStore data that cannot use erasure coding (ex: multi-part uploads).
                             If dataPoolName is not erasure coded, then there is no need for dataNonECPoolName.
+                            WARNING: Do not change this field after creation. Pool names are used in RADOS namespaces and renaming leads to data loss.
                           type: string
                         dataPoolName:
-                          description: The data pool used to store ObjectStore objects
-                            data.
+                          description: |-
+                            The data pool used to store ObjectStore objects data.
+                            WARNING: Do not change this field after creation. Pool names are used in RADOS namespaces and renaming leads to data loss.
                           minLength: 1
                           type: string
                         default:
@@ -16492,8 +16505,9 @@ spec:
                             Default is false.
                           type: boolean
                         metadataPoolName:
-                          description: The metadata pool used to store ObjectStore
-                            bucket index.
+                          description: |-
+                            The metadata pool used to store ObjectStore bucket index.
+                            WARNING: Do not change this field after creation. Pool names are used in RADOS namespaces and renaming leads to data loss.
                           minLength: 1
                           type: string
                         name:
@@ -16510,8 +16524,9 @@ spec:
                           items:
                             properties:
                               dataPoolName:
-                                description: DataPoolName is the data pool used to
-                                  store ObjectStore objects data.
+                                description: |-
+                                  DataPoolName is the data pool used to store ObjectStore objects data.
+                                  WARNING: Do not change this field after creation. Pool names are used in RADOS namespaces and renaming leads to data loss.
                                 minLength: 1
                                 type: string
                               name:
@@ -16528,6 +16543,7 @@ spec:
                             - dataPoolName
                             - name
                             type: object
+                          maxItems: 10
                           type: array
                       required:
                       - dataPoolName
@@ -17507,7 +17523,38 @@ spec:
                     type: string
                 type: object
               nfs:
-                description: NfsConfigSpec cdefines the desired NFS configuration
+                description: NfsConfigSpec defines the desired NFS configuration
+                type: object
+              nvmeof:
+                description: NvmeofConfigSpec defines the desired NVMe-oF configuration
+                properties:
+                  cephCsiSecrets:
+                    description: |-
+                      CephCsiSecretsSpec defines the secrets used by the client profile
+                      to access the Ceph cluster and perform operations
+                      on volumes.
+                    properties:
+                      controllerPublishSecret:
+                        description: |-
+                          SecretReference represents a Secret Reference. It has enough information to retrieve secret
+                          in any namespace
+                        properties:
+                          name:
+                            description: name is unique within a namespace to reference
+                              a secret resource.
+                            type: string
+                          namespace:
+                            description: namespace defines the space within which
+                              the secret name must be unique.
+                            type: string
+                        type: object
+                        x-kubernetes-map-type: atomic
+                    type: object
+                  radosNamespace:
+                    type: string
+                    x-kubernetes-validations:
+                    - message: field is immutable
+                      rule: self == oldSelf
                 type: object
               rbd:
                 description: RbdConfigSpec defines the desired RBD configuration
@@ -24729,8 +24776,8 @@ spec:
             type: object
         type: object
         x-kubernetes-validations:
-        - message: '.metadata.name must match: ''[<prefix>.](rbd|cephfs|nfs).csi.ceph.com'''
-          rule: self.metadata.name.matches('^(.+\\.)?(rbd|cephfs|nfs)?\\.csi\\.ceph\\.com$')
+        - message: '.metadata.name must match: ''[<prefix>.](rbd|cephfs|nfs|nvmeof).csi.ceph.com'''
+          rule: self.metadata.name.matches('^(.+\\.)?(rbd|cephfs|nfs|nvmeof)?\\.csi\\.ceph\\.com$')
     served: true
     storage: true
     subresources:
@@ -32158,6 +32205,22 @@ kind: ServiceAccount
 metadata:
   labels:
     addonmanager.kubernetes.io/mode: Reconcile
+  name: ceph-csi-nvmeof-ctrlplugin-sa
+  namespace: rook-ceph
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    addonmanager.kubernetes.io/mode: Reconcile
+  name: ceph-csi-nvmeof-nodeplugin-sa
+  namespace: rook-ceph
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    addonmanager.kubernetes.io/mode: Reconcile
   name: ceph-csi-rbd-ctrlplugin-sa
   namespace: rook-ceph
 ---
@@ -32454,6 +32517,95 @@ rules:
   verbs:
   - create
   - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    addonmanager.kubernetes.io/mode: Reconcile
+  name: ceph-csi-nvmeof-ctrlplugin-r
+  namespace: rook-ceph
+rules:
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - get
+  - watch
+  - list
+  - delete
+  - update
+  - create
+- apiGroups:
+  - csiaddons.openshift.io
+  resources:
+  - csiaddonsnodes
+  verbs:
+  - get
+  - watch
+  - list
+  - create
+  - update
+  - delete
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - get
+- apiGroups:
+  - apps
+  resources:
+  - replicasets
+  verbs:
+  - get
+- apiGroups:
+  - apps
+  resources:
+  - deployments/finalizers
+  - daemonsets/finalizers
+  verbs:
+  - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    addonmanager.kubernetes.io/mode: Reconcile
+  name: ceph-csi-nvmeof-nodeplugin-r
+  namespace: rook-ceph
+rules:
+- apiGroups:
+  - csiaddons.openshift.io
+  resources:
+  - csiaddonsnodes
+  verbs:
+  - get
+  - watch
+  - list
+  - create
+  - update
+  - delete
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - get
+- apiGroups:
+  - apps
+  resources:
+  - replicasets
+  verbs:
+  - get
+- apiGroups:
+  - apps
+  resources:
+  - deployments/finalizers
+  - daemonsets/finalizers
+  verbs:
+  - update
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -33722,6 +33874,318 @@ rules:
   - ""
   resources:
   - nodes
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    addonmanager.kubernetes.io/mode: Reconcile
+  name: ceph-csi-nvmeof-ctrlplugin-cr
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - persistentvolumes
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - patch
+  - update
+- apiGroups:
+  - ""
+  resources:
+  - persistentvolumeclaims
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - storageclasses
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - list
+  - watch
+  - create
+  - update
+  - patch
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - volumeattachments
+  verbs:
+  - get
+  - list
+  - watch
+  - patch
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - volumeattachments/status
+  verbs:
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - csinodes
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - persistentvolumeclaims/status
+  verbs:
+  - patch
+- apiGroups:
+  - snapshot.storage.k8s.io
+  resources:
+  - volumesnapshots
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - snapshot.storage.k8s.io
+  resources:
+  - volumesnapshotclasses
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - snapshot.storage.k8s.io
+  resources:
+  - volumesnapshotcontents
+  verbs:
+  - get
+  - list
+  - watch
+  - patch
+  - update
+- apiGroups:
+  - snapshot.storage.k8s.io
+  resources:
+  - volumesnapshotcontents/status
+  verbs:
+  - update
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - get
+- apiGroups:
+  - ""
+  resources:
+  - serviceaccounts
+  verbs:
+  - get
+- apiGroups:
+  - ""
+  resources:
+  - serviceaccounts/token
+  verbs:
+  - create
+- apiGroups:
+  - groupsnapshot.storage.k8s.io
+  resources:
+  - volumegroupsnapshotclasses
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - groupsnapshot.storage.k8s.io
+  resources:
+  - volumegroupsnapshotcontents
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+  - patch
+- apiGroups:
+  - groupsnapshot.storage.k8s.io
+  resources:
+  - volumegroupsnapshotcontents/status
+  verbs:
+  - update
+  - patch
+- apiGroups:
+  - groupsnapshot.storage.openshift.io
+  resources:
+  - volumegroupsnapshotclasses
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - groupsnapshot.storage.openshift.io
+  resources:
+  - volumegroupsnapshotcontents
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+  - patch
+- apiGroups:
+  - groupsnapshot.storage.openshift.io
+  resources:
+  - volumegroupsnapshotcontents/status
+  verbs:
+  - update
+  - patch
+- apiGroups:
+  - replication.storage.openshift.io
+  resources:
+  - volumegroupreplicationcontents
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - replication.storage.openshift.io
+  resources:
+  - volumegroupreplicationclasses
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - authentication.k8s.io
+  resources:
+  - tokenreviews
+  verbs:
+  - create
+- apiGroups:
+  - authorization.k8s.io
+  resources:
+  - subjectaccessreviews
+  verbs:
+  - create
+- apiGroups:
+  - cbt.storage.k8s.io
+  resources:
+  - snapshotmetadataservices
+  verbs:
+  - get
+  - list
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - volumeattributesclasses
+  verbs:
+  - get
+  - list
+  - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    addonmanager.kubernetes.io/mode: Reconcile
+  name: ceph-csi-nvmeof-nodeplugin-cr
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - persistentvolumes
+  verbs:
+  - get
+  - list
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - volumeattachments
+  verbs:
+  - get
+  - list
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - get
+- apiGroups:
+  - ""
+  resources:
+  - serviceaccounts
+  verbs:
+  - get
+- apiGroups:
+  - ""
+  resources:
+  - serviceaccounts/token
+  verbs:
+  - create
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs:
+  - get
+- apiGroups:
+  - authentication.k8s.io
+  resources:
+  - tokenreviews
+  verbs:
+  - create
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - list
+  - watch
+  - create
+  - update
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - persistentvolumeclaims
   verbs:
   - get
 ---
@@ -35180,6 +35644,38 @@ kind: RoleBinding
 metadata:
   labels:
     addonmanager.kubernetes.io/mode: Reconcile
+  name: ceph-csi-nvmeof-ctrlplugin-rb
+  namespace: rook-ceph
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: ceph-csi-nvmeof-ctrlplugin-r
+subjects:
+- kind: ServiceAccount
+  name: ceph-csi-nvmeof-ctrlplugin-sa
+  namespace: rook-ceph
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    addonmanager.kubernetes.io/mode: Reconcile
+  name: ceph-csi-nvmeof-nodeplugin-rb
+  namespace: rook-ceph
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: ceph-csi-nvmeof-nodeplugin-r
+subjects:
+- kind: ServiceAccount
+  name: ceph-csi-nvmeof-nodeplugin-sa
+  namespace: rook-ceph
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    addonmanager.kubernetes.io/mode: Reconcile
   name: ceph-csi-rbd-ctrlplugin-rb
   namespace: rook-ceph
 roleRef:
@@ -35506,6 +36002,36 @@ kind: ClusterRoleBinding
 metadata:
   labels:
     addonmanager.kubernetes.io/mode: Reconcile
+  name: ceph-csi-nvmeof-ctrlplugin-crb
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ceph-csi-nvmeof-ctrlplugin-cr
+subjects:
+- kind: ServiceAccount
+  name: ceph-csi-nvmeof-ctrlplugin-sa
+  namespace: rook-ceph
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    addonmanager.kubernetes.io/mode: Reconcile
+  name: ceph-csi-nvmeof-nodeplugin-crb
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ceph-csi-nvmeof-nodeplugin-cr
+subjects:
+- kind: ServiceAccount
+  name: ceph-csi-nvmeof-nodeplugin-sa
+  namespace: rook-ceph
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    addonmanager.kubernetes.io/mode: Reconcile
   name: ceph-csi-rbd-ctrlplugin-crb
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -35824,7 +36350,7 @@ spec:
           value: ceph-csi-
         - name: WATCH_NAMESPACE
           value: ""
-        image: quay.io/cephcsi/ceph-csi-operator:v0.5.0
+        image: quay.io/cephcsi/ceph-csi-operator:v0.6.0
         livenessProbe:
           httpGet:
             path: /healthz
@@ -35910,7 +36436,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: docker.io/rook/ceph:v1.19.2
+        image: docker.io/rook/ceph:v1.19.3
         name: rook-ceph-operator
         securityContext:
           capabilities:

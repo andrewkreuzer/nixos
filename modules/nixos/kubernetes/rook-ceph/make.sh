@@ -1,7 +1,7 @@
 #/usr/bin/env bash
 set -e
 
-VERSION="1.19.2"
+VERSION="1.19.3"
 BASE_URL="https://raw.githubusercontent.com/rook/rook"
 
 FILES=(
@@ -18,6 +18,7 @@ done
 
 kubectl kustomize install/ > rook-ceph.yaml
 
+helm repo update && \
 helm template rook-ceph-cluster rook-release/rook-ceph-cluster \
   --namespace rook-ceph \
   --version $VERSION \
