@@ -24,10 +24,11 @@
 
       DISK_DEVICES = "nvme0n1 nvme1n1";
 
+      RUNTIME_PM_DISABLE="00:0d.0 00:14.0 00:14.3";
       RESTORE_DEVICE_STATE_ON_STARTUP = 1;
-      # WIFI_PWR_ON_BAT                 = "off";
-      # DEVICES_TO_DISABLE_ON_DOCK      = "wifi";
-      # DEVICES_TO_ENABLE_ON_UNDOCK     = "wifi";
+      USB_EXCLUDE_BTUSB = 1;
+      WIFI_PWR_ON_AC = "off";
+      WIFI_PWR_ON_BAT = "off";
 
       SOUND_POWER_SAVE_ON_AC = 0;
     };

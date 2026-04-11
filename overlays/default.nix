@@ -16,4 +16,19 @@ final: prev: {
   #     sha256 = "sha256-TMQips7dyxKfYEin7QJCV0ru4NHi4j3DjLh2fmzuYeQ=";
   #   };
   # });
+  claude-code = prev.claude-code.overrideAttrs (old: rec {
+    version = "2.1.91";
+    src = prev.fetchzip {
+      url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-${version}.tgz";
+      hash = "sha256-u7jdM6hTYN05ZLPz630Yj7gI0PeCSArg4O6ItQRAMy4=";
+    };
+    postPatch = ''
+      cp ${./package-lock.json} package-lock.json
+    '';
+    npmDepsHash = "sha256-0ppKP+XMgTzVVZtL7GDsOjgvSPUDrUa7SoG048RLaNg=";
+    npmDeps = final.fetchNpmDeps {
+      src = ./.;
+      hash = npmDepsHash;
+    };
+  });
 }
