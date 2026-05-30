@@ -1,7 +1,7 @@
 #/usr/bin/env bash
 set -e
 
-VERSION="1.19.3"
+VERSION="1.19.6"
 BASE_URL="https://raw.githubusercontent.com/rook/rook"
 
 FILES=(

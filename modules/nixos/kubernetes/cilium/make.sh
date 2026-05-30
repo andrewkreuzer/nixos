@@ -1,7 +1,7 @@
 #/usr/bin/env bash
 set -e
 
-VERSION="1.19.2"
+VERSION="1.19.4"
 NAMESPACE="kube-system"
 
 helm repo update && \
