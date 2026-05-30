@@ -61,7 +61,7 @@
 
   virtualisation.libvirtd.enable = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_6_18;
+  boot.kernelPackages = pkgs.linuxPackages_7_0;
   boot.zfs.devNodes = "/dev/disk/by-id/";
   boot.zfs.package = pkgs.zfs_2_4;
   boot.loader.systemd-boot.enable = true;

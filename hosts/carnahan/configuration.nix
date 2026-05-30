@@ -18,7 +18,7 @@ in
       ];
     in
     {
-      kernelPackages = pkgs.linuxPackages_6_18;
+      kernelPackages = pkgs.linuxPackages_7_0;
       initrd.kernelModules = [ "i915" ];
       kernelParams = [ "intel_iommu=on" ];
       supportedFilesystems = [ "zfs" ];
