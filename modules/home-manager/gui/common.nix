@@ -29,6 +29,7 @@ in
       grim
       slurp
       geeqie
+      blender
 
       # Dev
       gnumake

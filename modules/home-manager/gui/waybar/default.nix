@@ -125,6 +125,8 @@ let
     format-plugged = " {capacity}%";
     format-alt = "{time} {icon}";
     format-icons = batteryIcons;
+    bat = "BAT0";
+    adapter = "AC";
   };
 
   backlightModule = {

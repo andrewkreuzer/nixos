@@ -1,6 +1,7 @@
-{ self, pkgs, ... }:
+{ self, pkgs, inputs, ... }:
 let
   nixModules = self.modules.nixos;
+  pkgs-unstable = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
   services.fprintd.enable = true;
@@ -59,6 +60,7 @@ in
     };
     docker = {
       enable = true;
+      package = pkgs-unstable.docker;
 
       /* rootless = { */
       /*   enable = true; */

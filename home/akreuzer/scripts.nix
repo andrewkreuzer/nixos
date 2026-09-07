@@ -11,9 +11,22 @@
   '');
 
   brightness = (pkgs.writeShellScriptBin "brightness" ''
+    shopt -s extglob
+
     current_brightness=$(cat /sys/class/backlight/intel_backlight/brightness)
     max_brightness=$(cat /sys/class/backlight/intel_backlight/max_brightness)
     brightness_increment=25
+    input="''${1:-}"
+
+    set_brightness() {
+      brightness=$input
+
+      if [[ $brightness -gt $max_brightness ]]; then
+        brightness=$max_brightness
+      fi
+
+      echo $brightness > /sys/class/backlight/intel_backlight/brightness
+    }
 
     raise_brightness() {
       if [[ $current_brightness -eq $max_brightness ]]; then
@@ -41,13 +54,18 @@
       echo $brightness > /sys/class/backlight/intel_backlight/brightness
     }
 
-    case $1 in
+
+    case $input in
       "up")
         raise_brightness
         exit
         ;;
       "down")
         lower_brightness
+        exit
+        ;;
+      +([0-9]))
+        set_brightness
         exit
         ;;
       "*")

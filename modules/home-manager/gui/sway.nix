@@ -36,7 +36,7 @@
   };
   services.swayidle = {
     enable = false;
-    systemdTarget = "graphical-session.target";
+    systemdTargets = ["graphical-session.target"];
     timeouts = [
       {
         timeout = 300;

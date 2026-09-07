@@ -8,6 +8,10 @@
     #   (import ../../.dotfiles/nvim/.config/nvim/default.nix {inherit luaPkgs;})
     # ];
 
+    sideloadInitLua = true;
+    withRuby = true;
+    withPython3 = true;
+
     plugins = with pkgs-unstable.vimPlugins; [
       nvim-treesitter.withAllGrammars
       nvim-treesitter-parsers.qmljs
@@ -25,9 +29,9 @@
       rust-analyzer
       ocamlPackages.ocaml-lsp
       ocamlPackages.ocamlformat
-      nodePackages.yaml-language-server
-      nodePackages.typescript-language-server
-      nodePackages.svelte-language-server
+      yaml-language-server
+      typescript-language-server
+      svelte-language-server
     ] ++ [
       inputs.zls.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];

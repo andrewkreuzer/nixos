@@ -1,9 +1,10 @@
+{ pkgs, ... }:
 {
   programs = {
     zsh.enable = true;
     git.enable = true;
     tmux.enable = true;
-    adb.enable = true;
+    # adb.enable = true;
     ssh.startAgent = true;
   };
 
@@ -11,4 +12,8 @@
   services.hardware.bolt.enable = true;
   services.gnome.gnome-keyring.enable = true;
   services.gnome.gcr-ssh-agent.enable = false;
+
+  environment.systemPackages = [
+    pkgs.android-tools
+  ];
 }
